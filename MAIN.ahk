@@ -22,7 +22,6 @@ if (installed() = true) {
 	main_window.Add("Text", "+x10 +y10 +w100 +h50 +Border", "Deemator is NOT installed.").SetFont("s12")
 	main_window.Add("Button", "+x10 +y60 +w100 +h50", "INSTALL").SetFont("s12")
 }
-started_text := ""
 if (started() = true) {
 	main_window.Add("Text", "+x290 +y90 +w100 +h20 +Border +Center", "Started.").SetFont("s12")
 	stop_button := main_window.Add("Button", "+x290 +y120 +w100 +h50", "STOP")
@@ -30,15 +29,12 @@ if (started() = true) {
 	stop_button.OnEvent("Click", stop_clicked)
 } else {
 	main_window.Add("Text", "+x290 +y90 +w100 +h20 +Border +Center", "Stopped.").SetFont("s12")
-	main_window.Add("Button", "+x290 +y120 +w100 +h50", "START").SetFont("s12")
+	stop_button := main_window.Add("Button", "+x290 +y120 +w100 +h50", "START")
+	stop_button.SetFont("s12")
+	stop_button.OnEvent("Click", start_clicked)
 }
 
 ;
 
 ; SHOWING WINDOW
 main_window.Show("Center W400 H300")
-
-; HANDLING EXIT
-;while (WinExist(window_title)) {
-;	Sleep(1000)
-;}

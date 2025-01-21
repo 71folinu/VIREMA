@@ -6,12 +6,10 @@
 	}
 }
 
-;class stop_clicked {
-;	Call(args, *){
-;		MsgBox("STOP")
-;	}
-;}
-
 stop_clicked(GuiCtrlObj, Info){
-	MsgBox("AAAAAAAAAA")
+	MsgBox("stop stub")
+}
+
+start_clicked(GuiCtrlObj, Info){
+	MsgBox("start stub")
 }
