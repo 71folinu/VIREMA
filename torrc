@@ -1,0 +1,7 @@
+DataDirectory C:\deemator\tor_data
+GeoIPFile C:\deemator\third_party\geoip
+GeoIPv6File C:\deemator\third_party\geoip6
+ExcludeExitNodes {RU}
+UseBridges 1
+ClientTransportPlugin webtunnel exec C:\deemator\third_party\lyrebird.exe
+Bridge webtunnel [2001:db8:63b4:6bd7:a357:7858:898e:718c]:443 059AEB126918A33B8246E8136D565FF57753D5CF url=https://alwaysnewbie.eu.org/homesweethome ver=0.0.1
