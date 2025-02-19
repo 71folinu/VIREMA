@@ -1,4 +1,4 @@
-DataDirectory C:\deemator\tor_data
+DataDirectory C:\deemator\tor_temp_data
 GeoIPFile C:\deemator\third_party\geoip
 GeoIPv6File C:\deemator\third_party\geoip6
 ExcludeExitNodes {RU}
