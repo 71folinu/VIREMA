@@ -6,10 +6,10 @@
 	}
 }
 
-stop_clicked(GuiCtrlObj, Info){
+stop_clicked(*){
 	MsgBox("stop stub")
 }
 
-start_clicked(GuiCtrlObj, Info){
+start_clicked(*){
 	MsgBox("start stub")
 }
