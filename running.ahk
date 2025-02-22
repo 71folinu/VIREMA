@@ -8,8 +8,10 @@
 
 stop_clicked(*){
 	MsgBox("stop stub")
+	Reload
 }
 
 start_clicked(*){
 	MsgBox("start stub")
+	Reload
 }
