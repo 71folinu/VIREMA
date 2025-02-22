@@ -7,7 +7,7 @@ TraySetIcon "icon.ico", , true
 #include running.ahk
 
 ; GLOBAL CONSTANTS
-window_title := "deemator 0.0"
+window_title := "deemator v0.0"
 
 ; ENABLING ADMIN RIGHTS
 if not (A_IsAdmin or RegExMatch(DllCall("GetCommandLine", "str"), " /restart(?!\S)")) {
