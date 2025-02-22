@@ -7,11 +7,11 @@
 }
 
 proxy_enable(*) {
-	MsgBox("proxy_enable")
+	MsgBox("proxy_enable_called")
 }
 
 proxy_disable(*) {
-	MsgBox("proxy_disable")
+	MsgBox("proxy_disable_called")
 }
 
 stop_clicked(*){
