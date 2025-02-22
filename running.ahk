@@ -1,5 +1,5 @@
 ﻿started() {
-	if (Random() > 0.5) {
+	if ProcessExist("deemator_tor.exe") {
 		return true
 	} else {
 		return false

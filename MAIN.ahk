@@ -11,14 +11,14 @@ window_title := "deemator 0.0"
 
 ; BULDING WINDOW
 main_window := Gui.Call(,window_title)
-main_window.Add("Text", "+x105 +y10 +w190 +h40 +Center +Border", "DEEMATOR").SetFont("s24")
+main_window.Add("Text", "+x105 +y10 +w190 +h40 +Center", "DEEMATOR").SetFont("s24")
 if (started() = true) {
-	main_window.Add("Text", "+x150 +y60 +w100 +h30 +Border +Center", "Started.").SetFont("s13 c009900")
+	main_window.Add("Text", "+x150 +y60 +w100 +h30 +Center", "Started.").SetFont("s13 c009900")
 	stop_button := main_window.Add("Button", "+x10 +y100 +w100 +h50", "STOP")
 	stop_button.SetFont("s11")
 	stop_button.OnEvent("Click", stop_clicked)
 } else {
-	main_window.Add("Text", "+x150 +y60 +w100 +h30 +Border +Center", "Stopped.").SetFont("s13 c990000")
+	main_window.Add("Text", "+x150 +y60 +w100 +h30 +Center", "Stopped.").SetFont("s13 c990000")
 	stop_button := main_window.Add("Button", "+x10 +y100 +w100 +h50", "START")
 	stop_button.SetFont("s11")
 	stop_button.OnEvent("Click", start_clicked)
