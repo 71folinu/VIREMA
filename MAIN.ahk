@@ -10,7 +10,6 @@ TraySetIcon "icon.ico", , true
 window_title := "deemator 0.0"
 
 ; ENABLING ADMIN RIGHTS
-
 if not (A_IsAdmin or RegExMatch(DllCall("GetCommandLine", "str"), " /restart(?!\S)")) {
 	try {
 		if A_IsCompiled
