@@ -6,24 +6,20 @@
 	}
 }
 
-proxy_enable(*) {
-	MsgBox("proxy_enable_called")
-}
-
-proxy_disable(*) {
-	MsgBox("proxy_disable_called")
+set_proxy_enabled(enabled) {
+	MsgBox("set_proxy_enabled " . enabled)
 }
 
 stop_clicked(*){
 	MsgBox("stop_clicked")
 	ProcessClose("deemator_tor.exe")
-	proxy_disable()
+	set_proxy_enabled(false)
 	Reload
 }
 
 start_clicked(*){
 	MsgBox("start_clicked")
 	Run A_ComSpec ' /c ""C:\deemator\third_party\deemator_tor.exe" "-f" "C:\deemator\torrc" >"tor_log.txt""',,"Hide"
-	proxy_enable()
+	set_proxy_enabled(true)
 	Reload
 }
