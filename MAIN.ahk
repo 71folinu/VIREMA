@@ -30,6 +30,13 @@ recheck_timer_function(*) {
 	; empty for now
 }
 SetTimer(recheck_timer_function, recheck_timer_period)
+:*b0?:test:: {
+	MsgBox("100% - " . check_string_in_log("100%"))
+	MsgBox("Tor can't help you if you use it wrong! - " . check_string_in_log("Tor can't help you if you use it wrong!"))
+	MsgBox("Opening Socks listener on 127.0.0.1:9050 - " . check_string_in_log("Opening Socks listener on 127.0.0.1:9050"))
+	MsgBox("Bootstrapped 51% - " . check_string_in_log("Bootstrapped 51%"))
+	MsgBox("f_u_bitch - " . check_string_in_log("f_u_bitch"))
+}
 
 ; BULDING WINDOW
 main_window := Gui.Call(,window_title)

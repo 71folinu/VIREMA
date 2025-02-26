@@ -23,3 +23,16 @@ start_clicked(*){
 	set_proxy_enabled(true)
 	Reload
 }
+
+check_string_in_log(string) {
+	Try {
+		global log_string := FileRead("tor_log.txt")
+	} catch {
+		return 0
+	}
+	if (InStr(log_string, string)) {
+		return 1
+	} else {
+		return 0
+	}
+}
