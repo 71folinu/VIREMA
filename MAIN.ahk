@@ -8,6 +8,7 @@ TraySetIcon "icon.ico", , true
 
 ; GLOBAL CONSTANTS
 window_title := "deemator 0.1.0"
+recheck_timer_period := 5000
 
 ; ENABLING ADMIN RIGHTS
 if not (A_IsAdmin or RegExMatch(DllCall("GetCommandLine", "str"), " /restart(?!\S)")) {
@@ -23,6 +24,12 @@ if not (A_IsAdmin) {
 	MsgBox "A_IsAdmin: " A_IsAdmin "`nCommand line: " DllCall("GetCommandLine", "str"), window_title
 	ExitApp
 }
+
+; SETUP
+recheck_timer_function(*) {
+	; empty for now
+}
+SetTimer(recheck_timer_function, recheck_timer_period)
 
 ; BULDING WINDOW
 main_window := Gui.Call(,window_title)
