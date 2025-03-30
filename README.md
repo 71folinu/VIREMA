@@ -22,8 +22,8 @@ To disable proxy you will need to UNSET the "Use a proxy server for your LAN (Th
 ## Compilation
 To compile the app from source, use the `Ahk2Exe.exe` compiler provided in your AutoHotKey installation (by default located in `C:\Program Files\AutoHotkey\Compiler\Ahk2Exe.exe`).
 Steps necessary to compile the installer (the single distributed file):
-1. Compile MAIN.ahk using ahk2exe. Specify the icon `icon.ico` and set compression to `(none)`. Leave all the other fields as defaults.
-2. Compile installer.ahk using ahk2exe. Specify the icon.ico and set compression to `(none)`. Leave all the other fields as defaults. ***IMPORTANT: One needs to compile MAIN.ahk before running, testing or compiling installer.ahk.***
+1. Compile MAIN.ahk using ahk2exe. Specify the icon `icon.ico`. Leave all the other fields as defaults.
+2. Compile installer.ahk using ahk2exe. Specify the icon `icon.ico`. Leave all the other fields as defaults. ***IMPORTANT: One needs to compile MAIN.ahk before running, testing or compiling installer.ahk.***
 
 > [!WARNING]
 > Program must be compiled using AutoHotKey version 2.0.19, undefined behavior might be expected otherwise.
