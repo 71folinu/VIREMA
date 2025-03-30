@@ -8,7 +8,7 @@ TraySetIcon "icon.ico", , true
 
 ; GLOBAL CONSTANTS
 window_title := "deemator 0.1.0"
-status_bar_refresh_period := 488
+status_bar_refresh_period := 156*3
 
 ; ENABLING ADMIN RIGHTS
 if not (A_IsAdmin or RegExMatch(DllCall("GetCommandLine", "str"), " /restart(?!\S)")) {
@@ -19,7 +19,7 @@ if not (A_IsAdmin or RegExMatch(DllCall("GetCommandLine", "str"), " /restart(?!\
 			Run '*RunAs "' A_AhkPath '" /restart "' A_ScriptFullPath '"'
 	}
 }
-Sleep(188)
+Sleep(156)
 if not (A_IsAdmin) {
 	MsgBox "A_IsAdmin: " A_IsAdmin "`nCommand line: " DllCall("GetCommandLine", "str"), window_title
 	ExitApp
@@ -45,44 +45,53 @@ if (started() = true) {
 ; REFRESHING STATUS BAR
 refresh_status_bar(*) {
 	if (started()) {
-		if (check_string_in_log("Tor can't help you if you use it wrong!")) {
-			status_bar.SetText(" Configuring connection to tor network...")
-		}
-		if (!check_string_in_log("Read configuration file `"C:\deemator\torrc`".")) {
-			ProcessClose("deemator_tor.exe")
-			status_bar.SetText(" No torrc file found!!!")
-		MsgBox("No torrc file found!!!`nReinstall deemator.", window_title . ": ERROR")
-			ExitApp
-		}
-		if (!check_string_in_log("Opened Socks listener connection (ready) on 127.0.0.1:9050")) {
-			ProcessClose("deemator_tor.exe")
-			status_bar.SetText(" Failed to open socks listener!!!")
-			MsgBox("Failed to open socks listener!!!`nCheck your firewall settings.", window_title . ": ERROR")
-			ExitApp
-		}
-		if (!check_string_in_log("Parsing GEOIP IPv4 file C:\deemator\third_party\geoip.")) {
-			ProcessClose("deemator_tor.exe")
-			status_bar.SetText(" No geoip file found!!!")
-			MsgBox("No geoip file found!!!`nReinstall deemator.", window_title . ": ERROR")
-			ExitApp
-		}
-		if (!check_string_in_log("Parsing GEOIP IPv6 file C:\deemator\third_party\geoip6.")) {
-			ProcessClose("deemator_tor.exe")
-			status_bar.SetText(" No geoip6 file found!!!")
-			MsgBox("No geoip6 file found!!!`nReinstall deemator.", window_title . ": ERROR")
-			ExitApp
-		}
-		if (check_string_in_log("Starting with guard context `"bridges`"")) {
-			status_bar.SetText(" Starting tor process...")
+		if (check_string_in_log("Bootstrapped 100% (done): Done")) {
+			status_bar.SetText(" Connected!")
+			return
 		}
 		if (check_string_in_log("Bootstrapped 1% (conn_pt): Connecting to pluggable transport")) {
 			status_bar.SetText(" Connecting to tor network...")
+			return
 		}
-		if (check_string_in_log("Bootstrapped 100% (done): Done")) {
-			status_bar.SetText(" Connected!")
+		if (check_string_in_log("Starting with guard context `"bridges`"")) {
+			if (!check_string_in_log("Read configuration file `"C:\deemator\torrc`".")) {
+				ProcessClose("deemator_tor.exe")
+				status_bar.SetText(" No torrc file found!!!")
+				MsgBox("No torrc file found!!!`nReinstall deemator.", window_title . ": ERROR")
+				ExitApp
+				return
+			}
+			if (!check_string_in_log("Opened Socks listener connection (ready) on 127.0.0.1:9050")) {
+				ProcessClose("deemator_tor.exe")
+				status_bar.SetText(" Failed to open socks listener!!!")
+				MsgBox("Failed to open socks listener!!!`nCheck your firewall settings.", window_title . ": ERROR")
+				ExitApp
+				return
+			}
+			if (!check_string_in_log("Parsing GEOIP IPv4 file C:\deemator\third_party\geoip.")) {
+				ProcessClose("deemator_tor.exe")
+				status_bar.SetText(" No geoip file found!!!")
+				MsgBox("No geoip file found!!!`nReinstall deemator.", window_title . ": ERROR")
+				ExitApp
+				return
+			}
+			if (!check_string_in_log("Parsing GEOIP IPv6 file C:\deemator\third_party\geoip6.")) {
+				ProcessClose("deemator_tor.exe")
+				status_bar.SetText(" No geoip6 file found!!!")
+				MsgBox("No geoip6 file found!!!`nReinstall deemator.", window_title . ": ERROR")
+				ExitApp
+				return
+			}
+			status_bar.SetText(" Starting tor process...")
+			return
+		}
+		if (check_string_in_log("Tor can't help you if you use it wrong!")) {
+			status_bar.SetText(" Configuring connection to tor network...")
+			return
 		}
 	} else {
 		status_bar.SetText(" Stopped.")
+		return
 	}
 }
 if started() {
