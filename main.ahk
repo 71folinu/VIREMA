@@ -8,7 +8,7 @@ TraySetIcon "icon.ico", , true
 
 ; GLOBAL CONSTANTS
 window_title := "deemator 0.1.0"
-status_bar_refresh_period := 156*3
+status_bar_refresh_period := 156*2
 
 ; ENABLING ADMIN RIGHTS
 if not (A_IsAdmin or RegExMatch(DllCall("GetCommandLine", "str"), " /restart(?!\S)")) {
@@ -46,7 +46,7 @@ if (started() = true) {
 refresh_status_bar(*) {
 	if (started()) {
 		if (check_string_in_log("Bootstrapped 100% (done): Done")) {
-			status_bar.SetText(" Connected!")
+			status_bar.SetText(" Connected! You may close the window now, connection will stay active.")
 			return
 		}
 		if (check_string_in_log("Bootstrapped 1% (conn_pt): Connecting to pluggable transport")) {
@@ -94,11 +94,7 @@ refresh_status_bar(*) {
 		return
 	}
 }
-if started() {
-	SetTimer(refresh_status_bar, status_bar_refresh_period)
-} else {
-	refresh_status_bar()
-}
+SetTimer(refresh_status_bar, status_bar_refresh_period)
 
 ; SHOWING WINDOW
 main_window.Show("Center W400 H300")
