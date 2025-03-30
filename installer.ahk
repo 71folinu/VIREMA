@@ -37,71 +37,71 @@ if (MsgBox("Do you want to intall (reinstall) deemator to this computer?", "deem
 	}
 	Sleep(156*2)
 	try {
-		FileInstall "C:\deemator\third_party\deemator_tor.exe", "C:\deemator\third_party\deemator_tor1.exe", 1
+		FileInstall "C:\deemator\third_party\deemator_tor.exe", "C:\deemator\third_party\deemator_tor.exe", 1
 	} catch {
-		MsgBox("FileInstall `"C:\deemator\third_party\deemator_tor.exe`", `"C:\deemator\third_party\deemator_tor1.exe`", 1", "deemator installer error")
+		MsgBox("FileInstall `"C:\deemator\third_party\deemator_tor.exe`", `"C:\deemator\third_party\deemator_tor.exe`", 1", "deemator installer error")
 		ExitApp
 	}
 	try {
-		FileInstall "C:\deemator\third_party\geoip", "C:\deemator\third_party\geoip1", 1
+		FileInstall "C:\deemator\third_party\geoip", "C:\deemator\third_party\geoip", 1
 	} catch {
-		MsgBox("FileInstall `"C:\deemator\third_party\geoip`", `"C:\deemator\third_party\geoip1`", 1", "deemator installer error")
-		ExitApp
-	}
-	Sleep(156*2)
-	try {
-		FileInstall "C:\deemator\third_party\geoip6", "C:\deemator\third_party\geoip61", 1
-	} catch {
-		MsgBox("FileInstall `"C:\deemator\third_party\geoip6`", `"C:\deemator\third_party\geoip61`", 1", "deemator installer error")
+		MsgBox("FileInstall `"C:\deemator\third_party\geoip`", `"C:\deemator\third_party\geoip`", 1", "deemator installer error")
 		ExitApp
 	}
 	Sleep(156*2)
 	try {
-		FileInstall "C:\deemator\third_party\lyrebird.exe", "C:\deemator\third_party\lyrebird.exe1", 1
+		FileInstall "C:\deemator\third_party\geoip6", "C:\deemator\third_party\geoip6", 1
 	} catch {
-		MsgBox("FileInstall `"C:\deemator\third_party\lyrebird.exe`", `"C:\deemator\third_party\lyrebird.exe1`", 1", "deemator installer error")
+		MsgBox("FileInstall `"C:\deemator\third_party\geoip6`", `"C:\deemator\third_party\geoip6`", 1", "deemator installer error")
 		ExitApp
 	}
 	Sleep(156*2)
 	try {
-		FileInstall "C:\deemator\deemator.lnk",A_Desktop . "\deemator1.lnk", 1
+		FileInstall "C:\deemator\third_party\lyrebird.exe", "C:\deemator\third_party\lyrebird.exe", 1
 	} catch {
-		MsgBox("FileInstall `"C:\deemator\deemator.lnk`",A_Desktop . `"\deemator1.lnk`", 1", "deemator installer error")
+		MsgBox("FileInstall `"C:\deemator\third_party\lyrebird.exe`", `"C:\deemator\third_party\lyrebird.exe`", 1", "deemator installer error")
 		ExitApp
 	}
 	Sleep(156*2)
 	try {
-		FileInstall "C:\deemator\deemator.lnk", "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\deemator1.lnk", 1
+		FileInstall "C:\deemator\deemator.lnk",A_Desktop . "\deemator.lnk", 1
 	} catch {
-		MsgBox("FileInstall `"C:\deemator\deemator.lnk`", `"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\deemator1.lnk`", 1", "deemator installer error")
+		MsgBox("FileInstall `"C:\deemator\deemator.lnk`",A_Desktop . `"\deemator.lnk`", 1", "deemator installer error")
 		ExitApp
 	}
 	Sleep(156*2)
 	try {
-		FileInstall "C:\deemator\icon.ico", "C:\deemator\icon1.ico", 1
+		FileInstall "C:\deemator\deemator.lnk", "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\deemator.lnk", 1
 	} catch {
-		MsgBox("FileInstall `"C:\deemator\icon.ico`", `"C:\deemator\icon1.ico`", 1", "deemator installer error")
+		MsgBox("FileInstall `"C:\deemator\deemator.lnk`", `"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\deemator.lnk`", 1", "deemator installer error")
 		ExitApp
 	}
 	Sleep(156*2)
 	try {
-		FileInstall "C:\deemator\LICENSE", "C:\deemator\LICENSE1", 1
+		FileInstall "C:\deemator\icon.ico", "C:\deemator\icon.ico", 1
 	} catch {
-		MsgBox("FileInstall `"C:\deemator\LICENSE`", `"C:\deemator\LICENSE1`", 1", "deemator installer error")
+		MsgBox("FileInstall `"C:\deemator\icon.ico`", `"C:\deemator\icon.ico`", 1", "deemator installer error")
 		ExitApp
 	}
 	Sleep(156*2)
 	try {
-		FileInstall "C:\deemator\main.exe", "C:\deemator\main1.exe", 1
+		FileInstall "C:\deemator\LICENSE", "C:\deemator\LICENSE", 1
 	} catch {
-		MsgBox("FileInstall `"C:\deemator\main.exe`", `"C:\deemator\main1.exe`", 1", "deemator installer error")
+		MsgBox("FileInstall `"C:\deemator\LICENSE`", `"C:\deemator\LICENSE`", 1", "deemator installer error")
 		ExitApp
 	}
 	Sleep(156*2)
 	try {
-		FileInstall "C:\deemator\torrc", "C:\deemator\torrc1", 1
+		FileInstall "C:\deemator\main.exe", "C:\deemator\main.exe", 1
 	} catch {
-		MsgBox("FileInstall `"C:\deemator\torrc`", `"C:\deemator\torrc1`", 1", "deemator installer error")
+		MsgBox("FileInstall `"C:\deemator\main.exe`", `"C:\deemator\main.exe`", 1", "deemator installer error")
+		ExitApp
+	}
+	Sleep(156*2)
+	try {
+		FileInstall "C:\deemator\torrc", "C:\deemator\torrc", 1
+	} catch {
+		MsgBox("FileInstall `"C:\deemator\torrc`", `"C:\deemator\torrc`", 1", "deemator installer error")
 		ExitApp
 	}
 	Sleep(156*2)
