@@ -10,7 +10,7 @@ Simplistic tor-powered proxy app for Windows 11, built using AutoHotkey v2.
 1. To enable proxy enable the "Use a proxy server for your LAN (These settings will not apply to dial-up or VPN connections)." checkbox.
 2. The proxy is enabled. THe following steps will be the configuration (will only need to be done once).
 3. After enabling proxy checkbox, make sure the "Bypass proxy server for local adresses" checkbox is set, then press "Advanced" button on the right to enter configuration.
-4. In the popup menu you will see four lines (adress:port). Make sure each of these lines (address AND port) are empty. Then, in the "Socks" line enter adress YET_TO_DEFINE and port YET_TO_DEFINE.
+4. In the popup menu you will see four lines (adress:port). Make sure each of these lines (address AND port) are empty. Then, in the "Socks" line enter adress 127.0.0.1 and port 9050.
 5. Make sure that the "Use the same proxy server for all protocols" checkbox is NOT set.
 6. Press "OK" At the bottom to apply settings.
 ### DIsabling proxy manually
