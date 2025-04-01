@@ -2,12 +2,14 @@
 Persistent
 #NoTrayIcon
 TraySetIcon "icon.ico", , true
+;@Ahk2Exe-SetName "deemator"
+;@Ahk2Exe-SetVersion "0.2.0"
 
 ; INCLUDES
 #include running.ahk
 
 ; GLOBAL CONSTANTS
-window_title := "deemator 0.1.0"
+window_title := "deemator 0.2.0"
 status_bar_refresh_period := 156*2
 
 ; ENABLING ADMIN RIGHTS
