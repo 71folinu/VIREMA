@@ -21,7 +21,7 @@ if not (A_IsAdmin or RegExMatch(DllCall("GetCommandLine", "str"), " /restart(?!\
 			Run '*RunAs "' A_AhkPath '" /restart "' A_ScriptFullPath '"'
 	}
 }
-Sleep(156)
+Sleep(156*2)
 if not (A_IsAdmin) {
 	MsgBox "A_IsAdmin: " A_IsAdmin "`nCommand line: " DllCall("GetCommandLine", "str"), window_title
 	ExitApp
