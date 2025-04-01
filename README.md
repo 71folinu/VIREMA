@@ -20,10 +20,12 @@ Inspired by `Invizible Pro` Android app.
 ### Disabling proxy manually
 To disable proxy you will need to UNSET the "Use a proxy server for your LAN (These settings will not apply to dial-up or VPN connections)." checkbox and press "OK" at the bottom. If you'll want to enable proxy again, you will just need to SET the checkbox again and press "OK" at the bottom. No additional configuration is required, as the settings were saved from the previous time they've been set.
 ## Compilation
-To compile the app from source, use the `Ahk2Exe.exe` compiler provided in your AutoHotKey installation (by default located in `C:\Program Files\AutoHotkey\Compiler\Ahk2Exe.exe`).
+To compile the app from source, use the `Ahk2Exe.exe` compiler provided in your AutoHotKey installation (by default located in `C:\Program files\AutoHotkey\Compiler\Ahk2Exe.exe`).
 Steps necessary to compile the installer (the single distributed file):
-1. Compile MAIN.ahk using ahk2exe. Specify the icon `icon.ico`. Leave all the other fields as defaults.
-2. Compile installer.ahk using ahk2exe. Specify the icon `icon.ico`. Leave all the other fields as defaults. ***IMPORTANT: One needs to compile MAIN.ahk before running, testing or compiling installer.ahk.***
+1. Compile MAIN.ahk using ahk2exe (right click `main.ahk, then select `Compile script (GUI)...`). Specify the icon `icon.ico`. Leave all the other fields as defaults.
+2. In compiler window, go to `Help` -> `Check for Updates`. Update (or install, if not installed) everything there is. It might take a minute to load initially.
+3. Compile installer.ahk using ahk2exe (right click `main.ahk, then select `Compile script (GUI)...`). Specify the icon `icon.ico`, and compression `MPRESS`. Leave all the other fields as defaults. ***IMPORTANT: One needs to compile MAIN.ahk before running, testing or compiling installer.ahk.***
+4. Move the result `deemator installer.exe` outside of the app working directory (it might delete itself when testing).
 
 > [!WARNING]
 > Program must be compiled using AutoHotKey version 2.0.19, undefined behavior might be expected otherwise.  
