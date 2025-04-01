@@ -15,6 +15,7 @@ if not (A_IsAdmin or RegExMatch(DllCall("GetCommandLine", "str"), " /restart(?!\
 }
 Sleep(156*2)
 if not (A_IsAdmin) {
+	Sleep(1560)
 	MsgBox "A_IsAdmin: " A_IsAdmin "`nCommand line: " DllCall("GetCommandLine", "str"), "deemator 0.2.0 installer"
 	ExitApp
 }
