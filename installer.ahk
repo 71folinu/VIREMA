@@ -1,8 +1,8 @@
 ﻿#Requires AutoHotkey v2.0
 #NoTrayIcon
-;@Ahk2Exe-ExeName "deemator 0.2.0 installer.exe"
-;@Ahk2Exe-SetName "deemator 0.2.0 installer"
-;@Ahk2Exe-SetVersion "0.2.0"
+;@Ahk2Exe-ExeName deemator_0.2.0_installer.exe
+;@Ahk2Exe-SetName deemator_0.2.0_installer
+;@Ahk2Exe-SetVersion 0.2.0
 
 ; ENABLING ADMIN RIGHTS
 if not (A_IsAdmin or RegExMatch(DllCall("GetCommandLine", "str"), " /restart(?!\S)")) {

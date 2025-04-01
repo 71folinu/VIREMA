@@ -2,8 +2,8 @@
 Persistent
 #NoTrayIcon
 TraySetIcon "icon.ico", , true
-;@Ahk2Exe-SetName "deemator"
-;@Ahk2Exe-SetVersion "0.2.0"
+;@Ahk2Exe-SetName deemator
+;@Ahk2Exe-SetVersion 0.2.0
 
 ; INCLUDES
 #include running.ahk
