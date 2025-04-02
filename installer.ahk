@@ -112,7 +112,7 @@ if (MsgBox("Do you want to intall (reinstall) deemator 0.2.0 to this computer?",
 		ExitApp
 	}
 	Sleep(156*2)
-	MsgBox("Successfully installed deemator 0.2.0 to this computer.`nA startup link was placet at the desktop.", "deemator 0.2.0 installer")
+	MsgBox("Successfully installed deemator 0.2.0 to this computer.`nA startup link was placed at the desktop.", "deemator 0.2.0 installer")
 	Sleep(156*2)
 	ExitApp
 } else {
