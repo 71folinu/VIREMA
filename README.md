@@ -24,7 +24,7 @@ To compile the app from source, use the `Ahk2Exe.exe` compiler provided in your 
 Steps necessary to compile the installer (the single distributed file):
 1. Compile MAIN.ahk using ahk2exe (right click `main.ahk, then select `Compile script (GUI)...`). Specify the icon `icon.ico`. Leave all the other fields as defaults.
 2. In compiler window, go to `Help` -> `Check for Updates`. Update (or install, if not installed) everything there is. It might take a minute to load initially.
-3. Compile installer.ahk using ahk2exe (right click `main.ahk, then select `Compile script (GUI)...`). Specify the icon `icon.ico`, and compression `MPRESS`. Leave all the other fields as defaults. ***IMPORTANT: One needs to compile MAIN.ahk before running, testing or compiling installer.ahk.***
+3. Compile installer.ahk using ahk2exe (right click `main.ahk`, then select `Compile script (GUI)...`). Specify the icon `icon.ico`, and compression `MPRESS`. Leave all the other fields as defaults. ***IMPORTANT: One needs to compile MAIN.ahk before running, testing or compiling installer.ahk.***
 4. Move the result `deemator installer.exe` outside of the app working directory (it might delete itself when testing).
 
 > [!WARNING]
