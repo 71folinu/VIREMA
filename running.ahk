@@ -54,3 +54,5 @@ update_log_window(*) {
 		} catch {
 			MsgBox("Failed reading Tor logs. Try again.`nIf the issue persists, try reinstalling deemator.", window_title . ": ERROR")
 		}
+	}
+}
