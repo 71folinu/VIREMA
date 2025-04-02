@@ -35,15 +35,13 @@ status_bar.SetFont("s8")
 if (started() = true) {
 	title_status := main_window.Add("Text", "+x150 +y60 +w100 +h30 +Center", "Loading...")
 	title_status.SetFont("s13 cAAAAAA")
-	startstop_button := main_window.Add("Button", "+x10 +y100 +w100 +h50", "STOP")
+	startstop_button := main_window.Add("Button", "+x10 +y100 +w100 +h50", "Loading...")
 	startstop_button.SetFont("s11")
-	startstop_button.OnEvent("Click", stop_clicked)
 } else {
-	title_status := main_window.Add("Text", "+x150 +y60 +w100 +h30 +Center", "Stopped.")
+	title_status := main_window.Add("Text", "+x150 +y60 +w100 +h30 +Center", "Loading...")
 	title_status.SetFont("s13 c990000")
-	startstop_button := main_window.Add("Button", "+x10 +y100 +w100 +h50", "START")
+	startstop_button := main_window.Add("Button", "+x10 +y100 +w100 +h50", "Loading...")
 	startstop_button.SetFont("s11")
-	startstop_button.OnEvent("Click", start_clicked)
 }
 
 ; REFRESHING STATUS BAR
@@ -52,6 +50,9 @@ refresh_status(*) {
 		if not title_status.Text = "Started." {
 			title_status.Text := "Started."
 			title_status.SetFont("s13 c009900")
+			startstop_button.Text := "STOP"
+			startstop_button.OnEvent("Click", start_clicked, 0)
+			startstop_button.OnEvent("Click", stop_clicked)
 		}
 		if (check_string_in_log("Bootstrapped 100% (done): Done")) {
 			status_bar.SetText(" Connected! You may close the window now, connection will stay active.")
@@ -101,6 +102,9 @@ refresh_status(*) {
 		if not title_status.Text = "Stopped." {
 			title_status.Text := "Stopped."
 			title_status.SetFont("s13 c990000")
+			startstop_button.Text := "START"
+			startstop_button.OnEvent("Click", stop_clicked, 0)
+			startstop_button.OnEvent("Click", start_clicked)
 		}
 		status_bar.SetText(" Stopped.")
 		return
