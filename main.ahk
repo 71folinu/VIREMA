@@ -33,20 +33,26 @@ main_window.Add("Text", "+x105 +y10 +w190 +h40 +Center", "DEEMATOR").SetFont("s2
 status_bar := main_window.Add("StatusBar",, " Loading...")
 status_bar.SetFont("s8")
 if (started() = true) {
-	main_window.Add("Text", "+x150 +y60 +w100 +h30 +Center", "Started.").SetFont("s13 c009900")
-	stop_button := main_window.Add("Button", "+x10 +y100 +w100 +h50", "STOP")
-	stop_button.SetFont("s11")
-	stop_button.OnEvent("Click", stop_clicked)
+	title_status := main_window.Add("Text", "+x150 +y60 +w100 +h30 +Center", "Loading...")
+	title_status.SetFont("s13 cAAAAAA")
+	startstop_button := main_window.Add("Button", "+x10 +y100 +w100 +h50", "STOP")
+	startstop_button.SetFont("s11")
+	startstop_button.OnEvent("Click", stop_clicked)
 } else {
-	main_window.Add("Text", "+x150 +y60 +w100 +h30 +Center", "Stopped.").SetFont("s13 c990000")
-	stop_button := main_window.Add("Button", "+x10 +y100 +w100 +h50", "START")
-	stop_button.SetFont("s11")
-	stop_button.OnEvent("Click", start_clicked)
+	title_status := main_window.Add("Text", "+x150 +y60 +w100 +h30 +Center", "Stopped.")
+	title_status.SetFont("s13 c990000")
+	startstop_button := main_window.Add("Button", "+x10 +y100 +w100 +h50", "START")
+	startstop_button.SetFont("s11")
+	startstop_button.OnEvent("Click", start_clicked)
 }
 
 ; REFRESHING STATUS BAR
-refresh_status_bar(*) {
+refresh_status(*) {
 	if (started()) {
+		if not title_status.Text = "Started." {
+			title_status.Text := "Started."
+			title_status.SetFont("s13 c009900")
+		}
 		if (check_string_in_log("Bootstrapped 100% (done): Done")) {
 			status_bar.SetText(" Connected! You may close the window now, connection will stay active.")
 			return
@@ -92,12 +98,17 @@ refresh_status_bar(*) {
 			return
 		}
 	} else {
+		if not title_status.Text = "Stopped." {
+			title_status.Text := "Stopped."
+			title_status.SetFont("s13 c990000")
+		}
 		status_bar.SetText(" Stopped.")
 		return
 	}
 }
-SetTimer(refresh_status_bar, status_bar_refresh_period)
+SetTimer(refresh_status, status_bar_refresh_period)
 
+Sleep(156)
 ; SHOWING WINDOW
 main_window.Show("Center W400 H300")
 
