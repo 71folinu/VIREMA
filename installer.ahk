@@ -25,6 +25,7 @@ if (MsgBox("Do you want to intall (reinstall) deemator 0.2.0 to this computer?",
 	if ProcessExist("deemator_tor.exe") {
 		ProcessClose("deemator_tor.exe")
 		Sleep(156*7)
+	}
 	if DirExist("C:\deemator") {
 		try {
 			DirDelete("C:\deemator", 1)
