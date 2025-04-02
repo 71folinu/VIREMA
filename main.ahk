@@ -43,6 +43,8 @@ if (started() = true) {
 	startstop_button := main_window.Add("Button", "+x10 +y100 +w100 +h50", "Loading...")
 	startstop_button.SetFont("s11")
 }
+see_logs_button := main_window.Add("Button", "+x10 +y160 +w100 +h50", "See logs")
+see_logs_button.SetFont("s11")
 
 ; REFRESHING STATUS BAR
 refresh_status(*) {
