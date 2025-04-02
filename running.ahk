@@ -28,8 +28,6 @@ check_connection_success(*){
 		if not (check_string_in_log("Bootstrapped 100% (done): Done")) {
 			stop_clicked()
 			MsgBox("Connection took too long and was aborted. Try again.`nIf the issue persists, try reinstalling deemator.", window_title . ": ERROR")
-		} else {
-			MsgBox(,,"T0.156")
 		}
 	} else {
 		MsgBox("Tor process failed to start. Try again.`nIf the issue persists, try reinstalling deemator.", window_title . ": ERROR")
