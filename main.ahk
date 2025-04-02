@@ -45,6 +45,7 @@ if (started() = true) {
 }
 see_logs_button := main_window.Add("Button", "+x10 +y160 +w100 +h50", "See logs")
 see_logs_button.SetFont("s11")
+see_logs_button.OnEvent("Click", see_logs_button_clicked)
 
 ; REFRESHING STATUS BAR
 refresh_status(*) {

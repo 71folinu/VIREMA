@@ -56,3 +56,9 @@ update_log_window(*) {
 		}
 	}
 }
+
+; MsgBox(,,"T0.156")
+
+see_logs_button_clicked(*) {
+	MsgBox(,,"T0.156")
+}
