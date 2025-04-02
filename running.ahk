@@ -10,20 +10,20 @@ set_proxy_enabled(enabled) {
 	; MsgBox("set_proxy_enabled " . enabled)
 }
 
-stop_clicked(*){
+stop_clicked(*) {
 	; MsgBox("stop_clicked")
 	ProcessClose("deemator_tor.exe")
 	set_proxy_enabled(false)
 }
 
-start_clicked(*){
+start_clicked(*) {
 	; MsgBox("start_clicked")
 	Run A_ComSpec ' /c ""C:\deemator\third_party\deemator_tor.exe" "-f" "C:\deemator\torrc" >"tor_log.txt""',,"Hide"
 	set_proxy_enabled(true)
 	SetTimer(check_connection_success, -1560*47)
 }
 
-check_connection_success(*){
+check_connection_success(*) {
 	if (started()) {
 		if not (check_string_in_log("Bootstrapped 100% (done): Done")) {
 			stop_clicked()
@@ -46,3 +46,11 @@ check_string_in_log(string) {
 		return 0
 	}
 }
+
+update_log_window(*) {
+	if FileExist("C:\deemator\tor_log.txt") {
+		try {
+			global log_window_text := FileRead("C:\deemator\tor_log.txt")
+		} catch {
+			MsgBox("Failed reading Tor logs. Try again.`nIf the issue persists, try reinstalling deemator.", window_title . ": ERROR")
+		}
