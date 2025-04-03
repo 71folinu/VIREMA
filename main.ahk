@@ -114,8 +114,8 @@ refresh_status(*) {
 	}
 }
 SetTimer(refresh_status, status_bar_refresh_period)
-
 Sleep(156)
+
 ; SHOWING WINDOW
 main_window.Show("Center W400 H300")
 
