@@ -75,6 +75,6 @@ see_logs_button_clicked(*) {
 	logs_window.OnEvent("Size", close_logs_window)
 	logs_window.OnEvent("Escape", close_logs_window)
 	logs_window.OnEvent("ContextMenu", close_logs_window)
-	logs_status_bar := logs_window.Add("StatusBar",, " Press ESC or right click to return to main menu.")
+	logs_status_bar := logs_window.Add("StatusBar",, " Press ESC or close the window to return to main menu.")
 	logs_status_bar.SetFont("s8")
 }
