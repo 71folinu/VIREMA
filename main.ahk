@@ -9,8 +9,8 @@ TraySetIcon "icon.ico", , true
 #include running.ahk
 
 ; GLOBAL CONSTANTS
-window_title := "deemator 0.2.0"
-status_bar_refresh_period := 156*2
+global window_title := "deemator 0.2.0"
+global status_bar_refresh_period := 156*2
 
 ; ENABLING ADMIN RIGHTS
 if not (A_IsAdmin or RegExMatch(DllCall("GetCommandLine", "str"), " /restart(?!\S)")) {
@@ -28,27 +28,28 @@ if not (A_IsAdmin) {
 }
 
 ; BULDING WINDOW
-main_window := Gui.Call(,window_title)
+global main_window := Gui.Call(,window_title)
 main_window.Add("Text", "+x105 +y10 +w190 +h40 +Center", "DEEMATOR").SetFont("s24")
-status_bar := main_window.Add("StatusBar",, " Loading...")
+global status_bar := main_window.Add("StatusBar",, " Loading...")
 status_bar.SetFont("s8")
 if (started() = true) {
-	title_status := main_window.Add("Text", "+x150 +y60 +w100 +h30 +Center", "Loading...")
+	global title_status := main_window.Add("Text", "+x150 +y60 +w100 +h30 +Center", "Loading...")
 	title_status.SetFont("s13 cAAAAAA")
-	startstop_button := main_window.Add("Button", "+x10 +y100 +w100 +h50", "Loading...")
+	global startstop_button := main_window.Add("Button", "+x10 +y100 +w100 +h50", "Loading...")
 	startstop_button.SetFont("s11")
 } else {
-	title_status := main_window.Add("Text", "+x150 +y60 +w100 +h30 +Center", "Loading...")
+	global title_status := main_window.Add("Text", "+x150 +y60 +w100 +h30 +Center", "Loading...")
 	title_status.SetFont("s13 c990000")
-	startstop_button := main_window.Add("Button", "+x10 +y100 +w100 +h50", "Loading...")
+	global startstop_button := main_window.Add("Button", "+x10 +y100 +w100 +h50", "Loading...")
 	startstop_button.SetFont("s11")
 }
-see_logs_button := main_window.Add("Button", "+x10 +y160 +w100 +h50", "See logs")
+global see_logs_button := main_window.Add("Button", "+x10 +y160 +w100 +h50", "See logs")
 see_logs_button.SetFont("s11")
 see_logs_button.OnEvent("Click", see_logs_button_clicked)
 
 ; REFRESHING STATUS BAR
 refresh_status(*) {
+	try logs_window_field.Text := FileRead("C:\deemator\tor_log.txt")
 	if (started()) {
 		if not title_status.Text = "Started." {
 			title_status.Text := "Started."
@@ -125,3 +126,6 @@ close_main(*){
 }
 main_window.OnEvent("Close", close_main)
 main_window.OnEvent("Size", close_main)
+
+; DEBUG
+r::Reload
