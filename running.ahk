@@ -1,5 +1,17 @@
-﻿ImageSearch_in_folder(folder_path) {
-	return 0
+﻿ImageSearch_in_folder(folder_full_path) {
+	try {
+		global ImageSearch_in_folder_OutputVarX = ""
+		global ImageSearch_in_folder_OutputVarY = ""
+		Loop Files "C:\deemator\img" {
+			ImageSearch &ImageSearch_in_folder_OutputVarX, &ImageSearch_in_folder_OutputVarY, 0, 0, A_ScreenWidth, A_ScreenHeight, A_LoopFileFullPath
+			if ImageSearch_in_folder_OutputVarX and ImageSearch_in_folder_OutputVarY {
+				return 1
+			}
+		}
+		return 0
+	} catch {
+		MsgBox("ImageSearch_in_folder error.`nTry reinstalling deemator.", window_title . ": ERROR")
+	}
 }
 
 started() {

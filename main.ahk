@@ -1,4 +1,5 @@
 ﻿#Requires AutoHotkey v2.0
+CoordMode "Pixel", "Screen"
 Persistent
 #NoTrayIcon
 TraySetIcon "icon.ico", , true
