@@ -49,7 +49,7 @@ see_logs_button.OnEvent("Click", see_logs_button_clicked)
 
 ; REFRESHING STATUS BAR
 refresh_status(*) {
-	try logs_window_field.Text := FileRead("C:\deemator\tor_log.txt")
+	update_logs_window_field()
 	if (started()) {
 		if not title_status.Text = "Started." {
 			title_status.Text := "Started."

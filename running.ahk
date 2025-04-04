@@ -51,13 +51,22 @@ check_string_in_log(string) {
 ; MsgBox
 ; Loading...
 
+update_logs_window_field(*) {
+	try {
+		logs_window_field.Text := FileRead("C:\deemator\tor_log.txt")
+	}
+	if WinExist(window_title . " - tor logs") and not WinActive(window_title . " - tor logs") {
+		close_logs_window()
+	}
+}
+
 close_logs_window(*){
 	logs_window.Destroy()
 }
 
 see_logs_button_clicked(*) {
 	global logs_window := Gui.Call(,window_title . " - tor logs")
-	global logs_window_field := logs_window.Add("Edit", "+x10 +y10 +w380 +h260 ReadOnly", "Loading...")
+	global logs_window_field := logs_window.Add("Edit", "+x10 +y10 +w380 +h260 ReadOnly", "No logs were found.")
 	Sleep(156)
 	logs_window.Show("Center W400 H300")
 	Sleep(156)
