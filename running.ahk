@@ -1,4 +1,8 @@
-﻿started() {
+﻿ImageSearch_in_folder(folder_path) (
+	return 0
+}
+
+started() {
 	if ProcessExist("deemator_tor.exe") {
 		return true
 	} else {
