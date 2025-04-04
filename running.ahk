@@ -14,6 +14,7 @@ stop_clicked(*) {
 	; MsgBox("stop_clicked")
 	ProcessClose("deemator_tor.exe")
 	set_proxy_enabled(false)
+	global tor_launch_ordered := 0
 }
 
 start_clicked(*) {
@@ -21,6 +22,7 @@ start_clicked(*) {
 	Run A_ComSpec ' /c ""C:\deemator\third_party\deemator_tor.exe" "-f" "C:\deemator\torrc" >"tor_log.txt""',,"Hide"
 	set_proxy_enabled(true)
 	SetTimer(check_connection_success, -1560*47)
+	global tor_launch_ordered := 1
 }
 
 check_connection_success(*) {
@@ -29,7 +31,7 @@ check_connection_success(*) {
 			stop_clicked()
 			MsgBox("Connection took too long and was aborted. Try again.`nIf the issue persists, try reinstalling deemator.", window_title . ": ERROR")
 		}
-	} else {
+	} else if tor_launch_ordered {
 		MsgBox("Tor process failed to start. Try again.`nIf the issue persists, try reinstalling deemator.", window_title . ": ERROR")
 	}
 }
