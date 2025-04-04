@@ -1,7 +1,7 @@
 ﻿ImageSearch_in_folder(folder_full_path) {
 	try {
-		global ImageSearch_in_folder_OutputVarX = ""
-		global ImageSearch_in_folder_OutputVarY = ""
+		global ImageSearch_in_folder_OutputVarX := ""
+		global ImageSearch_in_folder_OutputVarY := ""
 		Loop Files "C:\deemator\img" {
 			ImageSearch &ImageSearch_in_folder_OutputVarX, &ImageSearch_in_folder_OutputVarY, 0, 0, A_ScreenWidth, A_ScreenHeight, A_LoopFileFullPath
 			if ImageSearch_in_folder_OutputVarX and ImageSearch_in_folder_OutputVarY {
