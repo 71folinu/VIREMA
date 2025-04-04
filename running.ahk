@@ -1,4 +1,4 @@
-﻿ImageSearch_in_folder(folder_path) (
+﻿ImageSearch_in_folder(folder_path) {
 	return 0
 }
 
