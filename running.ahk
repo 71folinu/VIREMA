@@ -1,4 +1,6 @@
-﻿check_proxy_onoff() {
+﻿; running.ahk - functions for app operation
+
+check_proxy_onoff() {
 	RunWait "::{21EC2020-3AEA-1069-A2DD-08002B30309D}"
 	Sleep(156*1)
 	if not click_wait_ImageSearch_in_folder("C:\deemator\img\00browsersettings", 3) {

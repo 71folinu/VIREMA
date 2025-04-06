@@ -1,4 +1,6 @@
-﻿#Requires AutoHotkey v2.0
+﻿; main.ahk
+
+#Requires AutoHotkey v2.0
 CoordMode "Pixel", "Screen"
 CoordMode "Mouse", "Screen"
 Persistent

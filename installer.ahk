@@ -1,4 +1,6 @@
-﻿#Requires AutoHotkey v2.0
+﻿; installer.ahk - installer script to compile the distributable .exe file
+
+#Requires AutoHotkey v2.0
 #NoTrayIcon
 ;@Ahk2Exe-ExeName deemator_0.2.0_installer.exe
 ;@Ahk2Exe-SetName deemator_0.2.0_installer
