@@ -11,9 +11,53 @@ enable_proxy() {
 			return 0
 		}
 		if not wait_ImageSearch_in_folder("C:\deemator\img\05configed", 3) {
-			MsgBox_ImageSearch_not_supported()
-			return 0
-		} else if not click_wait_ImageSearch_in_folder("C:\deemator\img\06configok", 3) {
+			Sleep(156*3)
+			Send "^a"
+			Sleep(156*3)
+			Send "{Delete}"
+			Sleep(156*3)
+			Send "{Tab}"
+			Sleep(156*3)
+			Send "^a"
+			Sleep(156*3)
+			Send "{Delete}"
+			Sleep(156*3)
+			Send "{Tab}"
+			Sleep(156*3)
+			Send "^a"
+			Sleep(156*3)
+			Send "{Delete}"
+			Sleep(156*3)
+			Send "{Tab}"
+			
+			Sleep(156*3)
+			Send "^a"
+			Sleep(156*3)
+			Send "{Delete}"
+			Sleep(156*3)
+			Send "{Tab}"
+			
+			Sleep(156*3)
+			Send "^a"
+			Sleep(156*3)
+			Send "{Delete}"
+			Sleep(156*3)
+			Send "{Tab}"
+			Sleep(156*3)
+			Send "^a"
+			Sleep(156*3)
+			Send "{Delete}"
+			Sleep(156*3)
+			Send "{Tab}"
+			Sleep(156*3)
+			Send "127.0.0.1"
+			Sleep(156*3)
+			Send "{Tab}"
+			Sleep(156*3)
+			Send "9050"
+			Sleep(156*3)
+		}
+		if not click_wait_ImageSearch_in_folder("C:\deemator\img\06configok", 3) {
 			MsgBox_ImageSearch_not_supported()
 			return 0
 		} else {
