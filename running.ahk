@@ -48,7 +48,7 @@ check_connection_success(*) {
 			MsgBox("Connection took too long and was aborted. Try again.`nIf the issue persists, try reinstalling deemator.", window_title . ": ERROR")
 		}
 	} else if tor_launch_ordered {
-		stop_clicked()
+		try stop_clicked()
 		MsgBox("Tor process failed to start. Try again.`nIf the issue persists, try reinstalling deemator.", window_title . ": ERROR")
 	}
 }
