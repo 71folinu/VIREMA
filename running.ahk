@@ -6,6 +6,32 @@ enable_proxy() {
 			MsgBox_ImageSearch_not_supported()
 			return 0
 		}
+		if not click_wait_ImageSearch_in_folder("C:\deemator\img\04config", 3) {
+			MsgBox_ImageSearch_not_supported()
+			return 0
+		}
+		if not wait_ImageSearch_in_folder("C:\deemator\img\05configed", 3) {
+			MsgBox_ImageSearch_not_supported()
+			return 0
+		} else if not click_wait_ImageSearch_in_folder("C:\deemator\img\06configok", 3) {
+			MsgBox_ImageSearch_not_supported()
+			return 0
+		} else {
+			Sleep(156*3)
+			Send "{Tab 2}"
+			Sleep(156*3)
+			Send "{Enter}"
+			Sleep(156*3)
+			Send "{Escape}"
+			Sleep(156*3)
+			Send "{Alt down}"
+			Sleep(156*3)
+			Send "{F4}"
+			Sleep(156*3)
+			Send "{Alt up}"
+			Sleep(156*3)
+		}
+		return "DEBUG - CONFIGURED"
 	}
 }
 
