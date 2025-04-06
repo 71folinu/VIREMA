@@ -1,18 +1,31 @@
 ﻿; running.ahk - functions for app operation
 
-check_proxy_onoff() {
+enable_proxy() {
+	if check_proxy_err_off_on() = 1 {
+		if not click_wait_ImageSearch_in_folder("C:\deemator\img\03unchecked", 3) {
+			MsgBox_ImageSearch_not_supported()
+			return 0
+		}
+	}
+}
+
+disable_proxy() {
+	
+}
+
+check_proxy_err_off_on() {
 	RunWait "::{21EC2020-3AEA-1069-A2DD-08002B30309D}"
 	Sleep(156*1)
 	if not click_wait_ImageSearch_in_folder("C:\deemator\img\00browsersettings", 3) {
-		MsgBox("Looks like your version of Windows (language, theme or scaling)`nis not supported.`nSetup proxy manually or contact developer at`nhttps://github.com/samid36360/deemator/issues.", window_title . ": ERROR")
+		MsgBox_ImageSearch_not_supported()
 		return 0
 	}
 	if not click_wait_ImageSearch_in_folder("C:\deemator\img\01connections", 3) {
-		MsgBox("Looks like your version of Windows (language, theme or scaling)`nis not supported.`nSetup proxy manually or contact developer at`nhttps://github.com/samid36360/deemator/issues.", window_title . ": ERROR")
+		MsgBox_ImageSearch_not_supported()
 		return 0
 	}
 	if not click_wait_ImageSearch_in_folder("C:\deemator\img\02local", 3) {
-		MsgBox("Looks like your version of Windows (language, theme or scaling)`nis not supported.`nSetup proxy manually or contact developer at`nhttps://github.com/samid36360/deemator/issues.", window_title . ": ERROR")
+		MsgBox_ImageSearch_not_supported()
 		return 0
 	}
 	if wait_ImageSearch_in_folder("C:\deemator\img\03checked", 3) {
@@ -20,9 +33,13 @@ check_proxy_onoff() {
 	} else if wait_ImageSearch_in_folder("C:\deemator\img\03unchecked", 3) {
 		return 1
 	} else {
-		MsgBox("Looks like your version of Windows (language, theme or scaling)`nis not supported.`nSetup proxy manually or contact developer at`nhttps://github.com/samid36360/deemator/issues.", window_title . ": ERROR")
+		MsgBox_ImageSearch_not_supported()
 		return 0
 	}
+}
+
+MsgBox_ImageSearch_not_supported() {
+	MsgBox("Looks like your version of Windows (language, theme or scaling)`nis not supported.`nSetup proxy manually or contact developer at`nhttps://github.com/samid36360/deemator/issues.", window_title . ": ERROR")
 }
 
 click_wait_ImageSearch_in_folder(folder_full_path, timeout_secs) {
@@ -71,21 +88,17 @@ started() {
 	}
 }
 
-set_proxy_enabled(enabled) {
-	; MsgBox("set_proxy_enabled " . enabled)
-}
-
 stop_clicked(*) {
 	; MsgBox("stop_clicked")
 	ProcessClose("deemator_tor.exe")
-	set_proxy_enabled(false)
+	disable_proxy()
 	global tor_launch_ordered := 0
 }
 
 start_clicked(*) {
 	; MsgBox("start_clicked")
 	Run A_ComSpec ' /c ""C:\deemator\third_party\deemator_tor.exe" "-f" "C:\deemator\torrc" >"tor_log.txt""',,"Hide"
-	set_proxy_enabled(true)
+	enable_proxy()
 	SetTimer(check_connection_success, -1560*47)
 	global tor_launch_ordered := 1
 }

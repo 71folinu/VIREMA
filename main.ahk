@@ -134,5 +134,5 @@ main_window.OnEvent("Size", close_main)
 ; DEBUG
 ^r::Reload
 ^t:: {
-	MsgBox(check_proxy_onoff())
+	MsgBox(enable_proxy())
 }
