@@ -77,6 +77,7 @@ enable_proxy() {
 		}
 		return "DEBUG - CONFIGURED"
 	}
+	return "DEBUG - ALREADY ON"
 }
 
 disable_proxy() {
