@@ -1,4 +1,29 @@
-﻿click_wait_ImageSearch_in_folder(folder_full_path, timeout_secs) {
+﻿check_proxy_onoff() {
+	RunWait "::{21EC2020-3AEA-1069-A2DD-08002B30309D}"
+	Sleep(156*1)
+	if not click_wait_ImageSearch_in_folder("C:\deemator\img\00browsersettings", 3) {
+		MsgBox("Looks like your version of Windows (language, theme or scaling)`nis not supported.`nSetup proxy manually or contact developer at`nhttps://github.com/samid36360/deemator/issues.", window_title . ": ERROR")
+		return 0
+	}
+	if not click_wait_ImageSearch_in_folder("C:\deemator\img\01connections", 3) {
+		MsgBox("Looks like your version of Windows (language, theme or scaling)`nis not supported.`nSetup proxy manually or contact developer at`nhttps://github.com/samid36360/deemator/issues.", window_title . ": ERROR")
+		return 0
+	}
+	if not click_wait_ImageSearch_in_folder("C:\deemator\img\02local", 3) {
+		MsgBox("Looks like your version of Windows (language, theme or scaling)`nis not supported.`nSetup proxy manually or contact developer at`nhttps://github.com/samid36360/deemator/issues.", window_title . ": ERROR")
+		return 0
+	}
+	if wait_ImageSearch_in_folder("C:\deemator\img\03checked", 3) {
+		return 2
+	} else if wait_ImageSearch_in_folder("C:\deemator\img\03unchecked", 3) {
+		return 1
+	} else {
+		MsgBox("Looks like your version of Windows (language, theme or scaling)`nis not supported.`nSetup proxy manually or contact developer at`nhttps://github.com/samid36360/deemator/issues.", window_title . ": ERROR")
+		return 0
+	}
+}
+
+click_wait_ImageSearch_in_folder(folder_full_path, timeout_secs) {
 	if wait_ImageSearch_in_folder(folder_full_path, timeout_secs) {
 		Sleep(156)
 		Click(ImageSearch_in_folder_OutputVarX,ImageSearch_in_folder_OutputVarY)
