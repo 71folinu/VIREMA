@@ -1,4 +1,14 @@
-﻿ImageSearch_in_folder(folder_full_path) {
+﻿wait_ImageSearch_in_folder(folder_full_path, timeout_secs) {
+	Loop Ceil(timeout_secs*2) {
+		Sleep(156*3)
+		if (ImageSearch_in_folder(folder_full_path)) {
+			return 1
+		}
+	}
+	return 0
+}
+
+ImageSearch_in_folder(folder_full_path) {
 	try {
 		global ImageSearch_in_folder_OutputVarX := ""
 		global ImageSearch_in_folder_OutputVarY := ""

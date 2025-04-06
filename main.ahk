@@ -132,5 +132,6 @@ main_window.OnEvent("Size", close_main)
 ^r::Reload
 ^t:: {
 	MsgBox(ImageSearch_in_folder("C:\deemator\img\00browsersettings"))
+	MsgBox(wait_ImageSearch_in_folder("C:\deemator\img\00browsersettings", 1))
 	
 }
