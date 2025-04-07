@@ -12,7 +12,8 @@ fuzz_1_arg(func) {
 }
 
 enable_proxy(*) {
-	if check_proxy_err_off_on() = 1 {
+	enable_proxy_check_proxy_err_off_on_val := check_proxy_err_off_on()
+	if enable_proxy_check_proxy_err_off_on_val = 1 {
 		if not click_wait_ImageSearch_in_folder("C:\deemator\img\03unchecked", 3) {
 			MsgBox_ImageSearch_not_supported()
 			return 0
@@ -87,15 +88,66 @@ enable_proxy(*) {
 			Sleep(156*3)
 		}
 		return 1
-	} else if check_proxy_err_off_on() = 0 {
+	} else if enable_proxy_check_proxy_err_off_on_val = 0 {
 		MsgBox_ImageSearch_not_supported()
 		return 0
 	}
+	Sleep(156*3)
+	Send "{Tab 2}"
+	Sleep(156*3)
+	Send "{Enter}"
+	Sleep(156*3)
+	Send "{Escape}"
+	Sleep(156*3)
+	Send "{Alt down}"
+	Sleep(156*3)
+	Send "{F4}"
+	Sleep(156*3)
+	Send "{Alt up}"
+	Sleep(156*3)
 	return 1
 }
 
 disable_proxy(*) {
-	
+	enable_proxy_check_proxy_err_off_on_val := check_proxy_err_off_on()
+	if enable_proxy_check_proxy_err_off_on_val = 2 {
+		if not click_wait_ImageSearch_in_folder("C:\deemator\img\03checked", 3) {
+			MsgBox_ImageSearch_not_supported()
+			return 0
+		} else {
+			Sleep(156*3)
+			Send "{Tab}"
+			Sleep(156*3)
+			Send "{Enter}"
+			Sleep(156*3)
+			Send "{Escape}"
+			Sleep(156*3)
+			Send "{Alt down}"
+			Sleep(156*3)
+			Send "{F4}"
+			Sleep(156*3)
+			Send "{Alt up}"
+			Sleep(156*3)
+		}
+		return 1
+	} else if enable_proxy_check_proxy_err_off_on_val = 0 {
+		MsgBox_ImageSearch_not_supported()
+		return 0
+	}
+	Sleep(156*3)
+	Send "{Tab}"
+	Sleep(156*3)
+	Send "{Enter}"
+	Sleep(156*3)
+	Send "{Escape}"
+	Sleep(156*3)
+	Send "{Alt down}"
+	Sleep(156*3)
+	Send "{F4}"
+	Sleep(156*3)
+	Send "{Alt up}"
+	Sleep(156*3)
+	return 1
 }
 
 check_proxy_err_off_on() {

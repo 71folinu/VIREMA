@@ -135,4 +135,6 @@ main_window.OnEvent("Size", close_main)
 ^r::Reload
 ^t:: {
 	MsgBox(enable_proxy())
+	Sleep(156*3)
+	MsgBox(disable_proxy())
 }
