@@ -173,7 +173,9 @@ check_proxy_err_off_on() {
 }
 
 MsgBox_ImageSearch_not_supported(*) {
-	MsgBox("Looks like your version of Windows (language, theme or scaling)`nis not supported.`nSetup proxy manually or contact developer at`nhttps://github.com/samid36360/deemator/issues.", window_title . ": ERROR")
+	if MsgBox("Looks like your version of Windows (language, theme or scaling)`nis not supported.`nWould you like to see instructions`non how to setup proxy manually?", window_title . ": ERROR", "YN") = "Yes" {
+		Run("https://github.com/samid36360/deemator#handling-wndows-proxy-manualy")
+	}
 }
 
 click_wait_ImageSearch_in_folder(folder_full_path, timeout_secs) {
