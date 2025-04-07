@@ -13,7 +13,25 @@ fuzz_1_arg(func) {
 
 enable_proxy(*) {
 	enable_proxy_check_proxy_err_off_on_val := check_proxy_err_off_on()
-	if enable_proxy_check_proxy_err_off_on_val = 1 {
+	if enable_proxy_check_proxy_err_off_on_val = 2 {
+		Sleep(156*3)
+		Send "{Tab 2}"
+		Sleep(156*3)
+		Send "{Enter}"
+		Sleep(156*3)
+		Send "{Escape}"
+		Sleep(156*3)
+		Send "{Alt down}"
+		Sleep(156*3)
+		Send "{F4}"
+		Sleep(156*3)
+		Send "{Alt up}"
+		Sleep(156*3)
+		return 1
+	} else if enable_proxy_check_proxy_err_off_on_val = 0 {
+		MsgBox_ImageSearch_not_supported()
+		return 0
+	} else {
 		if not click_wait_ImageSearch_in_folder("C:\deemator\img\03unchecked", 3) {
 			MsgBox_ImageSearch_not_supported()
 			return 0
@@ -86,26 +104,9 @@ enable_proxy(*) {
 			Sleep(156*3)
 			Send "{Alt up}"
 			Sleep(156*3)
+			return 1
 		}
-		return 1
-	} else if enable_proxy_check_proxy_err_off_on_val = 0 {
-		MsgBox_ImageSearch_not_supported()
-		return 0
 	}
-	Sleep(156*3)
-	Send "{Tab 2}"
-	Sleep(156*3)
-	Send "{Enter}"
-	Sleep(156*3)
-	Send "{Escape}"
-	Sleep(156*3)
-	Send "{Alt down}"
-	Sleep(156*3)
-	Send "{F4}"
-	Sleep(156*3)
-	Send "{Alt up}"
-	Sleep(156*3)
-	return 1
 }
 
 disable_proxy(*) {
@@ -154,15 +155,12 @@ check_proxy_err_off_on() {
 	RunWait "::{21EC2020-3AEA-1069-A2DD-08002B30309D}"
 	Sleep(156*1)
 	if not click_wait_ImageSearch_in_folder("C:\deemator\img\00browsersettings", 3) {
-		MsgBox_ImageSearch_not_supported()
 		return 0
 	}
 	if not click_wait_ImageSearch_in_folder("C:\deemator\img\01connections", 3) {
-		MsgBox_ImageSearch_not_supported()
 		return 0
 	}
 	if not click_wait_ImageSearch_in_folder("C:\deemator\img\02local", 3) {
-		MsgBox_ImageSearch_not_supported()
 		return 0
 	}
 	if wait_ImageSearch_in_folder("C:\deemator\img\03checked", 3) {
@@ -170,7 +168,6 @@ check_proxy_err_off_on() {
 	} else if wait_ImageSearch_in_folder("C:\deemator\img\03unchecked", 3) {
 		return 1
 	} else {
-		MsgBox_ImageSearch_not_supported()
 		return 0
 	}
 }
@@ -226,14 +223,12 @@ started(*) {
 }
 
 stop_clicked(*) {
-	; MsgBox("stop_clicked")
 	ProcessClose("deemator_tor.exe")
 	disable_proxy()
 	global tor_launch_ordered := 0
 }
 
 start_clicked(*) {
-	; MsgBox("start_clicked")
 	Run A_ComSpec ' /c ""C:\deemator\third_party\deemator_tor.exe" "-f" "C:\deemator\torrc" >"tor_log.txt""',,"Hide"
 	enable_proxy()
 	SetTimer(check_connection_success, -1560*47)
