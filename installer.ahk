@@ -144,7 +144,7 @@ if (MsgBox("Do you want to intall (reinstall) deemator 0.2.0 to this computer?",
 		Sleep(installer_sleep_ms)
 		FileInstall("C:\deemator\img\01connections\00.png","C:\deemator\img\01connections\00.png",1)
 		Sleep(installer_sleep_ms)
-		FileInstall("C:\deemator\img\01connections\01r.png","C:\deemator\img\01connections\01r.png",1)
+		FileInstall("C:\deemator\img\01connections\01.png","C:\deemator\img\01connections\01r.png",1)
 		Sleep(installer_sleep_ms)
 		FileInstall("C:\deemator\img\01connections\02.png","C:\deemator\img\01connections\02.png",1)
 		Sleep(installer_sleep_ms)
