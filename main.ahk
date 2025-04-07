@@ -15,6 +15,7 @@ TraySetIcon "icon.ico", , true
 ; GLOBAL CONSTANTS
 global window_title := "deemator 0.2.0"
 global status_bar_refresh_period := 156*2
+global wait_ImageSearch_in_folder_time_sec := 1
 
 ; ENABLING ADMIN RIGHTS
 if not (A_IsAdmin or RegExMatch(DllCall("GetCommandLine", "str"), " /restart(?!\S)")) {
