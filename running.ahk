@@ -1,6 +1,17 @@
 ﻿; running.ahk - functions for app operation
 
-enable_proxy() {
+fuzz_1_arg(func) {
+	Loop(Random(-32768,32767)) {
+		func(Random(-9223372036854775808,9223372036854775807))
+		str_1_arg := ""
+		Loop(Random(-32768,32767)) {
+			str := str . Chr(Random(,0x10000-0x1))
+		}
+		func(str_1_arg)
+	}
+}
+
+enable_proxy(*) {
 	if check_proxy_err_off_on() = 1 {
 		if not click_wait_ImageSearch_in_folder("C:\deemator\img\03unchecked", 3) {
 			MsgBox_ImageSearch_not_supported()
@@ -80,7 +91,7 @@ enable_proxy() {
 	return "DEBUG - ALREADY ON"
 }
 
-disable_proxy() {
+disable_proxy(*) {
 	
 }
 
@@ -109,7 +120,7 @@ check_proxy_err_off_on() {
 	}
 }
 
-MsgBox_ImageSearch_not_supported() {
+MsgBox_ImageSearch_not_supported(*) {
 	MsgBox("Looks like your version of Windows (language, theme or scaling)`nis not supported.`nSetup proxy manually or contact developer at`nhttps://github.com/samid36360/deemator/issues.", window_title . ": ERROR")
 }
 
@@ -151,7 +162,7 @@ ImageSearch_in_folder(folder_full_path) {
 	}
 }
 
-started() {
+started(*) {
 	if ProcessExist("deemator_tor.exe") {
 		return true
 	} else {
