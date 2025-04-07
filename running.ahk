@@ -86,9 +86,12 @@ enable_proxy(*) {
 			Send "{Alt up}"
 			Sleep(156*3)
 		}
-		return "DEBUG - CONFIGURED"
+		return 1
+	} else if check_proxy_err_off_on() = 0 {
+		MsgBox_ImageSearch_not_supported()
+		return 0
 	}
-	return "DEBUG - ALREADY ON"
+	return 1
 }
 
 disable_proxy(*) {
