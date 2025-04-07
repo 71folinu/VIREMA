@@ -164,8 +164,6 @@ if (MsgBox("Do you want to intall (reinstall) deemator 0.2.0 to this computer?",
 		Sleep(installer_sleep_ms)
 		FileInstall("C:\deemator\img\06configok\00.png","C:\deemator\img\06configok\00.png",1)
 		Sleep(installer_sleep_ms)
-		FileInstall("C:\deemator\img\06configok\01.png","C:\deemator\img\06configok\01.png",1)
-		Sleep(installer_sleep_ms)
 	} catch {
 		MsgBox("C:\deemator\img", "deemator 0.2.0 installer error")
 		ExitApp
