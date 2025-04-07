@@ -226,15 +226,15 @@ started(*) {
 
 stop_clicked(*) {
 	ProcessClose("deemator_tor.exe")
-	disable_proxy()
 	global tor_launch_ordered := 0
+	MsgBox(disable_proxy())
 }
 
 start_clicked(*) {
 	Run A_ComSpec ' /c ""C:\deemator\third_party\deemator_tor.exe" "-f" "C:\deemator\torrc" >"tor_log.txt""',,"Hide"
-	enable_proxy()
 	SetTimer(check_connection_success, -1560*47)
 	global tor_launch_ordered := 1
+	MsgBox(enable_proxy())
 }
 
 check_connection_success(*) {

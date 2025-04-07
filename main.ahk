@@ -39,17 +39,20 @@ status_bar.SetFont("s8")
 if (started() = true) {
 	global title_status := main_window.Add("Text", "+x150 +y60 +w100 +h30 +Center", "Loading...")
 	title_status.SetFont("s13 cAAAAAA")
-	global startstop_button := main_window.Add("Button", "+x10 +y100 +w100 +h50", "Loading...")
+	global startstop_button := main_window.Add("Button", "+x10 +y100 +w120 +h80", "Loading...")
 	startstop_button.SetFont("s11")
 } else {
 	global title_status := main_window.Add("Text", "+x150 +y60 +w100 +h30 +Center", "Loading...")
 	title_status.SetFont("s13 c990000")
-	global startstop_button := main_window.Add("Button", "+x10 +y100 +w100 +h50", "Loading...")
+	global startstop_button := main_window.Add("Button", "+x10 +y100 +w120 +h80", "Loading...")
 	startstop_button.SetFont("s11")
 }
-global see_logs_button := main_window.Add("Button", "+x10 +y160 +w100 +h50", "See logs")
+global see_logs_button := main_window.Add("Button", "+x10 +y190 +w120 +h80", "See logs")
 see_logs_button.SetFont("s11")
 see_logs_button.OnEvent("Click", see_logs_button_clicked)
+global force_disable_proxy := main_window.Add("Button", "+x270 +y190 +w120 +h80", "FORCE`nDISABLE`nPROXY")
+force_disable_proxy.SetFont("s11")
+force_disable_proxy.OnEvent("Click", disable_proxy)
 
 ; REFRESHING STATUS BAR
 refresh_status(*) {
@@ -138,4 +141,20 @@ main_window.OnEvent("Size", close_main)
 		MsgBox(enable_proxy())
 	else
 		MsgBox(disable_proxy())
+}
+^b:: {
+	global button_pos_x := InputBox().Value
+	global button_pos_y := InputBox().Value
+	global window_w := 400
+	global window_h := 300 - 20
+	global button_total_x := 3
+	global button_total_y := 3
+	global space_size := 10
+	global spaces_count_x := button_total_x + 1
+	global spaces_count_y := button_total_y + 1
+	global button_w := (window_w - (spaces_count_x * space_size)) / button_total_x
+	global button_h := (window_h - (spaces_count_y * space_size)) / button_total_y
+	global button_x := 10*(button_pos_x+1) + (button_w*(button_pos_x))
+	global button_y := 10*(button_pos_y+1) + (button_h*(button_pos_y))
+	MsgBox("button_w " . button_w . "button_h " . button_h . "`nbutton_x " . button_x . "button_y " . button_y)
 }
