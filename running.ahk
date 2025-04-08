@@ -13,14 +13,17 @@ fuzz_1_arg(func) {
 }
 
 enable_proxy(*) {
+	global exit_allowed := 0
 	enable_proxy_check_proxy_err_off_on_val := check_proxy_err_off_on()
 	if enable_proxy_check_proxy_err_off_on_val = 1 {
 		if not click_wait_ImageSearch_in_folder("C:\deemator\img\03unchecked", wait_ImageSearch_in_folder_time_sec) {
 			MsgBox_ImageSearch_not_supported()
+			global exit_allowed := 1
 			return 0
 		}
 		if not click_wait_ImageSearch_in_folder("C:\deemator\img\04config", wait_ImageSearch_in_folder_time_sec) {
 			MsgBox_ImageSearch_not_supported()
+			global exit_allowed := 1
 			return 0
 		}
 		if not wait_ImageSearch_in_folder("C:\deemator\img\05configed", wait_ImageSearch_in_folder_time_sec) {
@@ -72,6 +75,7 @@ enable_proxy(*) {
 		}
 		if not click_wait_ImageSearch_in_folder("C:\deemator\img\06configok", wait_ImageSearch_in_folder_time_sec) {
 			MsgBox_ImageSearch_not_supported()
+			global exit_allowed := 1
 			return 0
 		} else {
 			Sleep(156*3)
@@ -87,10 +91,12 @@ enable_proxy(*) {
 			Sleep(156*3)
 			Send "{Alt up}"
 			Sleep(156*3)
+			global exit_allowed := 1
 			return 1
 		}
 	} else if enable_proxy_check_proxy_err_off_on_val = 0 {
 		MsgBox_ImageSearch_not_supported()
+		global exit_allowed := 1
 		return 0
 	} else {
 		Sleep(156*3)
@@ -106,15 +112,18 @@ enable_proxy(*) {
 		Sleep(156*3)
 		Send "{Alt up}"
 		Sleep(156*3)
+		global exit_allowed := 1
 		return 1
 	}
 }
 
 disable_proxy(*) {
+	global exit_allowed := 0
 	enable_proxy_check_proxy_err_off_on_val := check_proxy_err_off_on()
 	if enable_proxy_check_proxy_err_off_on_val = 2 {
 		if not click_wait_ImageSearch_in_folder("C:\deemator\img\03checked", wait_ImageSearch_in_folder_time_sec) {
 			MsgBox_ImageSearch_not_supported()
+			global exit_allowed := 1
 			return 0
 		} else {
 			Sleep(156*3)
@@ -131,25 +140,29 @@ disable_proxy(*) {
 			Send "{Alt up}"
 			Sleep(156*3)
 		}
+		global exit_allowed := 1
 		return 1
 	} else if enable_proxy_check_proxy_err_off_on_val = 0 {
 		MsgBox_ImageSearch_not_supported()
+		global exit_allowed := 1
 		return 0
+	} else {
+		Sleep(156*3)
+		Send "{Tab}"
+		Sleep(156*3)
+		Send "{Enter}"
+		Sleep(156*3)
+		Send "{Escape}"
+		Sleep(156*3)
+		Send "{Alt down}"
+		Sleep(156*3)
+		Send "{F4}"
+		Sleep(156*3)
+		Send "{Alt up}"
+		Sleep(156*3)
+		global exit_allowed := 1
+		return 1
 	}
-	Sleep(156*3)
-	Send "{Tab}"
-	Sleep(156*3)
-	Send "{Enter}"
-	Sleep(156*3)
-	Send "{Escape}"
-	Sleep(156*3)
-	Send "{Alt down}"
-	Sleep(156*3)
-	Send "{F4}"
-	Sleep(156*3)
-	Send "{Alt up}"
-	Sleep(156*3)
-	return 1
 }
 
 check_proxy_err_off_on() {
@@ -268,9 +281,6 @@ check_string_in_log(string) {
 ; Loading...
 
 update_logs_window_field(*) {
-	if WinExist(window_title . " - tor logs") and not WinActive(window_title . " - tor logs") {
-		close_logs_window()
-	}
 	try {
 		if logs_window_field.Text != FileRead("C:\deemator\tor_log.txt") {
 			logs_window_field.Text := FileRead("C:\deemator\tor_log.txt")
@@ -283,10 +293,6 @@ update_logs_window_field(*) {
 	global logs_window_field_text_updated := 0
 }
 
-close_logs_window(*){
-	logs_window.Destroy()
-}
-
 see_logs_button_clicked(*) {
 	global logs_window := Gui.Call(,window_title . " - tor logs")
 	global logs_window_field := logs_window.Add("Edit", "+x10 +y10 +w380 +h260 ReadOnly", "No logs were found.")
@@ -294,10 +300,6 @@ see_logs_button_clicked(*) {
 	logs_window.Show("Center W400 H300")
 	Send("^{End}")
 	Sleep(156)
-	logs_window.OnEvent("Close", close_logs_window)
-	logs_window.OnEvent("Size", close_logs_window)
-	logs_window.OnEvent("Escape", close_logs_window)
-	logs_window.OnEvent("ContextMenu", close_logs_window)
-	global logs_status_bar := logs_window.Add("StatusBar",, " Press ESC or close the window to return to main menu.")
+	global logs_status_bar := logs_window.Add("StatusBar",, " Close the window to return to main menu.")
 	logs_status_bar.SetFont("s8")
 }

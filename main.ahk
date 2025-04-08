@@ -13,6 +13,7 @@ TraySetIcon "icon.ico", , true
 #include running.ahk
 
 ; GLOBAL CONSTANTS
+global exit_allowed := 1
 global window_title := "deemator 0.2.0"
 global status_bar_refresh_period := 156*2
 global wait_ImageSearch_in_folder_time_sec := 1
@@ -57,6 +58,9 @@ force_disable_proxy.OnEvent("Click", disable_proxy)
 
 ; REFRESHING STATUS BAR
 refresh_status(*) {
+	if WinExist(window_title) and not WinActive(window_title) and exit_allowed {
+		ExitApp
+	}
 	update_logs_window_field()
 	if (started()) {
 		if not title_status.Text = "Started." {
@@ -138,10 +142,19 @@ main_window.OnEvent("Size", close_main)
 ; DEBUG
 ^r::Reload
 ^t:: {
-	if MsgBox(,,"YN") = "Yes"
-		MsgBox(enable_proxy())
-	else
-		MsgBox(disable_proxy())
+	if MsgBox(,,"YN") = "Yes" {
+		if MsgBox(,,"YN") = "Yes" {
+			MsgBox(enable_proxy())
+		} else {
+			MsgBox(disable_proxy())
+		}
+	} else {
+		if MsgBox(,,"YN") = "Yes" {
+			MsgBox(exit_allowed)
+		} else {
+			MsgBox(disable_proxy())
+		}
+	}
 }
 ^b:: {
 	global button_pos_x := InputBox().Value
