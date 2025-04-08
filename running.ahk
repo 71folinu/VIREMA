@@ -1,13 +1,14 @@
 ﻿; running.ahk - functions for app operation
 
 fuzz_1_arg(func) {
-	Loop(Random(-32768,32767)) {
+	Loop(Random(1023)) {
 		func(Random(-9223372036854775808,9223372036854775807))
 		str_1_arg := ""
 		Loop(Random(-32768,32767)) {
 			str := str . Chr(Random(,0x10000-0x1))
 		}
 		func(str_1_arg)
+		func()
 	}
 }
 
@@ -205,7 +206,7 @@ ImageSearch_in_folder(folder_full_path) {
 		global ImageSearch_in_folder_OutputVarX := ""
 		global ImageSearch_in_folder_OutputVarY := ""
 		Loop Files folder_full_path . "\*.*" {
-			ImageSearch &ImageSearch_in_folder_OutputVarX, &ImageSearch_in_folder_OutputVarY, 0, 0, A_ScreenWidth, A_ScreenHeight, A_LoopFileFullPath
+			ImageSearch &ImageSearch_in_folder_OutputVarX, &ImageSearch_in_folder_OutputVarY, 0, 0, A_ScreenWidth, A_ScreenHeight, "*31 " . A_LoopFileFullPath
 			if ImageSearch_in_folder_OutputVarX and ImageSearch_in_folder_OutputVarY {
 				return 1
 			}
