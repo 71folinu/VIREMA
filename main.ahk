@@ -13,7 +13,6 @@ TraySetIcon "icon.ico", , true
 #include running.ahk
 
 ; GLOBAL CONSTANTS
-data_update()
 global exit_allowed := 1
 global window_title := "deemator 0.3.0"
 global status_bar_refresh_period := 156*2
@@ -33,6 +32,9 @@ if not (A_IsAdmin) {
 	MsgBox "A_IsAdmin: " A_IsAdmin "`nCommand line: " DllCall("GetCommandLine", "str"), window_title
 	ExitApp
 }
+
+; GLOBAL VARIABLES
+data_update()
 
 ; BULDING WINDOW
 global main_window := Gui.Call(,window_title)
@@ -148,6 +150,9 @@ Loop {
 		Break
 	}
 	global button_pos_y := InputBox("button_pos","button_pos").Value
+	if (button_pos_y = "") {
+		Break
+	}
 	global window_w := 400
 	global window_h := 300 - 20
 	global button_total_x := 3
@@ -163,4 +168,5 @@ Loop {
 	Break
 }
 data_MsgBox()
+MsgBox(data_var_encrypt(InputBox("data_var_encrypt","data_var_encrypt").Value))
 global exit_allowed := 1

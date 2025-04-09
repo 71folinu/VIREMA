@@ -1,5 +1,20 @@
 ﻿; running.ahk - functions for app operation
 
+data_var_encrypt(var_in) {
+	str_in := String(var_in)
+	str_out := ""
+	Loop {
+		if A_Index = 1 {
+			str_out := Ord(SubStr(str_in,A_Index,1))
+		} else if A_index <= StrLen(str_in) {
+			str_out := str_out . " " . Ord(SubStr(str_in,A_Index,1))
+		} else {
+			Break
+		}
+	}
+	return str_out
+}
+
 data_MsgBox(*) {
 	MsgBox(data_launch_count . "`n" . data_custom_text . "`n" . data_datetime_utc, "data.virema")
 }
@@ -21,22 +36,22 @@ data_write(*) {
 }
 
 data_read(*) {
-	Loop 2 {
-		Loop Read "data.virema" {
-			if (A_Index = 1) {
-				global data_launch_count := A_LoopReadLine
-			}
-			if (A_Index = 2) {
-				global data_custom_text := A_LoopReadLine
-			}
-			if (A_Index = 3) {
-				global data_datetime_utc := A_LoopReadLine
-			}
-		} else {
-			FileAppend(0 . "`n", "data.virema")
-			FileAppend("this is custom text" . "`n", "data.virema")
-			FileAppend(A_NowUTC, "data.virema")
+	Loop Read "data.virema" {
+		if (A_Index = 1) {
+			global data_launch_count := A_LoopReadLine
 		}
+		if (A_Index = 2) {
+			global data_custom_text := A_LoopReadLine
+		}
+		if (A_Index = 3) {
+			global data_datetime_utc := A_LoopReadLine
+		}
+	} else {
+		FileAppend(0 . "`n", "data.virema")
+		FileAppend("this is custom text" . "`n", "data.virema")
+		FileAppend(A_NowUTC, "data.virema")
+		Sleep(156)
+		data_read()
 	}
 }
 
