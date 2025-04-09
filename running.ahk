@@ -13,17 +13,20 @@ fuzz_1_arg(func) {
 }
 
 enable_proxy(*) {
+	BlockInput 1
 	global exit_allowed := 0
 	enable_proxy_check_proxy_err_off_on_val := check_proxy_err_off_on()
 	if enable_proxy_check_proxy_err_off_on_val = 1 {
 		if not click_wait_ImageSearch_in_folder("C:\deemator\img\03unchecked", wait_ImageSearch_in_folder_time_sec) {
 			MsgBox_ImageSearch_not_supported()
 			global exit_allowed := 1
+			BlockInput 0
 			return 0
 		}
 		if not click_wait_ImageSearch_in_folder("C:\deemator\img\04config", wait_ImageSearch_in_folder_time_sec) {
 			MsgBox_ImageSearch_not_supported()
 			global exit_allowed := 1
+			BlockInput 0
 			return 0
 		}
 		if not wait_ImageSearch_in_folder("C:\deemator\img\05configed", wait_ImageSearch_in_folder_time_sec) {
@@ -76,6 +79,7 @@ enable_proxy(*) {
 		if not click_wait_ImageSearch_in_folder("C:\deemator\img\06configok", wait_ImageSearch_in_folder_time_sec) {
 			MsgBox_ImageSearch_not_supported()
 			global exit_allowed := 1
+			BlockInput 0
 			return 0
 		} else {
 			Sleep(156*3)
@@ -92,11 +96,13 @@ enable_proxy(*) {
 			Send "{Alt up}"
 			Sleep(156*3)
 			global exit_allowed := 1
+			BlockInput 0
 			return 1
 		}
 	} else if enable_proxy_check_proxy_err_off_on_val = 0 {
 		MsgBox_ImageSearch_not_supported()
 		global exit_allowed := 1
+		BlockInput 0
 		return 0
 	} else {
 		Sleep(156*3)
@@ -113,17 +119,20 @@ enable_proxy(*) {
 		Send "{Alt up}"
 		Sleep(156*3)
 		global exit_allowed := 1
+		BlockInput 0
 		return 1
 	}
 }
 
 disable_proxy(*) {
+	BlockInput 1
 	global exit_allowed := 0
 	enable_proxy_check_proxy_err_off_on_val := check_proxy_err_off_on()
 	if enable_proxy_check_proxy_err_off_on_val = 2 {
 		if not click_wait_ImageSearch_in_folder("C:\deemator\img\03checked", wait_ImageSearch_in_folder_time_sec) {
 			MsgBox_ImageSearch_not_supported()
 			global exit_allowed := 1
+			BlockInput 0
 			return 0
 		} else {
 			Sleep(156*3)
@@ -141,10 +150,12 @@ disable_proxy(*) {
 			Sleep(156*3)
 		}
 		global exit_allowed := 1
+		BlockInput 0
 		return 1
 	} else if enable_proxy_check_proxy_err_off_on_val = 0 {
 		MsgBox_ImageSearch_not_supported()
 		global exit_allowed := 1
+		BlockInput 0
 		return 0
 	} else {
 		Sleep(156*3)
@@ -161,6 +172,7 @@ disable_proxy(*) {
 		Send "{Alt up}"
 		Sleep(156*3)
 		global exit_allowed := 1
+		BlockInput 0
 		return 1
 	}
 }
