@@ -28,5 +28,5 @@ Steps necessary to compile the installer (the single distributed file):
 4. Move the result `deemator installer.exe` outside of the app working directory (it might delete itself when testing).
 
 > [!WARNING]
-> Program must be compiled using AutoHotKey version 2.0.19, undefined behavior might be expected otherwise.  
+> Program must be compiled using AutoHotkey version 2.0.19, undefined behavior might be expected otherwise.  
 > All the changes in file structure during development will have to be also written to the installer script for correct compilation.
