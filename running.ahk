@@ -55,18 +55,6 @@ data_read(*) {
 	}
 }
 
-fuzz_1_arg(func) {
-	Loop(Random(1023)) {
-		func(Random(-9223372036854775808,9223372036854775807))
-		str_1_arg := ""
-		Loop(Random(-32768,32767)) {
-			str := str . Chr(Random(,0x10000-0x1))
-		}
-		func(str_1_arg)
-		func()
-	}
-}
-
 enable_proxy(*) {
 	BlockInput 1
 	global exit_allowed := 0
