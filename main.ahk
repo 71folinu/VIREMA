@@ -7,14 +7,14 @@ Persistent
 #NoTrayIcon
 TraySetIcon "icon.ico", , true
 ;@Ahk2Exe-SetName deemator
-;@Ahk2Exe-SetVersion 0.2.0
+;@Ahk2Exe-SetVersion 0.3.0
 
 ; INCLUDES
 #include running.ahk
 
 ; GLOBAL CONSTANTS
 global exit_allowed := 1
-global window_title := "deemator 0.2.0"
+global window_title := "deemator 0.3.0"
 global status_bar_refresh_period := 156*2
 global wait_ImageSearch_in_folder_time_sec := 1
 
