@@ -168,5 +168,5 @@ Loop {
 	Break
 }
 data_MsgBox()
-MsgBox(data_var_encrypt(InputBox("data_var_encrypt","data_var_encrypt").Value))
+MsgBox("|" . data_var_encrypt(InputBox("data_var_encrypt","data_var_encrypt").Value) . "|")
 global exit_allowed := 1
