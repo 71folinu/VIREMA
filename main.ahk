@@ -140,25 +140,13 @@ main_window.OnEvent("Close", close_main)
 main_window.OnEvent("Size", close_main)
 
 ; DEBUG
-^r::Reload
-^t:: {
-	if MsgBox(,,"YN") = "Yes" {
-		if MsgBox(,,"YN") = "Yes" {
-			MsgBox(enable_proxy())
-		} else {
-			MsgBox(disable_proxy())
-		}
-	} else {
-		if MsgBox(,,"YN") = "Yes" {
-			MsgBox(exit_allowed)
-		} else {
-			MsgBox(disable_proxy())
-		}
+global exit_allowed := 0
+Loop {
+	global button_pos_x := InputBox("button_pos","button_pos").Value
+	if (button_pos_x = "") {
+		Break
 	}
-}
-^b:: {
-	global button_pos_x := InputBox().Value
-	global button_pos_y := InputBox().Value
+	global button_pos_y := InputBox("button_pos","button_pos").Value
 	global window_w := 400
 	global window_h := 300 - 20
 	global button_total_x := 3
@@ -170,5 +158,9 @@ main_window.OnEvent("Size", close_main)
 	global button_h := (window_h - (spaces_count_y * space_size)) / button_total_y
 	global button_x := 10*(button_pos_x+1) + (button_w*(button_pos_x))
 	global button_y := 10*(button_pos_y+1) + (button_h*(button_pos_y))
-	MsgBox("button_w " . button_w . "button_h " . button_h . "`nbutton_x " . button_x . "button_y " . button_y)
+	MsgBox(button_x . "`n" . button_y . "`n" . button_w . "`n" . button_h)
+	Break
 }
+data_update()
+data_MsgBox()
+global exit_allowed := 1

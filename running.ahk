@@ -1,5 +1,45 @@
 ﻿; running.ahk - functions for app operation
 
+data_MsgBox(*) {
+	MsgBox(data_launch_count . "`n" . data_custom_text . "`n" . data_datetime_utc, "data.virema")
+}
+
+data_update(*) {
+	data_read()
+	global data_launch_count := data_launch_count + 1
+	global data_datetime_utc := A_NowUTC
+	data_write()
+}
+
+data_write(*) {
+	if FileExist("data.virema") {
+		FileDelete("data.virema")
+	}
+	FileAppend(data_launch_count . "`n", "data.virema")
+	FileAppend(data_custom_text . "`n", "data.virema")
+	FileAppend(data_datetime_utc, "data.virema")
+}
+
+data_read(*) {
+	Loop 2 {
+		Loop Read "data.virema" {
+			if (A_Index = 1) {
+				global data_launch_count := A_LoopReadLine
+			}
+			if (A_Index = 2) {
+				global data_custom_text := A_LoopReadLine
+			}
+			if (A_Index = 3) {
+				global data_datetime_utc := A_LoopReadLine
+			}
+		} else {
+			FileAppend(0 . "`n", "data.virema")
+			FileAppend("this is custom text" . "`n", "data.virema")
+			FileAppend(A_NowUTC, "data.virema")
+		}
+	}
+}
+
 fuzz_1_arg(func) {
 	Loop(Random(1023)) {
 		func(Random(-9223372036854775808,9223372036854775807))
