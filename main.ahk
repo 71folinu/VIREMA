@@ -13,6 +13,7 @@ TraySetIcon "icon.ico", , true
 #include running.ahk
 
 ; GLOBAL CONSTANTS
+data_update()
 global exit_allowed := 1
 global window_title := "deemator 0.3.0"
 global status_bar_refresh_period := 156*2
@@ -161,6 +162,5 @@ Loop {
 	MsgBox(button_x . "`n" . button_y . "`n" . button_w . "`n" . button_h)
 	Break
 }
-data_update()
 data_MsgBox()
 global exit_allowed := 1
