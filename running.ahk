@@ -41,12 +41,13 @@ data_var_encrypt(var_in) {
 }
 
 data_MsgBox(*) {
-	MsgBox(data_launch_count . "`n" . data_custom_text . "`n" . data_placeholder . "`n" . data_running_compiled . "`n" . data_debug_set . "`n" . data_datetime_utc . "`n" . data_end_line, "userdata.virema")
+	MsgBox(data_launch_count . "`n" . data_custom_text . "`n" . data_placeholder . "`n" . data_A_TickCount . "`n" . data_running_compiled . "`n" . data_debug_set . "`n" . data_datetime_utc . "`n" . data_end_line, "userdata.virema")
 }
 
 data_update(*) {
 	data_read()
 	global data_launch_count := data_launch_count + 1
+	global data_A_TickCount := A_TickCount / 1000 / 60 / 60
 	global data_datetime_utc := A_NowUTC
 	data_write()
 }
@@ -58,6 +59,7 @@ data_write(*) {
 	FileAppend(data_var_encrypt(data_launch_count) . "`n", "userdata.virema")
 	FileAppend(data_var_encrypt(data_custom_text) . "`n", "userdata.virema")
 	FileAppend(data_var_encrypt(data_placeholder) . "`n", "userdata.virema")
+	FileAppend(data_var_encrypt(data_A_TickCount) . "`n", "userdata.virema")
 	FileAppend(data_var_encrypt(data_running_compiled) . "`n", "userdata.virema")
 	FileAppend(data_var_encrypt(data_debug_set) . "`n", "userdata.virema")
 	FileAppend(data_var_encrypt(data_datetime_utc) . "`n", "userdata.virema")
@@ -89,21 +91,25 @@ data_read(*) {
 			global data_placeholder := data_var_decrypt(A_LoopReadLine)
 		}
 		if (A_Index = 4) {
-			global data_running_compiled := data_var_decrypt(A_LoopReadLine)
+			global data_A_TickCount := data_var_decrypt(A_LoopReadLine)
 		}
 		if (A_Index = 5) {
-			global data_debug_set := data_var_decrypt(A_LoopReadLine)
+			global data_running_compiled := data_var_decrypt(A_LoopReadLine)
 		}
 		if (A_Index = 6) {
-			global data_datetime_utc := data_var_decrypt(A_LoopReadLine)
+			global data_debug_set := data_var_decrypt(A_LoopReadLine)
 		}
 		if (A_Index = 7) {
+			global data_datetime_utc := data_var_decrypt(A_LoopReadLine)
+		}
+		if (A_Index = 8) {
 			global data_end_line := data_var_decrypt(A_LoopReadLine)
 		}
 	} else {
 		FileAppend(data_var_encrypt("0") . "`n", "userdata.virema")
 		FileAppend(data_var_encrypt("this is custom text") . "`n", "userdata.virema")
 		FileAppend(data_var_encrypt("data_placeholder") . "`n", "userdata.virema")
+		FileAppend(data_var_encrypt(A_TickCount / 1000 / 60 / 60) . "`n", "userdata.virema")
 		FileAppend(data_var_encrypt(A_IsCompiled) . "`n", "userdata.virema")
 		FileAppend(data_var_encrypt("``1234567890-=QWERTYUIOP[]\ASDFGHJKL;'ZXCVBNM,./~!@#$%^&*()_+qwertyuiop{}|asdfghjkl:`"zxcvbnm<>?") . "`n", "userdata.virema")
 		FileAppend(data_var_encrypt(A_NowUTC) . "`n", "userdata.virema")
