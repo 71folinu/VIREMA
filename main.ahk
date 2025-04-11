@@ -177,5 +177,5 @@ Loop {
 	MsgBox("|" . data_var_decrypt(data_var_encrypt(debug_data_var)) . "|", "decrypted")
 	Break
 }
-	global exit_allowed := 1
-	; `1234567890-=QWERTYUIOP[]\ASDFGHJKL;'ZXCVBNM,./~!@#$%^&*()_+qwertyuiop{}|asdfghjkl:"zxcvbnm<>?
+global exit_allowed := 1
+; `1234567890-=QWERTYUIOP[]\ASDFGHJKL;'ZXCVBNM,./~!@#$%^&*()_+qwertyuiop{}|asdfghjkl:"zxcvbnm<>?
