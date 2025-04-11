@@ -42,7 +42,7 @@ data_update()
 
 ; BULDING WINDOW
 global main_window := Gui.Call(,window_title)
-main_window.Add("Text", "+x105 +y10 +w190 +h40 +Center", "DEEMATOR").SetFont("s24")
+main_window.Add("Text", "+x105 +y10 +w190 +h40 +Center", "VIREMA").SetFont("s24")
 global status_bar := main_window.Add("StatusBar",, " Loading...")
 status_bar.SetFont("s8")
 if (started() = true) {
