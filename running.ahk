@@ -92,22 +92,22 @@ data_read(*) {
 		if (A_Index = 3) {
 			global data_placeholder := data_var_decrypt(A_LoopReadLine)
 		}
-		if (A_Index = 3) {
+		if (A_Index = 4) {
 			global data_A_OSVersion := data_var_decrypt(A_LoopReadLine)
 		}
-		if (A_Index = 4) {
+		if (A_Index = 5) {
 			global data_A_TickCount := data_var_decrypt(A_LoopReadLine)
 		}
-		if (A_Index = 5) {
+		if (A_Index = 6) {
 			global data_running_compiled := data_var_decrypt(A_LoopReadLine)
 		}
-		if (A_Index = 6) {
+		if (A_Index = 7) {
 			global data_debug_set := data_var_decrypt(A_LoopReadLine)
 		}
-		if (A_Index = 7) {
+		if (A_Index = 8) {
 			global data_datetime_utc := data_var_decrypt(A_LoopReadLine)
 		}
-		if (A_Index = 8) {
+		if (A_Index = 9) {
 			global data_end_line := data_var_decrypt(A_LoopReadLine)
 		}
 	} else {
