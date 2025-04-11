@@ -61,6 +61,9 @@ refresh_status(*) {
 	if WinExist(window_title) and not WinActive(window_title) and exit_allowed {
 		ExitApp
 	}
+	if WinExist(window_title . " - tor logs") and not WinActive(window_title . " - tor logs") {
+		WinClose(window_title . " - tor logs")
+	}
 	update_logs_window_field()
 	if (started()) {
 		if not title_status.Text = "Started." {
