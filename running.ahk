@@ -48,7 +48,14 @@ data_write(*) {
 	FileAppend(data_var_encrypt(data_placeholder_1) . "`n", "data.virema")
 	FileAppend(data_var_encrypt(data_debug_set) . "`n", "data.virema")
 	FileAppend(data_var_encrypt(data_datetime_utc), "data.virema")
-	FileAppend(data_var_encrypt(data_end_line), "data.virema")
+	try {
+		FileAppend(data_var_encrypt(data_end_line), "data.virema")
+	} catch {
+		if FileExist("data.virema") {
+			FileDelete("data.virema")
+			Reload
+		}
+	}
 }
 
 data_read(*) {
