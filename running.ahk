@@ -444,7 +444,7 @@ see_logs_button_clicked(*) {
 	global logs_window := Gui.Call(,window_title . " - tor logs")
 	global logs_window_field := logs_window.Add("Edit", "+x10 +y10 +w380 +h260 ReadOnly", "No logs were found.")
 	Sleep(156)
-	logs_window.Show("Center W400 H300")
+	logs_window.Show("X" . main_window_pos_x + main_window_pos_w + 95 . " " . "Y" . main_window_pos_y . " W400 H300")
 	Send("^{End}")
 	Sleep(156)
 	global logs_status_bar := logs_window.Add("StatusBar",, " Close the window to return to main menu.")

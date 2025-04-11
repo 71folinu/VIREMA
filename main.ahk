@@ -131,6 +131,11 @@ Sleep(156)
 
 ; SHOWING WINDOW
 main_window.Show("Center W400 H300")
+global main_window_pos_x := ""
+global main_window_pos_y := ""
+global main_window_pos_w := ""
+global main_window_pos_h := ""
+main_window.GetPos(&main_window_pos_x,&main_window_pos_y,&main_window_pos_w,&main_window_pos_h)
 
 ; HANDLING WINDOW
 close_main(*){
