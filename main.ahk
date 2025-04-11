@@ -167,9 +167,15 @@ Loop {
 	MsgBox(button_x . "`n" . button_y . "`n" . button_w . "`n" . button_h)
 	Break
 }
-data_MsgBox()
-global debug_data_var := InputBox("data_var_encrypt","data_var_encrypt").Value
-MsgBox("|" . data_var_encrypt(debug_data_var) . "|")
-MsgBox("|" . data_var_decrypt(data_var_encrypt(debug_data_var)) . "|")
-global exit_allowed := 1
-; `1234567890-=QWERTYUIOP[]\ASDFGHJKL;'ZXCVBNM,./~!@#$%^&*()_+qwertyuiop{}|asdfghjkl:"zxcvbnm<>?
+Loop {
+	data_MsgBox()
+	global debug_data_var := InputBox("to_encrypt").Value
+	if debug_data_var = "" {
+		Break
+	}
+	MsgBox("|" . data_var_encrypt(debug_data_var) . "|", "enchrypted")
+	MsgBox("|" . data_var_decrypt(data_var_encrypt(debug_data_var)) . "|", "decrypted")
+	Break
+}
+	global exit_allowed := 1
+	; `1234567890-=QWERTYUIOP[]\ASDFGHJKL;'ZXCVBNM,./~!@#$%^&*()_+qwertyuiop{}|asdfghjkl:"zxcvbnm<>?

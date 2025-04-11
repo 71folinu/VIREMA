@@ -7,7 +7,7 @@ data_var_decrypt(data_var_decrypt_var_in) {
 	}
 	global data_var_decrypt_str_out := ""
 	Loop Parse data_var_decrypt_str_in, " " {
-		global data_var_decrypt_str_out := data_var_decrypt_str_out . Chr(Integer(A_LoopField))
+		global data_var_decrypt_str_out := data_var_decrypt_str_out . Chr(Number(A_LoopField))
 	}
 	return data_var_decrypt_str_out
 }
@@ -28,7 +28,7 @@ data_var_encrypt(var_in) {
 }
 
 data_MsgBox(*) {
-	MsgBox(data_launch_count . "`n" . data_custom_text . "`n" . data_datetime_utc, "data.virema")
+	MsgBox(data_launch_count . "`n" . data_custom_text . "`n" . data_placeholder_0 . "`n" . data_placeholder_1 . "`n" . data_debug_set . "`n" . data_datetime_utc, "data.virema")
 }
 
 data_update(*) {
@@ -42,26 +42,41 @@ data_write(*) {
 	if FileExist("data.virema") {
 		FileDelete("data.virema")
 	}
-	FileAppend(data_launch_count . "`n", "data.virema")
-	FileAppend(data_custom_text . "`n", "data.virema")
-	FileAppend(data_datetime_utc, "data.virema")
+	FileAppend(data_var_encrypt(data_launch_count) . "`n", "data.virema")
+	FileAppend(data_var_encrypt(data_custom_text) . "`n", "data.virema")
+	FileAppend(data_var_encrypt(data_placeholder_0) . "`n", "data.virema")
+	FileAppend(data_var_encrypt(data_placeholder_1) . "`n", "data.virema")
+	FileAppend(data_var_encrypt(data_debug_set) . "`n", "data.virema")
+	FileAppend(data_var_encrypt(data_datetime_utc), "data.virema")
 }
 
 data_read(*) {
 	Loop Read "data.virema" {
 		if (A_Index = 1) {
-			global data_launch_count := A_LoopReadLine
+			global data_launch_count := data_var_decrypt(A_LoopReadLine)
 		}
 		if (A_Index = 2) {
-			global data_custom_text := A_LoopReadLine
+			global data_custom_text := data_var_decrypt(A_LoopReadLine)
 		}
 		if (A_Index = 3) {
-			global data_datetime_utc := A_LoopReadLine
+			global data_placeholder_0 := data_var_decrypt(A_LoopReadLine)
+		}
+		if (A_Index = 4) {
+			global data_placeholder_1 := data_var_decrypt(A_LoopReadLine)
+		}
+		if (A_Index = 5) {
+			global data_debug_set := data_var_decrypt(A_LoopReadLine)
+		}
+		if (A_Index = 6) {
+			global data_datetime_utc := data_var_decrypt(A_LoopReadLine)
 		}
 	} else {
-		FileAppend(0 . "`n", "data.virema")
-		FileAppend("this is custom text" . "`n", "data.virema")
-		FileAppend(A_NowUTC, "data.virema")
+		FileAppend(data_var_encrypt("0") . "`n", "data.virema")
+		FileAppend(data_var_encrypt("this is custom text") . "`n", "data.virema")
+		FileAppend(data_var_encrypt("data_placeholder_0") . "`n", "data.virema")
+		FileAppend(data_var_encrypt("data_placeholder_1") . "`n", "data.virema")
+		FileAppend(data_var_encrypt("``1234567890-=QWERTYUIOP[]\ASDFGHJKL;'ZXCVBNM,./~!@#$%^&*()_+qwertyuiop{}|asdfghjkl:`"zxcvbnm<>?") . "`n", "data.virema")
+		FileAppend(data_var_encrypt(A_NowUTC), "data.virema")
 		Sleep(156)
 		data_read()
 	}
