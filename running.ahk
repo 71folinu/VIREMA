@@ -47,13 +47,19 @@ data_write(*) {
 	FileAppend(data_var_encrypt(data_placeholder_0) . "`n", "data.virema")
 	FileAppend(data_var_encrypt(data_placeholder_1) . "`n", "data.virema")
 	FileAppend(data_var_encrypt(data_debug_set) . "`n", "data.virema")
-	FileAppend(data_var_encrypt(data_datetime_utc), "data.virema")
+	FileAppend(data_var_encrypt(data_datetime_utc) . "`n", "data.virema")
 	try {
 		FileAppend(data_var_encrypt(data_end_line), "data.virema")
 	} catch {
 		if FileExist("data.virema") {
-			FileDelete("data.virema")
-			Reload
+			if MsgBox("Looks like your user data is corrupted.`nWould you like to reset all user data?", window_title . ": ERROR", "YN") = "Yes" {
+				FileDelete("data.virema")
+				Reload
+			} else {
+				ExitApp
+			}
+		} else {
+			MsgBox("FileAppend data_end_line error.`nTry reinstalling deemator.", window_title . ": ERROR")
 		}
 	}
 }
