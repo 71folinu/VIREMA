@@ -18,7 +18,7 @@ data_var_decrypt(data_var_decrypt_var_in) {
 					ExitApp
 				}
 			} else {
-				MsgBox("data_var_decrypt error.`nTry reinstalling deemator.", window_title . ": ERROR")
+				MsgBox("data_var_decrypt error.`nTry reinstalling VIREMA.", window_title . ": ERROR")
 			}
 		}
 	}
@@ -82,7 +82,7 @@ data_write(*) {
 				ExitApp
 			}
 		} else {
-			MsgBox("FileAppend data_end_line error.`nTry reinstalling deemator.", window_title . ": ERROR")
+			MsgBox("FileAppend data_end_line error.`nTry reinstalling VIREMA.", window_title . ": ERROR")
 		}
 	}
 }
@@ -148,19 +148,19 @@ enable_proxy(*) {
 	global exit_allowed := 0
 	enable_proxy_check_proxy_err_off_on_val := check_proxy_err_off_on()
 	if enable_proxy_check_proxy_err_off_on_val = 1 {
-		if not click_wait_ImageSearch_in_folder("C:\deemator\img\03unchecked", wait_ImageSearch_in_folder_time_sec) {
+		if not click_wait_ImageSearch_in_folder("C:\VIREMA\img\03unchecked", wait_ImageSearch_in_folder_time_sec) {
 			MsgBox_ImageSearch_not_supported()
 			global exit_allowed := 1
 			BlockInput 0
 			return 0
 		}
-		if not click_wait_ImageSearch_in_folder("C:\deemator\img\04config", wait_ImageSearch_in_folder_time_sec) {
+		if not click_wait_ImageSearch_in_folder("C:\VIREMA\img\04config", wait_ImageSearch_in_folder_time_sec) {
 			MsgBox_ImageSearch_not_supported()
 			global exit_allowed := 1
 			BlockInput 0
 			return 0
 		}
-		if not wait_ImageSearch_in_folder("C:\deemator\img\05configed", wait_ImageSearch_in_folder_time_sec) {
+		if not wait_ImageSearch_in_folder("C:\VIREMA\img\05configed", wait_ImageSearch_in_folder_time_sec) {
 			Sleep(156*3)
 			Send "^a"
 			Sleep(156*3)
@@ -207,7 +207,7 @@ enable_proxy(*) {
 			Send "9050"
 			Sleep(156*3)
 		}
-		if not click_wait_ImageSearch_in_folder("C:\deemator\img\06configok", wait_ImageSearch_in_folder_time_sec) {
+		if not click_wait_ImageSearch_in_folder("C:\VIREMA\img\06configok", wait_ImageSearch_in_folder_time_sec) {
 			MsgBox_ImageSearch_not_supported()
 			global exit_allowed := 1
 			BlockInput 0
@@ -260,7 +260,7 @@ disable_proxy(*) {
 	global exit_allowed := 0
 	enable_proxy_check_proxy_err_off_on_val := check_proxy_err_off_on()
 	if enable_proxy_check_proxy_err_off_on_val = 2 {
-		if not click_wait_ImageSearch_in_folder("C:\deemator\img\03checked", wait_ImageSearch_in_folder_time_sec) {
+		if not click_wait_ImageSearch_in_folder("C:\VIREMA\img\03checked", wait_ImageSearch_in_folder_time_sec) {
 			MsgBox_ImageSearch_not_supported()
 			global exit_allowed := 1
 			BlockInput 0
@@ -311,18 +311,18 @@ disable_proxy(*) {
 check_proxy_err_off_on() {
 	RunWait "::{21EC2020-3AEA-1069-A2DD-08002B30309D}"
 	Sleep(156*1)
-	if not click_wait_ImageSearch_in_folder("C:\deemator\img\00browsersettings", wait_ImageSearch_in_folder_time_sec) {
+	if not click_wait_ImageSearch_in_folder("C:\VIREMA\img\00browsersettings", wait_ImageSearch_in_folder_time_sec) {
 		return 0
 	}
-	if not click_wait_ImageSearch_in_folder("C:\deemator\img\01connections", wait_ImageSearch_in_folder_time_sec) {
+	if not click_wait_ImageSearch_in_folder("C:\VIREMA\img\01connections", wait_ImageSearch_in_folder_time_sec) {
 		return 0
 	}
-	if not click_wait_ImageSearch_in_folder("C:\deemator\img\02local", wait_ImageSearch_in_folder_time_sec) {
+	if not click_wait_ImageSearch_in_folder("C:\VIREMA\img\02local", wait_ImageSearch_in_folder_time_sec) {
 		return 0
 	}
-	if wait_ImageSearch_in_folder("C:\deemator\img\03checked", wait_ImageSearch_in_folder_time_sec) {
+	if wait_ImageSearch_in_folder("C:\VIREMA\img\03checked", wait_ImageSearch_in_folder_time_sec) {
 		return 2
-	} else if wait_ImageSearch_in_folder("C:\deemator\img\03unchecked", wait_ImageSearch_in_folder_time_sec) {
+	} else if wait_ImageSearch_in_folder("C:\VIREMA\img\03unchecked", wait_ImageSearch_in_folder_time_sec) {
 		return 1
 	} else {
 		return 0
@@ -332,7 +332,7 @@ check_proxy_err_off_on() {
 MsgBox_ImageSearch_not_supported(*) {
 	if (data_launch_count <= 3) {
 		if MsgBox("Looks like your version of Windows (language, theme or scaling)`nis not supported.`nWould you like to see instructions`non how to setup proxy manually?", window_title . ": ERROR", "YN") = "Yes" {
-			Run("https://github.com/samid36360/deemator#handling-wndows-proxy-manualy")
+			Run("https://github.com/samid36360/VIREMA#handling-wndows-proxy-manualy")
 		}
 	}
 }
@@ -371,12 +371,12 @@ ImageSearch_in_folder(folder_full_path) {
 		}
 		return 0
 	} catch {
-		MsgBox("ImageSearch_in_folder error.`nTry reinstalling deemator.", window_title . ": ERROR")
+		MsgBox("ImageSearch_in_folder error.`nTry reinstalling VIREMA.", window_title . ": ERROR")
 	}
 }
 
 started(*) {
-	if ProcessExist("deemator_tor.exe") {
+	if ProcessExist("VIREMA_tor.exe") {
 		return true
 	} else {
 		return false
@@ -384,13 +384,13 @@ started(*) {
 }
 
 stop_clicked(*) {
-	ProcessClose("deemator_tor.exe")
+	ProcessClose("VIREMA_tor.exe")
 	global tor_launch_ordered := 0
 	disable_proxy()
 }
 
 start_clicked(*) {
-	Run A_ComSpec ' /c ""C:\deemator\third_party\deemator_tor.exe" "-f" "C:\deemator\torrc" >"tor_log.txt""',,"Hide"
+	Run A_ComSpec ' /c ""C:\VIREMA\third_party\VIREMA_tor.exe" "-f" "C:\VIREMA\torrc" >"tor_log.txt""',,"Hide"
 	SetTimer(check_connection_success, -1560*47)
 	global tor_launch_ordered := 1
 	enable_proxy()
@@ -400,11 +400,11 @@ check_connection_success(*) {
 	if (started()) {
 		if not (check_string_in_log("Bootstrapped 100% (done): Done")) {
 			stop_clicked()
-			MsgBox("Connection took too long and was aborted. Try again.`nIf the issue persists, try reinstalling deemator.", window_title . ": ERROR")
+			MsgBox("Connection took too long and was aborted. Try again.`nIf the issue persists, try reinstalling VIREMA.", window_title . ": ERROR")
 		}
 	} else if tor_launch_ordered {
 		try stop_clicked()
-		MsgBox("Tor process failed to start. Try again.`nIf the issue persists, try reinstalling deemator.", window_title . ": ERROR")
+		MsgBox("Tor process failed to start. Try again.`nIf the issue persists, try reinstalling VIREMA.", window_title . ": ERROR")
 	}
 }
 
@@ -427,8 +427,8 @@ check_string_in_log(string) {
 
 update_logs_window_field(*) {
 	try {
-		if logs_window_field.Text != FileRead("C:\deemator\tor_log.txt") {
-			logs_window_field.Text := FileRead("C:\deemator\tor_log.txt")
+		if logs_window_field.Text != FileRead("C:\VIREMA\tor_log.txt") {
+			logs_window_field.Text := FileRead("C:\VIREMA\tor_log.txt")
 			global logs_window_field_text_updated := 1
 		}
 	}

@@ -1,7 +1,7 @@
-DataDirectory C:\deemator\tor_temp_data
-GeoIPFile C:\deemator\third_party\geoip
-GeoIPv6File C:\deemator\third_party\geoip6
+DataDirectory C:\VIREMA\tor_temp_data
+GeoIPFile C:\VIREMA\third_party\geoip
+GeoIPv6File C:\VIREMA\third_party\geoip6
 ExcludeExitNodes {RU}
 UseBridges 1
-ClientTransportPlugin webtunnel exec C:\deemator\third_party\lyrebird.exe
+ClientTransportPlugin webtunnel exec C:\VIREMA\third_party\lyrebird.exe
 Bridge webtunnel [2001:db8:a436:6460:fa7b:318:4e8e:9de3]:443 F76C85011FD8C113AA00960BD9FC7F5B66F726A2 url=https://disobey.net/vM8i19mU4gvHOzRm33DaBNuM ver=0.0.1

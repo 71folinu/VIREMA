@@ -6,7 +6,7 @@ CoordMode "Mouse", "Screen"
 Persistent
 #NoTrayIcon
 TraySetIcon "icon.ico", , true
-;@Ahk2Exe-SetName deemator
+;@Ahk2Exe-SetName VIREMA
 ;@Ahk2Exe-SetVersion 0.3.0
 
 ; INCLUDES
@@ -14,7 +14,7 @@ TraySetIcon "icon.ico", , true
 
 ; GLOBAL CONSTANTS
 global exit_allowed := 1
-global window_title := "deemator 0.3.0"
+global window_title := "VIREMA 0.3.0"
 global status_bar_refresh_period := 156*2
 global wait_ImageSearch_in_folder_time_sec := 1
 
@@ -86,31 +86,31 @@ refresh_status(*) {
 			return
 		}
 		if (check_string_in_log("Starting with guard context `"bridges`"")) {
-			if (!check_string_in_log("Read configuration file `"C:\deemator\torrc`".")) {
-				ProcessClose("deemator_tor.exe")
+			if (!check_string_in_log("Read configuration file `"C:\VIREMA\torrc`".")) {
+				ProcessClose("VIREMA_tor.exe")
 				status_bar.SetText(" No torrc file found!!!")
-				MsgBox("No torrc file found!!!`nReinstall deemator.", window_title . ": ERROR")
+				MsgBox("No torrc file found!!!`nReinstall VIREMA.", window_title . ": ERROR")
 				ExitApp
 				return
 			}
 			if (!check_string_in_log("Opened Socks listener connection (ready) on 127.0.0.1:9050")) {
-				ProcessClose("deemator_tor.exe")
+				ProcessClose("VIREMA_tor.exe")
 				status_bar.SetText(" Failed to open socks listener!!!")
 				MsgBox("Failed to open socks listener!!!`nCheck your firewall settings.", window_title . ": ERROR")
 				ExitApp
 				return
 			}
-			if (!check_string_in_log("Parsing GEOIP IPv4 file C:\deemator\third_party\geoip.")) {
-				ProcessClose("deemator_tor.exe")
+			if (!check_string_in_log("Parsing GEOIP IPv4 file C:\VIREMA\third_party\geoip.")) {
+				ProcessClose("VIREMA_tor.exe")
 				status_bar.SetText(" No geoip file found!!!")
-				MsgBox("No geoip file found!!!`nReinstall deemator.", window_title . ": ERROR")
+				MsgBox("No geoip file found!!!`nReinstall VIREMA.", window_title . ": ERROR")
 				ExitApp
 				return
 			}
-			if (!check_string_in_log("Parsing GEOIP IPv6 file C:\deemator\third_party\geoip6.")) {
-				ProcessClose("deemator_tor.exe")
+			if (!check_string_in_log("Parsing GEOIP IPv6 file C:\VIREMA\third_party\geoip6.")) {
+				ProcessClose("VIREMA_tor.exe")
 				status_bar.SetText(" No geoip6 file found!!!")
-				MsgBox("No geoip6 file found!!!`nReinstall deemator.", window_title . ": ERROR")
+				MsgBox("No geoip6 file found!!!`nReinstall VIREMA.", window_title . ": ERROR")
 				ExitApp
 				return
 			}
