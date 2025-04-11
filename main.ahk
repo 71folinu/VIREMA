@@ -168,5 +168,8 @@ Loop {
 	Break
 }
 data_MsgBox()
-MsgBox("|" . data_var_encrypt(InputBox("data_var_encrypt","data_var_encrypt").Value) . "|")
+global debug_data_var := InputBox("data_var_encrypt","data_var_encrypt").Value
+MsgBox("|" . data_var_encrypt(debug_data_var) . "|")
+MsgBox("|" . data_var_decrypt(data_var_encrypt(debug_data_var)) . "|")
 global exit_allowed := 1
+; `1234567890-=QWERTYUIOP[]\ASDFGHJKL;'ZXCVBNM,./~!@#$%^&*()_+qwertyuiop{}|asdfghjkl:"zxcvbnm<>?

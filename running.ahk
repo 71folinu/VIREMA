@@ -1,5 +1,14 @@
 ﻿; running.ahk - functions for app operation
 
+data_var_decrypt(data_var_decrypt_var_in) {
+	global data_var_decrypt_str_in := String(data_var_decrypt_var_in)
+	global data_var_decrypt_str_out := ""
+	Loop Parse data_var_decrypt_str_in, " " {
+		global data_var_decrypt_str_out := data_var_decrypt_str_out . Chr(Integer(A_LoopField))
+	}
+	return data_var_decrypt_str_out
+}
+
 data_var_encrypt(var_in) {
 	str_in := String(var_in)
 	str_out := ""
