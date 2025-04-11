@@ -34,9 +34,9 @@ if not (A_IsAdmin) {
 }
 
 ; GLOBAL VARIABLES
-if FileExist("reset.data.virema") and FileExist("data.virema") {
-	FileDelete("data.virema")
-	FileDelete("reset.data.virema")
+if FileExist("reset.userdata.virema") and FileExist("userdata.virema") {
+	FileDelete("userdata.virema")
+	FileDelete("reset.userdata.virema")
 }
 data_update()
 
