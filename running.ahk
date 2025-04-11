@@ -2,6 +2,9 @@
 
 data_var_decrypt(data_var_decrypt_var_in) {
 	global data_var_decrypt_str_in := String(data_var_decrypt_var_in)
+	if data_var_decrypt_str_in = "0" {
+		return "NO DATA"
+	}
 	global data_var_decrypt_str_out := ""
 	Loop Parse data_var_decrypt_str_in, " " {
 		global data_var_decrypt_str_out := data_var_decrypt_str_out . Chr(Integer(A_LoopField))
