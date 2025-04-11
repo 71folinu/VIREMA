@@ -149,15 +149,15 @@ enable_proxy(*) {
 	enable_proxy_check_proxy_err_off_on_val := check_proxy_err_off_on()
 	if enable_proxy_check_proxy_err_off_on_val = 1 {
 		if not click_wait_ImageSearch_in_folder("C:\VIREMA\img\03unchecked", wait_ImageSearch_in_folder_time_sec) {
+			BlockInput 0
 			MsgBox_ImageSearch_not_supported()
 			global exit_allowed := 1
-			BlockInput 0
 			return 0
 		}
 		if not click_wait_ImageSearch_in_folder("C:\VIREMA\img\04config", wait_ImageSearch_in_folder_time_sec) {
+			BlockInput 0
 			MsgBox_ImageSearch_not_supported()
 			global exit_allowed := 1
-			BlockInput 0
 			return 0
 		}
 		if not wait_ImageSearch_in_folder("C:\VIREMA\img\05configed", wait_ImageSearch_in_folder_time_sec) {
@@ -208,9 +208,9 @@ enable_proxy(*) {
 			Sleep(156*3)
 		}
 		if not click_wait_ImageSearch_in_folder("C:\VIREMA\img\06configok", wait_ImageSearch_in_folder_time_sec) {
+			BlockInput 0
 			MsgBox_ImageSearch_not_supported()
 			global exit_allowed := 1
-			BlockInput 0
 			return 0
 		} else {
 			Sleep(156*3)
@@ -231,9 +231,9 @@ enable_proxy(*) {
 			return 1
 		}
 	} else if enable_proxy_check_proxy_err_off_on_val = 0 {
+		BlockInput 0
 		MsgBox_ImageSearch_not_supported()
 		global exit_allowed := 1
-		BlockInput 0
 		return 0
 	} else {
 		Sleep(156*3)
@@ -261,9 +261,9 @@ disable_proxy(*) {
 	enable_proxy_check_proxy_err_off_on_val := check_proxy_err_off_on()
 	if enable_proxy_check_proxy_err_off_on_val = 2 {
 		if not click_wait_ImageSearch_in_folder("C:\VIREMA\img\03checked", wait_ImageSearch_in_folder_time_sec) {
+			BlockInput 0
 			MsgBox_ImageSearch_not_supported()
 			global exit_allowed := 1
-			BlockInput 0
 			return 0
 		} else {
 			Sleep(156*3)
@@ -284,9 +284,9 @@ disable_proxy(*) {
 		BlockInput 0
 		return 1
 	} else if enable_proxy_check_proxy_err_off_on_val = 0 {
+		BlockInput 0
 		MsgBox_ImageSearch_not_supported()
 		global exit_allowed := 1
-		BlockInput 0
 		return 0
 	} else {
 		Sleep(156*3)
@@ -332,8 +332,10 @@ check_proxy_err_off_on() {
 MsgBox_ImageSearch_not_supported(*) {
 	if (data_launch_count <= 3) {
 		if MsgBox("Looks like your version of Windows (language, theme or scaling)`nis not supported.`nWould you like to see instructions`non how to setup proxy manually?", window_title . ": ERROR", "YN") = "Yes" {
-			Run("https://github.com/samid36360/VIREMA#handling-wndows-proxy-manualy")
+			Run("https://github.com/folinu/VIREMA#handling-wndows-proxy-manualy")
 		}
+	} else {
+		MsgBox("Not supported.", window_title . ": ERROR", "T1.56")
 	}
 }
 
