@@ -7,7 +7,20 @@ data_var_decrypt(data_var_decrypt_var_in) {
 	}
 	global data_var_decrypt_str_out := ""
 	Loop Parse data_var_decrypt_str_in, " " {
-		global data_var_decrypt_str_out := data_var_decrypt_str_out . Chr(Number(A_LoopField))
+		try {
+			global data_var_decrypt_str_out := data_var_decrypt_str_out . Chr(Number(A_LoopField))
+		} catch {
+			if FileExist("data.virema") {
+				if MsgBox("Looks like your user data is corrupted.`nWould you like to reset all user data?", window_title . ": ERROR", "YN") = "Yes" {
+					FileAppend("","reset.data.virema")
+					Reload
+				} else {
+					ExitApp
+				}
+			} else {
+				MsgBox("data_var_decrypt error.`nTry reinstalling deemator.", window_title . ": ERROR")
+			}
+		}
 	}
 	return data_var_decrypt_str_out
 }

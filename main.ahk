@@ -34,6 +34,10 @@ if not (A_IsAdmin) {
 }
 
 ; GLOBAL VARIABLES
+if FileExist("reset.data.virema") and FileExist("data.virema") {
+	FileDelete("data.virema")
+	FileDelete("reset.data.virema")
+}
 data_update()
 
 ; BULDING WINDOW
