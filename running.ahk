@@ -28,7 +28,7 @@ data_var_encrypt(var_in) {
 }
 
 data_MsgBox(*) {
-	MsgBox(data_launch_count . "`n" . data_custom_text . "`n" . data_placeholder_0 . "`n" . data_placeholder_1 . "`n" . data_debug_set . "`n" . data_datetime_utc, "data.virema")
+	MsgBox(data_launch_count . "`n" . data_custom_text . "`n" . data_placeholder_0 . "`n" . data_placeholder_1 . "`n" . data_debug_set . "`n" . data_datetime_utc . "`n" . data_end_line, "data.virema")
 }
 
 data_update(*) {
@@ -48,6 +48,7 @@ data_write(*) {
 	FileAppend(data_var_encrypt(data_placeholder_1) . "`n", "data.virema")
 	FileAppend(data_var_encrypt(data_debug_set) . "`n", "data.virema")
 	FileAppend(data_var_encrypt(data_datetime_utc), "data.virema")
+	FileAppend(data_var_encrypt(data_end_line), "data.virema")
 }
 
 data_read(*) {
@@ -70,13 +71,17 @@ data_read(*) {
 		if (A_Index = 6) {
 			global data_datetime_utc := data_var_decrypt(A_LoopReadLine)
 		}
+		if (A_Index = 7) {
+			global data_end_line := data_var_decrypt(A_LoopReadLine)
+		}
 	} else {
 		FileAppend(data_var_encrypt("0") . "`n", "data.virema")
 		FileAppend(data_var_encrypt("this is custom text") . "`n", "data.virema")
 		FileAppend(data_var_encrypt("data_placeholder_0") . "`n", "data.virema")
 		FileAppend(data_var_encrypt("data_placeholder_1") . "`n", "data.virema")
 		FileAppend(data_var_encrypt("``1234567890-=QWERTYUIOP[]\ASDFGHJKL;'ZXCVBNM,./~!@#$%^&*()_+qwertyuiop{}|asdfghjkl:`"zxcvbnm<>?") . "`n", "data.virema")
-		FileAppend(data_var_encrypt(A_NowUTC), "data.virema")
+		FileAppend(data_var_encrypt(A_NowUTC) . "`n", "data.virema")
+		FileAppend(data_var_encrypt("data_end_line"), "data.virema")
 		Sleep(156)
 		data_read()
 	}
