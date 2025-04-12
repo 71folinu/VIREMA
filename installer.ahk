@@ -29,9 +29,9 @@ if not (A_IsAdmin) {
 ; INSTALLATION
 if (MsgBox("Do you want to intall (reinstall) VIREMA 0.3.0 to this computer?", "VIREMA 0.3.0 installer", 4) = "Yes") {
 	global installer_progress_window := Gui.Call("-MinimizeBox +AlwaysOnTop","VIREMA 0.3.0 installer")
-	installer_progress_window_text := installer_progress_window.Add("Text", "+x10 +y10 +w380 +h230", Format("{:-47}","Initializing installation..."))
+	installer_progress_window_text := installer_progress_window.Add("Text", "+x10 +y10 +w380 +h180", Format("{:-47}","Initializing installation..."))
 	installer_progress_window_text.SetFont("s10", "Consolas")
-	installer_progress_window.Show("Center W400 H250")
+	installer_progress_window.Show("Center W400 H200")
 	if ProcessExist("VIREMA_tor.exe") {
 		ProcessClose("VIREMA_tor.exe")
 		Sleep(installer_long_sleep_ms)
