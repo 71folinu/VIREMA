@@ -1,5 +1,14 @@
 ﻿; running.ahk - functions for app operation
 
+bridge_replace_to(bridge_replace_to_in_str) {
+	if bridge_validate(bridge_replace_to_in_str) {
+		global bridge_replace_to__new_torrc := ""
+		bridge_replace_to__new_torrc := RegExReplace(FileRead("torrc"), "Bridge.ver=0\.0\.1")
+	} else {
+		MsgBox("Invalid bridge.`nTry another bridge.", window_title . ": ERROR")
+	}
+}
+
 data_var_decrypt(data_var_decrypt_var_in) {
 	global data_var_decrypt_str_in := String(data_var_decrypt_var_in)
 	if data_var_decrypt_str_in = "0" {
