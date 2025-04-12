@@ -182,22 +182,5 @@ Loop {
 	MsgBox("|" . data_var_decrypt(data_var_encrypt(debug_data_var)) . "|", "decrypted")
 	Break
 }
-Loop {
-	if MsgBox("installer?",,"YN") = "Yes" {
-		global installer_progress_window := Gui.Call("-MinimizeBox +AlwaysOnTop","VIREMA 0.3.0 installer")
-		installer_progress_window_text := installer_progress_window.Add("Text", "+x10 +y10 +w180 +h130", "Initializing installation...`n")
-		installer_progress_window_text.SetFont("s10")
-		installer_progress_window.Show("Center W200 H150")
-		Sleep(1560)
-		installer_progress_window_text.Text .= "AAAAAA`n"
-		Sleep(1560)
-		installer_progress_window_text.Text .= "BBBBBBBBBBB`n"
-		Sleep(1560)
-		installer_progress_window_text.Text .= "CCCCCCCCCC`n"
-		Break
-	} else {
-		Break
-	}
-}
 global exit_allowed := 1
 ; `1234567890-=QWERTYUIOP[]\ASDFGHJKL;'ZXCVBNM,./~!@#$%^&*()_+qwertyuiop{}|asdfghjkl:"zxcvbnm<>?
