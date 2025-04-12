@@ -29,7 +29,7 @@ if not (A_IsAdmin) {
 ; INSTALLATION
 if (MsgBox("Do you want to intall (reinstall) VIREMA 0.3.0 to this computer?", "VIREMA 0.3.0 installer", 4) = "Yes") {
 	global installer_progress_window := Gui.Call("-MinimizeBox +AlwaysOnTop","VIREMA 0.3.0 installer")
-	installer_progress_window_text := installer_progress_window.Add("Text", "+x10 +y10 +w300 +h200", Format("{:-31}","Initializing installation..."))
+	installer_progress_window_text := installer_progress_window.Add("Text", "+x10 +y10 +w300 +h200", Format("{:-47}","Initializing installation..."))
 	installer_progress_window_text.SetFont("s10")
 	installer_progress_window.Show("Center W320 H220")
 	if ProcessExist("VIREMA_tor.exe") {
@@ -37,7 +37,7 @@ if (MsgBox("Do you want to intall (reinstall) VIREMA 0.3.0 to this computer?", "
 		Sleep(installer_long_sleep_ms)
 	}
 	installer_progress_window_text.Text .= "  Done`n"
-	installer_progress_window_text.Text .= Format("{:-31}","Cleaning up...")
+	installer_progress_window_text.Text .= Format("{:-47}","Cleaning up...")
 	if DirExist("C:\VIREMA") {
 		try {
 			DirDelete("C:\VIREMA", 1)
@@ -48,7 +48,7 @@ if (MsgBox("Do you want to intall (reinstall) VIREMA 0.3.0 to this computer?", "
 	}
 	Sleep(installer_sleep_ms)
 	installer_progress_window_text.Text .= "  Done`n"
-	installer_progress_window_text.Text .= Format("{:-31}","Setting up file structure...")
+	installer_progress_window_text.Text .= Format("{:-47}","Setting up file structure...")
 	try {
 		DirCreate("C:\VIREMA")
 		DirCreate("C:\VIREMA\third_party")
@@ -58,7 +58,7 @@ if (MsgBox("Do you want to intall (reinstall) VIREMA 0.3.0 to this computer?", "
 	}
 	Sleep(installer_sleep_ms)
 	installer_progress_window_text.Text .= "  Done`n"
-	installer_progress_window_text.Text .= Format("{:-31}","Unpacking third party...")
+	installer_progress_window_text.Text .= Format("{:-47}","Unpacking third party...")
 	try {
 		FileInstall "C:\VIREMA\third_party\VIREMA_tor.exe", "C:\VIREMA\third_party\VIREMA_tor.exe", 1
 	} catch {
@@ -88,7 +88,7 @@ if (MsgBox("Do you want to intall (reinstall) VIREMA 0.3.0 to this computer?", "
 	}
 	Sleep(installer_sleep_ms)
 	installer_progress_window_text.Text .= "  Done`n"
-	installer_progress_window_text.Text .= Format("{:-31}","Installing links...")
+	installer_progress_window_text.Text .= Format("{:-47}","Installing links...")
 	try {
 		FileInstall "C:\VIREMA\VIREMA.lnk",A_Desktop . "\VIREMA.lnk", 1
 	} catch {
@@ -104,7 +104,7 @@ if (MsgBox("Do you want to intall (reinstall) VIREMA 0.3.0 to this computer?", "
 	}
 	Sleep(installer_sleep_ms)
 	installer_progress_window_text.Text .= "  Done`n"
-	installer_progress_window_text.Text .= Format("{:-31}","Unpacking program files...")
+	installer_progress_window_text.Text .= Format("{:-47}","Unpacking program files...")
 	try {
 		FileInstall "C:\VIREMA\icon.ico", "C:\VIREMA\icon.ico", 1
 	} catch {
@@ -134,7 +134,7 @@ if (MsgBox("Do you want to intall (reinstall) VIREMA 0.3.0 to this computer?", "
 	}
 	Sleep(installer_sleep_ms)
 	installer_progress_window_text.Text .= "  Done`n"
-	installer_progress_window_text.Text .= Format("{:-31}","Setting up img file structure...")
+	installer_progress_window_text.Text .= Format("{:-47}","Setting up img file structure...")
 	try {
 		DirCreate("C:\VIREMA\img")
 		Sleep(installer_sleep_ms)
@@ -155,7 +155,7 @@ if (MsgBox("Do you want to intall (reinstall) VIREMA 0.3.0 to this computer?", "
 		DirCreate("C:\VIREMA\img\06configok")
 		Sleep(installer_sleep_ms)
 		installer_progress_window_text.Text .= "  Done`n"
-		installer_progress_window_text.Text .= Format("{:-31}","Unpacking img files...")
+		installer_progress_window_text.Text .= Format("{:-47}","Unpacking img files...")
 		FileInstall("C:\VIREMA\img\00browsersettings\00.png","C:\VIREMA\img\00browsersettings\00.png",1)
 		Sleep(installer_sleep_ms)
 		FileInstall("C:\VIREMA\img\00browsersettings\01.png","C:\VIREMA\img\00browsersettings\01.png",1)
