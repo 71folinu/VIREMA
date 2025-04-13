@@ -3,7 +3,11 @@
 bridge__pick_first(bridge__pick_first__arg) {
 	global bridge__pick_first__RegExMatchInfo := ""
 	global bridge__pick_first__FoundPos := RegExMatch(bridge__pick_first__arg, "webtunnel .* ver=0\.0\.1", &bridge__pick_first__RegExMatchInfo)
-	return bridge__pick_first__RegExMatchInfo[]
+	if IsObject(bridge__pick_first__RegExMatchInfo) {
+		return bridge__pick_first__RegExMatchInfo[]
+	} else {
+		return "NO BRIDGE"
+	}
 }
 
 bridge__validate(bridge__validate__in_str) {

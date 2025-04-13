@@ -149,7 +149,7 @@ main_window.OnEvent("Size", close_main)
 
 ; DEBUG
 global exit_allowed := 0
-Loop {
+/*Loop {
 	global button_pos_x := InputBox("button_pos","button_pos").Value
 	if (button_pos_x = "") {
 		Break
@@ -186,13 +186,27 @@ Loop {
 		Break
 	}
 	bridge__replace_to(debug__bridge__replace_to__in_str)
-}
-Loop {
-	global debug__bridge__pick_first__in_str := InputBox("debug__bridge__pick_first__in_str","debug__bridge__pick_first__in_str").Value
-	if (debug__bridge__pick_first__in_str = "") {
-		Break
-	}
-	MsgBox("|" . bridge__pick_first(debug__bridge__pick_first__in_str) . "|","bridge__pick_first_ret_val")
-}
+}*/
+
+MsgBox("|" . "``1234567890-=QWERTYUIOP[]\ASDFGHJKL;'ZXCVBNM,./~!@#$%^&*()_+qwertyuiop{}|asdfghjkl:`"zxcvbnm<>?" . "|")
+MsgBox("|" . bridge__pick_first("``1234567890-=QWERTYUIOP[]\ASDFGHJKL;'ZXCVBNM,./~!@#$%^&*()_+qwertyuiop{}|asdfghjkl:`"zxcvbnm<>?") . "|")
+
+MsgBox("|" . bridge__pick_first("webtunnel [2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1") . "|")
+MsgBox("|" . "webtunnel [2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1" . "|")
+
+MsgBox("|" . "[2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1" . "|")
+MsgBox("|" . bridge__pick_first("[2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1") . "|")
+
+MsgBox("|" . "webtunnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ" . "|")
+MsgBox("|" . bridge__pick_first("webtunnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ") . "|")
+
+MsgBox("|" . "127" . "|")
+MsgBox("|" . bridge__pick_first(127) . "|")
+
 global exit_allowed := 1
-; `1234567890-=QWERTYUIOP[]\ASDFGHJKL;'ZXCVBNM,./~!@#$%^&*()_+qwertyuiop{}|asdfghjkl:"zxcvbnm<>?
+; ``1234567890-=QWERTYUIOP[]\ASDFGHJKL;'ZXCVBNM,./~!@#$%^&*()_+qwertyuiop{}|asdfghjkl:`"zxcvbnm<>?
+; webtunnel [2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1
+; webtunnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ ver=0.0.1
+; [2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1
+; webtunnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ
+
