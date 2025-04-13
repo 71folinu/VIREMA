@@ -170,7 +170,6 @@ Loop {
 	global button_x := 10*(button_pos_x+1) + (button_w*(button_pos_x))
 	global button_y := 10*(button_pos_y+1) + (button_h*(button_pos_y))
 	MsgBox(button_x . "`n" . button_y . "`n" . button_w . "`n" . button_h)
-	Break
 }
 Loop {
 	data_MsgBox()
@@ -180,7 +179,13 @@ Loop {
 	}
 	MsgBox("|" . data_var_encrypt(debug_data_var) . "|", "enchrypted")
 	MsgBox("|" . data_var_decrypt(data_var_encrypt(debug_data_var)) . "|", "decrypted")
-	Break
+}
+Loop {
+	global debug__bridge__replace_to__in_str := InputBox("debug__bridge__replace_to__in_str","debug__bridge__replace_to__in_str").Value
+	if (debug__bridge__replace_to__in_str = "") {
+		Break
+	}
+	bridge__replace_to(debug__bridge__replace_to__in_str)
 }
 global exit_allowed := 1
 ; `1234567890-=QWERTYUIOP[]\ASDFGHJKL;'ZXCVBNM,./~!@#$%^&*()_+qwertyuiop{}|asdfghjkl:"zxcvbnm<>?

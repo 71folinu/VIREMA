@@ -1,12 +1,33 @@
 ﻿; running.ahk - functions for app operation
 
-bridge_replace_to(bridge_replace_to_in_str) {
-	if bridge_validate(bridge_replace_to_in_str) {
-		global bridge_replace_to__new_torrc := ""
-		bridge_replace_to__new_torrc := RegExReplace(FileRead("torrc"), "Bridge.ver=0\.0\.1")
-	} else {
-		MsgBox("Invalid bridge.`nTry another bridge.", window_title . ": ERROR")
+bridge__validate(bridge__validate__in_str) {
+	return 0
+}
+
+bridge__replace_to(bridge__replace_to_in_str) {
+	MsgBox("|" . bridge__replace_to_in_str . "|","bridge__replace_to_in_str")
+	MsgBox("|" . FileRead("torrc_test") . "|","FileRead(`"torrc_test`")")
+	if (bridge__validate(bridge__replace_to_in_str)) {
+		MsgBox("return 1","return 1")
+		return 1
 	}
+	global bridge__replace_to__new_torrc := ""
+	try {
+		global bridge__replace_to__new_torrc := RegExReplace(FileRead("torrc_test"), "Bridge.*ver=0\.0\.1", bridge__replace_to_in_str)
+	} catch {
+		MsgBox("return 2","return 2")
+		return 2
+	}
+	MsgBox("|" . bridge__replace_to__new_torrc . "|","bridge__replace_to__new_torrc")
+	try {
+		FileDelete("torrc_test")
+		FileAppend(bridge__replace_to__new_torrc, "torrc_test")
+	} catch {
+		MsgBox("return 3","return 3")
+		return 3
+	}
+	MsgBox("return 0","return 0")
+	return 0
 }
 
 data_var_decrypt(data_var_decrypt_var_in) {
