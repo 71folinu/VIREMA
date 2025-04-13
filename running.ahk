@@ -1,5 +1,11 @@
 ﻿; running.ahk - functions for app operation
 
+bridge__pick_first(bridge__pick_first__arg) {
+	global bridge__pick_first__RegExMatchInfo := ""
+	global bridge__pick_first__FoundPos := RegExMatch(bridge__pick_first__arg, "webtunnel .* ver=0\.0\.1", &bridge__pick_first__RegExMatchInfo)
+	return bridge__pick_first__RegExMatchInfo[]
+}
+
 bridge__validate(bridge__validate__in_str) {
 	return 0
 }
@@ -13,7 +19,7 @@ bridge__replace_to(bridge__replace_to_in_str) {
 	}
 	global bridge__replace_to__new_torrc := ""
 	try {
-		global bridge__replace_to__new_torrc := RegExReplace(FileRead("torrc_test"), "Bridge.*ver=0\.0\.1", bridge__replace_to_in_str)
+		global bridge__replace_to__new_torrc := RegExReplace(FileRead("torrc_test"), "webtunnel .* ver=0\.0\.1", bridge__replace_to_in_str)
 	} catch {
 		MsgBox("return 2","return 2")
 		return 2
