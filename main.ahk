@@ -187,5 +187,12 @@ Loop {
 	}
 	bridge__replace_to(debug__bridge__replace_to__in_str)
 }
+Loop {
+	global debug__bridge__pick_first__in_str := InputBox("debug__bridge__pick_first__in_str","debug__bridge__pick_first__in_str").Value
+	if (debug__bridge__pick_first__in_str = "") {
+		Break
+	}
+	MsgBox("|" . bridge__pick_first(debug__bridge__pick_first__in_str) . "|","bridge__pick_first_ret_val")
+}
 global exit_allowed := 1
 ; `1234567890-=QWERTYUIOP[]\ASDFGHJKL;'ZXCVBNM,./~!@#$%^&*()_+qwertyuiop{}|asdfghjkl:"zxcvbnm<>?
