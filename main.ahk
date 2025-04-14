@@ -158,31 +158,8 @@ main_window.OnEvent("Close", close_main)
 main_window.OnEvent("Size", close_main)
 
 ; DEBUG
+global exit_allowed := 0
 if (not A_IsCompiled) {
-	debug()
-}
-debug(*) {
-	global exit_allowed := 0
 	test__all()
-	global button_pos_x := InputBox("button_pos","button_pos").Value
-	if (button_pos_x = "") {
-		return
-	}
-	global button_pos_y := InputBox("button_pos","button_pos").Value
-	if (button_pos_y = "") {
-		return
-	}
-	global window_w := 400
-	global window_h := 300 - 20
-	global button_total_x := 3
-	global button_total_y := 3
-	global space_size := 10
-	global spaces_count_x := button_total_x + 1
-	global spaces_count_y := button_total_y + 1
-	global button_w := (window_w - (spaces_count_x * space_size)) / button_total_x
-	global button_h := (window_h - (spaces_count_y * space_size)) / button_total_y
-	global button_x := 10*(button_pos_x+1) + (button_w*(button_pos_x))
-	global button_y := 10*(button_pos_y+1) + (button_h*(button_pos_y))
-	MsgBox(button_x . "`n" . button_y . "`n" . button_w . "`n" . button_h)
 }
 global exit_allowed := 1

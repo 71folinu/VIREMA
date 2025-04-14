@@ -1,12 +1,33 @@
 ﻿; running.ahk - functions for app operation
 
+tools__show_all_functions(*) {
+	global tools__show_all_functions__RegExMatch_var := ""
+	global tools__show_all_functions__out_var := ""
+	Loop Read "running.ahk" {
+		RegExMatch(A_LoopReadLine, "^\S*?\(.*?\) {$", &tools__show_all_functions__RegExMatch_var)
+		if IsObject(tools__show_all_functions__RegExMatch_var) {
+			tools__show_all_functions__out_var := tools__show_all_functions__out_var . "`n" . tools__show_all_functions__RegExMatch_var[]
+		}
+	}
+	global tools__show_all_functions__RegExMatch_var := ""
+	Loop Read "main.ahk" {
+		RegExMatch(A_LoopReadLine, "^\S*?\(.*?\) {$", &tools__show_all_functions__RegExMatch_var)
+		if IsObject(tools__show_all_functions__RegExMatch_var) {
+			tools__show_all_functions__out_var := tools__show_all_functions__out_var . "`n" . tools__show_all_functions__RegExMatch_var[]
+		}
+	}
+	tools__show_all_functions__out_var := Trim(tools__show_all_functions__out_var, "`n")
+	A_Clipboard := tools__show_all_functions__out_var
+	MsgBox(tools__show_all_functions__out_var . "`n`ncopied to clipboard","tools__show_all_functions__out_var")
+}
+
 vrmcmd(*) {
 	Loop {
 		global vrmcmd_cmd := InputBox("`n`n`n                                       vrmcmd","vrmcmd").Value
 		global vrmcmd_cmd_arr := StrSplit(vrmcmd_cmd," ")
 		try {
 			if (vrmcmd_cmd_arr[1] = "TEST") {
-				MsgBox("custom text to test vrmcmd","vrmcmd")
+				test__all()
 			} else if (vrmcmd_cmd_arr[1] = "EXIT") {
 				return
 			} else if (vrmcmd_cmd_arr[1] = "SHOW") {
@@ -14,6 +35,23 @@ vrmcmd(*) {
 					MsgBox(A_Now,"vrmcmd")
 				} else if (vrmcmd_cmd_arr[2] = "DATA") {
 					MsgBox(StrReplace(data_var_decrypt(StrReplace(FileRead("userdata.virema"), "`n", " 32 32 32 32 ")), "    ", "`n"))
+				} else if (vrmcmd_cmd_arr[2] = "FUNCS") {
+					tools__show_all_functions()
+				} else {
+					MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
+				}
+			} else if (vrmcmd_cmd_arr[1] = "BUTTON") {
+				if (vrmcmd_cmd_arr[2] = "POS") {
+					tools__button_pos(vrmcmd_cmd_arr[3],vrmcmd_cmd_arr[4])
+				} else {
+					MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
+				}
+			} else if (vrmcmd_cmd_arr[1] = "COPY") {
+				if (vrmcmd_cmd_arr[2] = "TEST_INFO") {
+					A_Clipboard := test__all__finish__out
+					MsgBox("copied to clipboard","vrmcmd","T.156")
+				} else if (vrmcmd_cmd_arr[2] = "FUNCS") {
+					tools__show_all_functions()
 				} else {
 					MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
 				}
@@ -30,6 +68,21 @@ vrmcmd(*) {
 			MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
 		}
 	}
+}
+
+tools__button_pos(button_pos_x, button_pos_y) {
+	global window_w := 400
+	global window_h := 300 - 20
+	global button_total_x := 3
+	global button_total_y := 3
+	global space_size := 10
+	global spaces_count_x := button_total_x + 1
+	global spaces_count_y := button_total_y + 1
+	global button_w := (window_w - (spaces_count_x * space_size)) / button_total_x
+	global button_h := (window_h - (spaces_count_y * space_size)) / button_total_y
+	global button_x := 10*(button_pos_x+1) + (button_w*(button_pos_x))
+	global button_y := 10*(button_pos_y+1) + (button_h*(button_pos_y))
+	MsgBox(button_x . "`n" . button_y . "`n" . button_w . "`n" . button_h, "tools__button_pos")
 }
 
 set_bridge_button_pressed(*) {
