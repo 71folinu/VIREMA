@@ -16,11 +16,13 @@ test__all__finish(*) {
 		for test__all__finish__total_name in test__all__total_names {
 			global test__all__finish__out := test__all__finish__out . test__all__finish__total_name . "`n"
 		}
-		global test__all__finish__out := test__all__finish__out . "of which " . test__all__passed_count . " passed.`n"
+		global test__all__finish__out := test__all__finish__out . "`nof which " . test__all__passed_count . " passed.`n"
 		if (test__all__failed_count > 0) {
 			global test__all__finish__out := test__all__finish__out . "Total failed - " . test__all__failed_count . ", namely:`n"
 			for test__all__finish__failed_name in test__all__failed_names {
-				global test__all__finish__out := test__all__finish__out . test__all__finish__failed_name . "`n"
+				global test__all__finish__out := test__all__finish__out . "`n" . test__all__finish__failed_name . "`n"
+				global test__all__finish__out := test__all__finish__out . "Expected:`n" . test__all__failed_exps[A_Index] . "`n"
+				global test__all__finish__out := test__all__finish__out . "Got:`n" . test__all__failed_gots[A_Index] . "`n"
 			}
 		} else {
 			global test__all__finish__out := test__all__finish__out . "No tests failed.`n"
@@ -69,6 +71,8 @@ test__assert(test__assert__ret_val, test__assert__expected_ret_val, test__assert
 	}
 	global test__all__failed_count := test__all__failed_count + 1
 	test__all__failed_names.Push(test__assert__test_name)
+	test__all__failed_exps.Push(test__assert__expected_ret_val)
+	test__all__failed_gots.Push(test__assert__ret_val)
 	return
 }
 
@@ -78,11 +82,13 @@ test__all__begin(*) {
 	global test__all__total_names := []
 	global test__all__failed_count := 0
 	global test__all__failed_names := []
+	global test__all__failed_exps := []
+	global test__all__failed_gots := []
 }
 
 bridge__pick_first(bridge__pick_first__arg) {
 	global bridge__pick_first__RegExMatchInfo := ""
-	global bridge__pick_first__FoundPos := RegExMatch(bridge__pick_first__arg, "webtunnel .* ver=0\.0\.1", &bridge__pick_first__RegExMatchInfo)
+	global bridge__pick_first__FoundPos := RegExMatch(bridge__pick_first__arg, "webtunnel.*?ver=0\.0\.1", &bridge__pick_first__RegExMatchInfo)
 	if IsObject(bridge__pick_first__RegExMatchInfo) {
 		return bridge__pick_first__RegExMatchInfo[]
 	} else {

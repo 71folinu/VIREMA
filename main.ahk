@@ -149,7 +149,9 @@ main_window.OnEvent("Size", close_main)
 
 ; DEBUG
 global exit_allowed := 0
-test__all()
+if (not A_IsCompiled) {
+	test__all()
+}
 /*
 Loop {
 	global button_pos_x := InputBox("button_pos","button_pos").Value
