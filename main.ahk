@@ -69,16 +69,23 @@ refresh_status(*) {
 	}
 	update_logs_window_field()
 	if (started()) {
+		if (check_string_in_log("Bootstrapped 100% (done): Done")) {
+			status_bar.SetText(" Connected! You may close the window now, connection will stay active.")
+			if not title_status.Text = "Connected." {
+				title_status.Text := "Connected."
+				title_status.SetFont("s13 c00BB00")
+				startstop_button.Text := "STOP"
+				startstop_button.OnEvent("Click", start_clicked, 0)
+				startstop_button.OnEvent("Click", stop_clicked)
+			}
+			return
+		}
 		if not title_status.Text = "Started." {
 			title_status.Text := "Started."
-			title_status.SetFont("s13 c009900")
+			title_status.SetFont("s13 c779977")
 			startstop_button.Text := "STOP"
 			startstop_button.OnEvent("Click", start_clicked, 0)
 			startstop_button.OnEvent("Click", stop_clicked)
-		}
-		if (check_string_in_log("Bootstrapped 100% (done): Done")) {
-			status_bar.SetText(" Connected! You may close the window now, connection will stay active.")
-			return
 		}
 		if (check_string_in_log("Bootstrapped 1% (conn_pt): Connecting to pluggable transport")) {
 			status_bar.SetText(" Connecting to tor network...")
