@@ -177,5 +177,5 @@ debug(*) {
 	global button_x := 10*(button_pos_x+1) + (button_w*(button_pos_x))
 	global button_y := 10*(button_pos_y+1) + (button_h*(button_pos_y))
 	MsgBox(button_x . "`n" . button_y . "`n" . button_w . "`n" . button_h)
-	global exit_allowed := 1
 }
+global exit_allowed := 1

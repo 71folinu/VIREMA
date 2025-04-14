@@ -1,12 +1,14 @@
 ﻿; running.ahk - functions for app operation
 
 set_bridge_button_pressed(*) {
+	global exit_allowed := 0
 	global set_bridge_button_pressed__bridge__replace_to__ret_val := ""
 	global set_bridge_button_pressed__new_bridge := ""
 	if (bridge__validate(A_Clipboard) = "NO BRIDGE") {
 		global set_bridge_button_pressed_InputBox_Value := InputBox("Enter a new bridge to set:","window_title").Value
 		if (bridge__validate(set_bridge_button_pressed_InputBox_Value) = "NO BRIDGE") {
 			MsgBox("Invalid bridge entered. Try another bridge.",window_title)
+			global exit_allowed := 1
 			return
 		} else {
 			set_bridge_button_pressed__new_bridge := bridge__validate(set_bridge_button_pressed_InputBox_Value)
@@ -20,9 +22,11 @@ set_bridge_button_pressed(*) {
 		set_bridge_button_pressed__bridge__replace_to__ret_val := bridge__replace_to(set_bridge_button_pressed__new_bridge)
 		if (set_bridge_button_pressed__bridge__replace_to__ret_val = 2) {
 			MsgBox("An error occured while trying to read torrc. Try reinstalling " . window_title . ".",window_title . ": ERROR")
+			global exit_allowed := 1
 			return
 		} else if (set_bridge_button_pressed__bridge__replace_to__ret_val = 3) {
 			MsgBox("An error occured while trying to write to torrc. Try reinstalling " . window_title . ".",window_title . ": ERROR")
+			global exit_allowed := 1
 			return
 		}
 		MsgBox("New bridge is set. Connection will be restarted.",window_title)
@@ -33,13 +37,16 @@ set_bridge_button_pressed(*) {
 		set_bridge_button_pressed__bridge__replace_to__ret_val := bridge__replace_to(set_bridge_button_pressed__new_bridge)
 		if (set_bridge_button_pressed__bridge__replace_to__ret_val = 2) {
 			MsgBox("An error occured while trying to read torrc. Try reinstalling " . window_title . ".",window_title . ": ERROR")
+			global exit_allowed := 1
 			return
 		} else if (set_bridge_button_pressed__bridge__replace_to__ret_val = 3) {
 			MsgBox("An error occured while trying to write to torrc. Try reinstalling " . window_title . ".",window_title . ": ERROR")
+			global exit_allowed := 1
 			return
 		}
 		MsgBox("New bridge is set. You can start the connection now.",window_title)
 	}
+	global exit_allowed := 1
 	return
 }
 
