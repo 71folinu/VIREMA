@@ -28,6 +28,8 @@ vrmcmd(*) {
 		try {
 			if (vrmcmd_cmd_arr[1] = "TEST") {
 				test__all()
+			} else if (vrmcmd_cmd_arr[1] = "HELP") {
+				MsgBox("TEST - unit test all`nEXIT - quit`nSHOW TIME - show datetime string`nSHOW DATA - show decrypted userdata`nSHOW FUNCS - show all user defined functions`nBUTTON POS A B - show coordinates of a button that is at position A,B`nCOPY TEST_INFO - copy last unit test report`nCOPY FUNCS - copy all user defined functions`nENCR A - encrypt A`nDECR A - decrypt A`n","vrmcmd")
 			} else if (vrmcmd_cmd_arr[1] = "EXIT") {
 				return
 			} else if (vrmcmd_cmd_arr[1] = "SHOW") {
