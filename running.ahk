@@ -11,14 +11,24 @@ test__all(*) {
 }
 
 test__all__finish(*) {
-	global test__all__finish__out := "TOTAL TESTS - " . test__all__total_count . ":`n"
-	for test__all__finish__total_name in test__all__total_names {
-		global test__all__finish__out := test__all__finish__out . test__all__finish__total_name . "`n"
+	if (test__all__total_count > 0) {
+		global test__all__finish__out := "TOTAL TESTS - " . test__all__total_count . ":`n"
+		for test__all__finish__total_name in test__all__total_names {
+			global test__all__finish__out := test__all__finish__out . test__all__finish__total_name . "`n"
+		}
+		global test__all__finish__out := test__all__finish__out . "of which " . test__all__passed_count . " passed.`n
+		if (test__all_ failed_count > 0) {
+			global test__all__finish__out := test__all__finish__out . "Total failed - " . test__all__failed_count . ", namely:`n"
+			for test__all__finish__failed_name in test__all__failed_names {
+				global test__all__finish__out := test__all__finish__out . test__all__finish__failed_name . "`n"
+			}
+		} else {
+			global test__all__finish__out := test__all__finish__out . "No tests failed.`n
+		}
+	} else {
+		global test__all__finish__out := "No tests were conducted."
 	}
-	global test__all__finish__out := test__all__finish__out . "of which " . test__all__passed_count . " passed.`nTotal failed - " . test__all__failed_count . ", namely:`n"
-	for test__all__finish__failed_name in test__all__failed_names {
-		global test__all__finish__out := test__all__finish__out . test__all__finish__failed_name . "`n"
-	}
+	MsgBox(test__all__finish__out,"TESTING")
 }
 
 test__fuzz(tested_func) {
