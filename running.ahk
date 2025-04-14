@@ -2,11 +2,23 @@
 
 test__all(*) {
 	test__all__begin()
+
+	test__assert(bridge__replace_to("webtunnel [2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1webtunnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ ver=0.0.1"), 0, "bridge__replace_to two valid bridges")
+
+	test__assert(bridge__replace_to("webtunnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ ver=0.0.1"), 0, "bridge__replace_to valid bridge")
+
+	test__assert(bridge__replace_to("nnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ ver=0.0.1"), 1, "bridge__replace_to invalid bridge")
+
 	test__assert(bridge__validate("webtunnel [2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1webtunnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ ver=0.0.1"), "webtunnel [2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1", "bridge__validate - two valid bridges")
+
 	test__assert(bridge__validate("webtunnel [2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1"), "webtunnel [2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1", "bridge__validate - one valid bridge")
+
 	test__assert(bridge__validate("[2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1"), "NO BRIDGE", "bridge__validate - one invalid bridge")
+
 	test__assert(bridge__validate("[2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1webtunnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ ver=0.0.1"), "webtunnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ ver=0.0.1", "bridge__validate - one invalid bridge and one valid")
+
 	test__fuzz(bridge__validate)
+
 	test__all__finish()
 }
 
@@ -95,28 +107,22 @@ bridge__validate(bridge__validate__arg) {
 }
 
 bridge__replace_to(bridge__replace_to_in_str) {
-	MsgBox("|" . bridge__replace_to_in_str . "|","bridge__replace_to_in_str")
-	MsgBox("|" . FileRead("torrc_test") . "|","FileRead(`"torrc_test`")")
-	if (bridge__validate(bridge__replace_to_in_str) = "NO BRIDGE") {
-		MsgBox("return 1","return 1")
+	global bridge__replace_to__new_bridge := bridge__validate(bridge__replace_to_in_str)
+	if (bridge__replace_to__new_bridge = "NO BRIDGE") {
 		return 1
 	}
 	global bridge__replace_to__new_torrc := ""
 	try {
-		global bridge__replace_to__new_torrc := RegExReplace(FileRead("torrc_test"), "webtunnel .* ver=0\.0\.1", bridge__replace_to_in_str)
+		global bridge__replace_to__new_torrc := RegExReplace(FileRead("torrc"), "webtunnel .* ver=0\.0\.1", bridge__replace_to__new_bridge)
 	} catch {
-		MsgBox("return 2","return 2")
 		return 2
 	}
-	MsgBox("|" . bridge__replace_to__new_torrc . "|","bridge__replace_to__new_torrc")
 	try {
-		FileDelete("torrc_test")
-		FileAppend(bridge__replace_to__new_torrc, "torrc_test")
+		FileDelete("torrc")
+		FileAppend(bridge__replace_to__new_torrc, "torrc")
 	} catch {
-		MsgBox("return 3","return 3")
 		return 3
 	}
-	MsgBox("return 0","return 0")
 	return 0
 }
 
@@ -158,10 +164,6 @@ data_var_encrypt(var_in) {
 		}
 	}
 	return str_out
-}
-
-data_MsgBox(*) {
-	MsgBox(data_launch_count . "`n" . data_custom_text . "`n" . data_placeholder . "`n" . data_A_AppData . "`n" . data_A_Language . "`n" . data_A_Is64bitOS . "`n" . data_A_OSVersion . "`n" . data_A_TickCount . "`n" . data_running_compiled . "`n" . data_debug_set . "`n" . data_datetime_utc . "`n" . data_end_line, "userdata.virema")
 }
 
 data_update(*) {
