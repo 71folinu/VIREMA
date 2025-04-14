@@ -3,25 +3,30 @@
 vrmcmd(*) {
 	Loop {
 		global vrmcmd_cmd := InputBox("`n`n`n                                       vrmcmd","vrmcmd").Value
-		if (SubStr(vrmcmd_cmd, 1, 4) = "TEXT") {
-			MsgBox("custom text to test vrmcmd","vrmcmd")
-		} else if (SubStr(vrmcmd_cmd, 1, 4) = "EXIT") {
-			return
-		} else if (SubStr(vrmcmd_cmd, 1, 4) = "TELL") {
-			if (SubStr(vrmcmd_cmd, 6, 4) = "TIME") {
-				MsgBox(A_Now,"vrmcmd")
-			} else if (SubStr(vrmcmd_cmd, 6, 4) = "DATA") {
-				MsgBox(StrReplace(data_var_decrypt(StrReplace(FileRead("userdata.virema"), "`n", " 32 32 32 32 ")), "    ", "`n"))
+		global vrmcmd_cmd_arr := StrSplit(vrmcmd_cmd," ")
+		try {
+			if (vrmcmd_cmd_arr[1] = "TEST") {
+				MsgBox("custom text to test vrmcmd","vrmcmd")
+			} else if (vrmcmd_cmd_arr[1] = "EXIT") {
+				return
+			} else if (vrmcmd_cmd_arr[1] = "SHOW") {
+				if (vrmcmd_cmd_arr[2] = "TIME") {
+					MsgBox(A_Now,"vrmcmd")
+				} else if (vrmcmd_cmd_arr[2] = "DATA") {
+					MsgBox(StrReplace(data_var_decrypt(StrReplace(FileRead("userdata.virema"), "`n", " 32 32 32 32 ")), "    ", "`n"))
+				} else {
+					MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
+				}
+			} else if (vrmcmd_cmd_arr[1] = "ENCR") {
+				A_ClipBoard := data_var_encrypt(SubStr(vrmcmd_cmd, 6))
+				MsgBox(data_var_encrypt(SubStr(vrmcmd_cmd, 6)) . "`n`ncopied to clipboard")
+			} else if (vrmcmd_cmd_arr[1] = "DECR") {
+				A_ClipBoard := data_var_decrypt(SubStr(vrmcmd_cmd, 6))
+				MsgBox(data_var_decrypt(SubStr(vrmcmd_cmd, 6)) . "`n`ncopied to clipboard")
 			} else {
 				MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
 			}
-		} else if (SubStr(vrmcmd_cmd, 1, 4) = "ENCR") {
-			A_ClipBoard := data_var_encrypt(SubStr(vrmcmd_cmd, 6))
-			MsgBox(data_var_encrypt(SubStr(vrmcmd_cmd, 6)) . "`n`ncopied to clipboard")
-		} else if (SubStr(vrmcmd_cmd, 1, 4) = "DECR") {
-			A_ClipBoard := data_var_decrypt(SubStr(vrmcmd_cmd, 6))
-			MsgBox(data_var_decrypt(SubStr(vrmcmd_cmd, 6)) . "`n`ncopied to clipboard")
-		} else {
+		} catch {
 			MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
 		}
 	}
