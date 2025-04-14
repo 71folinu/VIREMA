@@ -1,7 +1,46 @@
 ﻿; running.ahk - functions for app operation
 
 set_bridge_button_pressed(*) {
-	
+	global set_bridge_button_pressed__bridge__replace_to__ret_val := ""
+	global set_bridge_button_pressed__new_bridge := ""
+	if (bridge__validate(A_Clipboard) = "NO BRIDGE") {
+		global set_bridge_button_pressed_InputBox_Value := InputBox("Enter a new bridge to set:","window_title").Value
+		if (bridge__validate(set_bridge_button_pressed_InputBox_Value) = "NO BRIDGE") {
+			MsgBox("Invalid bridge entered. Try another bridge.",window_title)
+			return
+		} else {
+			set_bridge_button_pressed__new_bridge := bridge__validate(set_bridge_button_pressed_InputBox_Value)
+		}
+	} else {
+		set_bridge_button_pressed__new_bridge := bridge__validate(A_Clipboard)
+	}
+	if started() {
+		global tor_launch_ordered := 0
+		ProcessClose("VIREMA_tor.exe")
+		set_bridge_button_pressed__bridge__replace_to__ret_val := bridge__replace_to(set_bridge_button_pressed__new_bridge)
+		if (set_bridge_button_pressed__bridge__replace_to__ret_val = 2) {
+			MsgBox("An error occured while trying to read torrc. Try reinstalling " . window_title . ".",window_title . ": ERROR")
+			return
+		} else if (set_bridge_button_pressed__bridge__replace_to__ret_val = 3) {
+			MsgBox("An error occured while trying to write to torrc. Try reinstalling " . window_title . ".",window_title . ": ERROR")
+			return
+		}
+		MsgBox("New bridge is set. Connection will be restarted.",window_title)
+		Run A_ComSpec ' /c ""C:\VIREMA\third_party\VIREMA_tor.exe" "-f" "C:\VIREMA\torrc" >"tor_log.txt""',,"Hide"
+		SetTimer(check_connection_success, -1560*47)
+		global tor_launch_ordered := 1
+	} else {
+		set_bridge_button_pressed__bridge__replace_to__ret_val := bridge__replace_to(set_bridge_button_pressed__new_bridge)
+		if (set_bridge_button_pressed__bridge__replace_to__ret_val = 2) {
+			MsgBox("An error occured while trying to read torrc. Try reinstalling " . window_title . ".",window_title . ": ERROR")
+			return
+		} else if (set_bridge_button_pressed__bridge__replace_to__ret_val = 3) {
+			MsgBox("An error occured while trying to write to torrc. Try reinstalling " . window_title . ".",window_title . ": ERROR")
+			return
+		}
+		MsgBox("New bridge is set. You can start the connection now.",window_title)
+	}
+	return
 }
 
 test__all(*) {
@@ -512,8 +551,8 @@ started(*) {
 }
 
 stop_clicked(*) {
-	ProcessClose("VIREMA_tor.exe")
 	global tor_launch_ordered := 0
+	ProcessClose("VIREMA_tor.exe")
 	disable_proxy()
 }
 
