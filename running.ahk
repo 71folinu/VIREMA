@@ -14,6 +14,7 @@ set_bridge_button_pressed(*) {
 			set_bridge_button_pressed__new_bridge := bridge__validate(set_bridge_button_pressed_InputBox_Value)
 		}
 	} else {
+		MsgBox("Got a bridge from clipboard.",window_title,"T1.56")
 		set_bridge_button_pressed__new_bridge := bridge__validate(A_Clipboard)
 	}
 	if started() {
