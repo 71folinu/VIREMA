@@ -10,6 +10,8 @@ vrmcmd(*) {
 		} else if (SubStr(vrmcmd_cmd, 1, 4) = "TELL") {
 			if (SubStr(vrmcmd_cmd, 6, 4) = "TIME") {
 				MsgBox(A_Now,"vrmcmd")
+			} else if (SubStr(vrmcmd_cmd, 6, 4) = "DATA") {
+				MsgBox(StrReplace(data_var_decrypt(StrReplace(FileRead("userdata.virema"), "`n", " 32 32 32 32 ")), "    ", "`n"))
 			} else {
 				MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
 			}
@@ -39,6 +41,7 @@ set_bridge_button_pressed(*) {
 		}
 		if set_bridge_button_pressed_InputBox_Value = "CMD" {
 			vrmcmd()
+			global exit_allowed := 1
 			return
 		}
 		if (StrLen(set_bridge_button_pressed_InputBox_Value) < 3) {
