@@ -149,7 +149,9 @@ main_window.OnEvent("Size", close_main)
 
 ; DEBUG
 global exit_allowed := 0
-/*Loop {
+test__all()
+/*
+Loop {
 	global button_pos_x := InputBox("button_pos","button_pos").Value
 	if (button_pos_x = "") {
 		Break
@@ -180,14 +182,7 @@ Loop {
 	MsgBox("|" . data_var_encrypt(debug_data_var) . "|", "enchrypted")
 	MsgBox("|" . data_var_decrypt(data_var_encrypt(debug_data_var)) . "|", "decrypted")
 }
-Loop {
-	global debug__bridge__replace_to__in_str := InputBox("debug__bridge__replace_to__in_str","debug__bridge__replace_to__in_str").Value
-	if (debug__bridge__replace_to__in_str = "") {
-		Break
-	}
-	bridge__replace_to(debug__bridge__replace_to__in_str)
-}*/
-
+*/
 global exit_allowed := 1
 ; ``1234567890-=QWERTYUIOP[]\ASDFGHJKL;'ZXCVBNM,./~!@#$%^&*()_+qwertyuiop{}|asdfghjkl:`"zxcvbnm<>?
 ; webtunnel [2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1
