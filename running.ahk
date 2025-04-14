@@ -1,5 +1,9 @@
 ﻿; running.ahk - functions for app operation
 
+set_bridge_button_pressed(*) {
+	
+}
+
 test__all(*) {
 	test__all__begin()
 

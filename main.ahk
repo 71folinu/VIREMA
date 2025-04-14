@@ -55,6 +55,9 @@ see_logs_button.OnEvent("Click", see_logs_button_clicked)
 global force_disable_proxy := main_window.Add("Button", "+x270 +y190 +w120 +h80", "FORCE`nDISABLE`nPROXY")
 force_disable_proxy.SetFont("s11")
 force_disable_proxy.OnEvent("Click", disable_proxy)
+global set_bridge_button := main_window.Add("Button", "+x140 +y190 +w120 +h80", "Set bridge")
+set_bridge_button.SetFont("s11")
+set_bridge_button.OnEvent("Click", set_bridge_button_pressed)
 
 ; REFRESHING STATUS BAR
 refresh_status(*) {
