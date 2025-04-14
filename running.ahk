@@ -1,5 +1,27 @@
 ﻿; running.ahk - functions for app operation
 
+test__all(*) {
+	test__all__begin()
+	test__assert(bridge__pick_first("webtunnel [2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1webtunnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ ver=0.0.1"), "webtunnel [2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1", "bridge__pick_first - two valid bridges")
+	test__assert(bridge__pick_first("webtunnel [2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1"), "webtunnel [2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1", "bridge__pick_first - one valid bridge")
+	test__assert(bridge__pick_first("[2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1"), "NO BRIDGE", "bridge__pick_first - one invalid bridge")
+	test__assert(bridge__pick_first("[2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1webtunnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ ver=0.0.1"), "webtunnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ ver=0.0.1", "bridge__pick_first - one invalid bridge and one valid")
+	test__fuzz(bridge__pick_first)
+	test__all__finish()
+}
+
+test__assert(test__assert__ret_val, test__assert__expected_ret_val, test__assert__test_name) {
+	
+}
+
+test__all__begin(*) {
+	global test__all__total_count := 0
+	global test__all__passed_count := 0
+	global test__all__total_names := []
+	global test__all__failed_count := 0
+	global test__all__failed_names := []
+}
+
 bridge__pick_first(bridge__pick_first__arg) {
 	global bridge__pick_first__RegExMatchInfo := ""
 	global bridge__pick_first__FoundPos := RegExMatch(bridge__pick_first__arg, "webtunnel .* ver=0\.0\.1", &bridge__pick_first__RegExMatchInfo)
