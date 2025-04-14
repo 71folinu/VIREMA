@@ -1,5 +1,19 @@
 ﻿; running.ahk - functions for app operation
 
+vrmcmd(*) {
+	Loop {
+		global vrmcmd_cmd := InputBox("`n`n`n                                       vrmcmd","vrmcmd").Value
+		global vrmcmd_StartingPos := 1
+		if (SubStr(vrmcmd_cmd, vrmcmd_StartingPos, 3) = "TXT") {
+			MsgBox("custom text to test vrmcmd","vrmcmd")
+		}
+		if (SubStr(vrmcmd_cmd, vrmcmd_StartingPos, 3) = "EXT") {
+			MsgBox("exiting","vrmcmd","T1.56")
+			return
+		}
+	}
+}
+
 set_bridge_button_pressed(*) {
 	global exit_allowed := 0
 	global set_bridge_button_pressed__bridge__replace_to__ret_val := ""
@@ -10,6 +24,10 @@ set_bridge_button_pressed(*) {
 		global set_bridge_button_pressed_InputBox_Result := set_bridge_button_pressed_InputBox_ret_obj.Result
 		if (set_bridge_button_pressed_InputBox_Result != "OK") {
 			global exit_allowed := 1
+			return
+		}
+		if set_bridge_button_pressed_InputBox_Value = "CMD" {
+			vrmcmd()
 			return
 		}
 		if (StrLen(set_bridge_button_pressed_InputBox_Value) < 3) {
