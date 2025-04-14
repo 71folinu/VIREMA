@@ -37,15 +37,14 @@ test__fuzz(tested_func) {
 	global test__fuzz__test_failed := 0
 	global test__all__total_count := test__all__total_count + 1
 	test__all__total_names.Push("fuzz " . tested_func.Name)
-	global test__fuzz__charcode := 0
 	global test__fuzz__string := ""
 	Loop 2047 {
-		global test__fuzz__string := test__fuzz__string . Chr(test__fuzz__charcode)
+		global test__fuzz__string := test__fuzz__string . Chr(A_Index)
 		try {
-			tested_func(Chr(test__fuzz__charcode))
+			tested_func(Chr(A_Index))
 		} catch {
 			global test__all__failed_count := test__all__failed_count + 1
-			test__all__failed_names.Push("fuzz " . tested_func.Name . " with char " . Chr(test__fuzz__charcode))
+			test__all__failed_names.Push("fuzz " . tested_func.Name . " with char " . Chr(A_Index))
 			global test__fuzz__test_failed := 1
 		}
 		try {
@@ -55,8 +54,8 @@ test__fuzz(tested_func) {
 			test__all__failed_names.Push("fuzz " . tested_func.Name . " with str " . test__fuzz__string)
 			global test__fuzz__test_failed := 1
 		}
-		global test__fuzz__charcode := test__fuzz__charcode + 1
 	}
+	MsgBox(test__fuzz__string)
 	if not (test__fuzz__test_failed := 0) {
 		global test__all__passed_count := test__all__passed_count + 1
 	}
