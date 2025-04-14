@@ -55,7 +55,6 @@ test__fuzz(tested_func) {
 			global test__fuzz__test_failed := 1
 		}
 	}
-	MsgBox(test__fuzz__string)
 	if not (test__fuzz__test_failed := 0) {
 		global test__all__passed_count := test__all__passed_count + 1
 	}
