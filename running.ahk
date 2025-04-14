@@ -16,14 +16,14 @@ test__all__finish(*) {
 		for test__all__finish__total_name in test__all__total_names {
 			global test__all__finish__out := test__all__finish__out . test__all__finish__total_name . "`n"
 		}
-		global test__all__finish__out := test__all__finish__out . "of which " . test__all__passed_count . " passed.`n
-		if (test__all_ failed_count > 0) {
+		global test__all__finish__out := test__all__finish__out . "of which " . test__all__passed_count . " passed.`n"
+		if (test__all__failed_count > 0) {
 			global test__all__finish__out := test__all__finish__out . "Total failed - " . test__all__failed_count . ", namely:`n"
 			for test__all__finish__failed_name in test__all__failed_names {
 				global test__all__finish__out := test__all__finish__out . test__all__finish__failed_name . "`n"
 			}
 		} else {
-			global test__all__finish__out := test__all__finish__out . "No tests failed.`n
+			global test__all__finish__out := test__all__finish__out . "No tests failed.`n"
 		}
 	} else {
 		global test__all__finish__out := "No tests were conducted."
@@ -34,7 +34,7 @@ test__all__finish(*) {
 test__fuzz(tested_func) {
 	global test__fuzz__test_failed := 0
 	global test__all__total_count := test__all__total_count + 1
-	global test__all__total_names.Push("fuzz " . tested_func.Name)
+	test__all__total_names.Push("fuzz " . tested_func.Name)
 	global test__fuzz__charcode := 0
 	global test__fuzz__string := ""
 	Loop 2047 {
@@ -43,17 +43,17 @@ test__fuzz(tested_func) {
 			tested_func(Chr(test__fuzz__charcode))
 		} catch {
 			global test__all__failed_count := test__all__failed_count + 1
-			global test__all__failed_names.Push("fuzz " . tested_func.Name . " with char " . Chr(test__fuzz__charcode))
+			test__all__failed_names.Push("fuzz " . tested_func.Name . " with char " . Chr(test__fuzz__charcode))
 			global test__fuzz__test_failed := 1
 		}
 		try {
 			tested_func(test__fuzz__string)
 		} catch {
 			global test__all__failed_count := test__all__failed_count + 1
-			global test__all__failed_names.Push("fuzz " . tested_func.Name . " with str " . test__fuzz__string)
+			test__all__failed_names.Push("fuzz " . tested_func.Name . " with str " . test__fuzz__string)
 			global test__fuzz__test_failed := 1
 		}
-		global test__fuzz__charcode := global test__fuzz__charcode + 1
+		global test__fuzz__charcode := test__fuzz__charcode + 1
 	}
 	if not (test__fuzz__test_failed := 0) {
 		global test__all__passed_count := test__all__passed_count + 1
@@ -62,13 +62,13 @@ test__fuzz(tested_func) {
 
 test__assert(test__assert__ret_val, test__assert__expected_ret_val, test__assert__test_name) {
 	global test__all__total_count := test__all__total_count + 1
-	global test__all__total_names.Push(test__assert__test_name)
+	test__all__total_names.Push(test__assert__test_name)
 	if (test__assert__ret_val = test__assert__expected_ret_val) {
 		global test__all__passed_count := test__all__passed_count + 1
 		return
 	}
 	global test__all__failed_count := test__all__failed_count + 1
-	global test__all__failed_names.Push(test__assert__test_name)
+	test__all__failed_names.Push(test__assert__test_name)
 	return
 }
 
