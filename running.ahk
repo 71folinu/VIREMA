@@ -3,13 +3,24 @@
 vrmcmd(*) {
 	Loop {
 		global vrmcmd_cmd := InputBox("`n`n`n                                       vrmcmd","vrmcmd").Value
-		global vrmcmd_StartingPos := 1
-		if (SubStr(vrmcmd_cmd, vrmcmd_StartingPos, 3) = "TXT") {
+		if (SubStr(vrmcmd_cmd, 1, 4) = "TEXT") {
 			MsgBox("custom text to test vrmcmd","vrmcmd")
-		}
-		if (SubStr(vrmcmd_cmd, vrmcmd_StartingPos, 3) = "EXT") {
-			MsgBox("exiting","vrmcmd","T1.56")
+		} else if (SubStr(vrmcmd_cmd, 1, 4) = "EXIT") {
 			return
+		} else if (SubStr(vrmcmd_cmd, 1, 4) = "TELL") {
+			if (SubStr(vrmcmd_cmd, 6, 4) = "TIME") {
+				MsgBox(A_Now,"vrmcmd")
+			} else {
+				MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
+			}
+		} else if (SubStr(vrmcmd_cmd, 1, 4) = "ENCR") {
+			A_ClipBoard := data_var_encrypt(SubStr(vrmcmd_cmd, 6))
+			MsgBox(data_var_encrypt(SubStr(vrmcmd_cmd, 6)) . "`n`ncopied to clipboard")
+		} else if (SubStr(vrmcmd_cmd, 1, 4) = "DECR") {
+			A_ClipBoard := data_var_decrypt(SubStr(vrmcmd_cmd, 6))
+			MsgBox(data_var_decrypt(SubStr(vrmcmd_cmd, 6)) . "`n`ncopied to clipboard")
+		} else {
+			MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
 		}
 	}
 }
