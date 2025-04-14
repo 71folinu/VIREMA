@@ -2,11 +2,11 @@
 
 test__all(*) {
 	test__all__begin()
-	test__assert(bridge__pick_first("webtunnel [2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1webtunnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ ver=0.0.1"), "webtunnel [2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1", "bridge__pick_first - two valid bridges")
-	test__assert(bridge__pick_first("webtunnel [2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1"), "webtunnel [2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1", "bridge__pick_first - one valid bridge")
-	test__assert(bridge__pick_first("[2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1"), "NO BRIDGE", "bridge__pick_first - one invalid bridge")
-	test__assert(bridge__pick_first("[2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1webtunnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ ver=0.0.1"), "webtunnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ ver=0.0.1", "bridge__pick_first - one invalid bridge and one valid")
-	test__fuzz(bridge__pick_first)
+	test__assert(bridge__validate("webtunnel [2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1webtunnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ ver=0.0.1"), "webtunnel [2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1", "bridge__validate - two valid bridges")
+	test__assert(bridge__validate("webtunnel [2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1"), "webtunnel [2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1", "bridge__validate - one valid bridge")
+	test__assert(bridge__validate("[2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1"), "NO BRIDGE", "bridge__validate - one invalid bridge")
+	test__assert(bridge__validate("[2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1webtunnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ ver=0.0.1"), "webtunnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ ver=0.0.1", "bridge__validate - one invalid bridge and one valid")
+	test__fuzz(bridge__validate)
 	test__all__finish()
 }
 
@@ -84,24 +84,20 @@ test__all__begin(*) {
 	global test__all__failed_gots := []
 }
 
-bridge__pick_first(bridge__pick_first__arg) {
-	global bridge__pick_first__RegExMatchInfo := ""
-	global bridge__pick_first__FoundPos := RegExMatch(bridge__pick_first__arg, "webtunnel.*?ver=0\.0\.1", &bridge__pick_first__RegExMatchInfo)
-	if IsObject(bridge__pick_first__RegExMatchInfo) {
-		return bridge__pick_first__RegExMatchInfo[]
+bridge__validate(bridge__validate__arg) {
+	global bridge__validate__RegExMatchInfo := ""
+	global bridge__validate__FoundPos := RegExMatch(bridge__validate__arg, "webtunnel.*?ver=0\.0\.1", &bridge__validate__RegExMatchInfo)
+	if IsObject(bridge__validate__RegExMatchInfo) {
+		return bridge__validate__RegExMatchInfo[]
 	} else {
 		return "NO BRIDGE"
 	}
 }
 
-bridge__validate(bridge__validate__in_str) {
-	return 0
-}
-
 bridge__replace_to(bridge__replace_to_in_str) {
 	MsgBox("|" . bridge__replace_to_in_str . "|","bridge__replace_to_in_str")
 	MsgBox("|" . FileRead("torrc_test") . "|","FileRead(`"torrc_test`")")
-	if (bridge__validate(bridge__replace_to_in_str)) {
+	if (bridge__validate(bridge__replace_to_in_str) = "NO BRIDGE") {
 		MsgBox("return 1","return 1")
 		return 1
 	}
