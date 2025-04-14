@@ -148,19 +148,19 @@ main_window.OnEvent("Close", close_main)
 main_window.OnEvent("Size", close_main)
 
 ; DEBUG
-global exit_allowed := 0
 if (not A_IsCompiled) {
-	test__all()
+	debug()
 }
-/*
-Loop {
+debug(*) {
+	global exit_allowed := 0
+	test__all()
 	global button_pos_x := InputBox("button_pos","button_pos").Value
 	if (button_pos_x = "") {
-		Break
+		return
 	}
 	global button_pos_y := InputBox("button_pos","button_pos").Value
 	if (button_pos_y = "") {
-		Break
+		return
 	}
 	global window_w := 400
 	global window_h := 300 - 20
@@ -174,21 +174,5 @@ Loop {
 	global button_x := 10*(button_pos_x+1) + (button_w*(button_pos_x))
 	global button_y := 10*(button_pos_y+1) + (button_h*(button_pos_y))
 	MsgBox(button_x . "`n" . button_y . "`n" . button_w . "`n" . button_h)
+	global exit_allowed := 1
 }
-Loop {
-	data_MsgBox()
-	global debug_data_var := InputBox("to_encrypt").Value
-	if debug_data_var = "" {
-		Break
-	}
-	MsgBox("|" . data_var_encrypt(debug_data_var) . "|", "enchrypted")
-	MsgBox("|" . data_var_decrypt(data_var_encrypt(debug_data_var)) . "|", "decrypted")
-}
-*/
-global exit_allowed := 1
-; ``1234567890-=QWERTYUIOP[]\ASDFGHJKL;'ZXCVBNM,./~!@#$%^&*()_+qwertyuiop{}|asdfghjkl:`"zxcvbnm<>?
-; webtunnel [2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1
-; webtunnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ ver=0.0.1
-; [2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1
-; webtunnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ
-
