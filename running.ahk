@@ -100,7 +100,7 @@ vrmcmd(*) {
 			} else if (vrmcmd_cmd_arr[1] = "DATA") {
 				if (vrmcmd_cmd_arr[2] = "SHOW") {
 					MsgBox(StrReplace(data_var_decrypt(StrReplace(FileRead("userdata.virema"), "`n", " 32 32 32 32 ")), "    ", "`n"))
-					A_Clipboard StrReplace(data_var_decrypt(StrReplace(FileRead("userdata.virema"), "`n", " 32 32 32 32 ")), "    ", "`n")
+					A_Clipboard := StrReplace(data_var_decrypt(StrReplace(FileRead("userdata.virema"), "`n", " 32 32 32 32 ")), "    ", "`n")
 				} else if (vrmcmd_cmd_arr[2] = "DELETE") {
 					FileDelete("userdata.virema")
 				} else {
