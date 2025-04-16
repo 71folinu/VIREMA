@@ -17,6 +17,9 @@ global exit_allowed := 1
 global window_title := "VIREMA 0.3.0"
 global status_bar_refresh_period := 156*2
 global wait_ImageSearch_in_folder_time_sec := 1
+global data_v2__arr := []
+global data_v2__arr__capacity := 15
+global data_v2__arr__index__test := data_v2__arr__capacity + 0
 
 ; ENABLING ADMIN RIGHTS
 if not (A_IsAdmin or RegExMatch(DllCall("GetCommandLine", "str"), " /restart(?!\S)")) {
