@@ -803,10 +803,15 @@ update_logs_window_field(*) {
 	global logs_window_field_text_updated := 0
 }
 
+close_logs_window(*) {
+	logs_window.Destroy()
+}
+
 see_logs_button_clicked(*) {
 	if not WinExist(window_title . " - tor logs") {
 		global logs_window := Gui.Call(,window_title . " - tor logs")
 		global logs_window_field := logs_window.Add("Edit", "+x10 +y10 +w380 +h260 ReadOnly", "No logs were found.")
+		logs_window.OnEvent("Escape", close_logs_window)
 		Sleep(156)
 		logs_window.Show("X" . main_window_pos_x + main_window_pos_w + 95 . " " . "Y" . main_window_pos_y . " W400 H300")
 		Send("^{End}")
@@ -814,6 +819,6 @@ see_logs_button_clicked(*) {
 		global logs_status_bar := logs_window.Add("StatusBar",, " Close the window to return to main menu.")
 		logs_status_bar.SetFont("s8")
 	} else {
-		logs_window.Destroy()
+		close_logs_window()
 	}
 }
