@@ -12,26 +12,31 @@ data_v2__get(index) {
 }
 
 data_v2__set(index, value) {
-	global data_v2__set__aaaaa := ""
-	if not FileExist("data_v2") {
-		Loop data_v2__arr__capacity {
-			data_v2__get__aaa .= "NODATA`n"
-			if A_Index = index {
-				data_v2__get__aaa .= value
+	try {
+		global data_v2__set__aaaaa := ""
+		if not FileExist("data_v2") {
+			Loop data_v2__arr__capacity {
+				data_v2__get__aaa .= "NODATA`n"
+				if A_Index = index {
+					data_v2__get__aaa .= value
+				}
 			}
+			FileAppend(data_v2__encrypt_str(Trim(data_v2__get__aaa,"`n")),"data_v2")
 		}
-		FileAppend(data_v2__encrypt_str(Trim(data_v2__get__aaa,"`n")),"data_v2")
+		global data_v2__arr := StrSplit(data_v2__decrypt_str(FileRead("data_v2")),"`n")
+		data_v2__arr[index] := value
+		if FileExist("data_v2") {
+			FileDelete("data_v2")
+		}
+		for elem in data_v2__arr {
+			global data_v2__set__aaaaa .= String(elem) . "`n"
+		}
+		global data_v2__set__aaaaa := Trim(data_v2__set__aaaaa, "`n")
+		FileAppend(data_v2__encrypt_str(data_v2__set__aaaaa),"data_v2")
+		return 0
+	} catch {
+		return 1
 	}
-	global data_v2__arr := StrSplit(data_v2__decrypt_str(FileRead("data_v2")),"`n")
-	data_v2__arr[index] := value
-	if FileExist("data_v2") {
-		FileDelete("data_v2")
-	}
-	for elem in data_v2__arr {
-		global data_v2__set__aaaaa .= String(elem) . "`n"
-	}
-	global data_v2__set__aaaaa := Trim(data_v2__set__aaaaa, "`n")
-	FileAppend(data_v2__encrypt_str(data_v2__set__aaaaa),"data_v2")
 }
 
 data_v2__decrypt_str(data_v2__decrypt_str__arg) {
@@ -223,7 +228,7 @@ test__all(*) {
 	if data_launch_count > 1 {
 		test__assert(data_v2__get(data_v2__arr__index__test), "TEST DATA 1234567890 !@#$%^&*()", "data_v2__get what was set on the first launch")
 	} else {
-		data_v2__set(data_v2__arr__index__test, "TEST DATA 1234567890 !@#$%^&*()")
+		test__assert(data_v2__set(data_v2__arr__index__test, "TEST DATA 1234567890 !@#$%^&*()"),0,"data_v2__set on first launch")
 	}
 
 	test__fuzz(data_v2__decrypt_str)
