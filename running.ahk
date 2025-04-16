@@ -183,6 +183,7 @@ set_bridge_button_pressed(*) {
 	} else {
 		MsgBox("Got a bridge from clipboard.",window_title,"T1.56")
 		set_bridge_button_pressed__new_bridge := bridge__validate(A_Clipboard)
+		A_Clipboard := ":)"
 	}
 	if started() {
 		global tor_launch_ordered := 0
