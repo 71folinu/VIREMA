@@ -89,57 +89,44 @@ vrmcmd(*) {
 		try {
 			if (vrmcmd_cmd_arr[1] = "TEST") {
 				test__all()
-			} else if (vrmcmd_cmd_arr[1] = "HELP") {
-				MsgBox("TEST - unit test all`nEXIT - quit`nSHOW TIME - show datetime string`nSHOW DATA - show decrypted userdata`nSHOW FUNCS - show all user defined functions`nBUTTON POS A B - show coordinates of a button that is at position A,B`nCOPY TEST_INFO - copy last unit test report`nCOPY FUNCS - copy all user defined functions`nENCR A - encrypt A`nDECR A - decrypt A`n","vrmcmd")
+				A_Clipboard := test__all__finish__out
 			} else if (vrmcmd_cmd_arr[1] = "EXIT") {
 				return
 			} else if (vrmcmd_cmd_arr[1] = "RELOAD") {
 				Reload
-			} else if (vrmcmd_cmd_arr[1] = "SHOW") {
-				if (vrmcmd_cmd_arr[2] = "TIME") {
-					MsgBox(A_Now,"vrmcmd")
-				} else if (vrmcmd_cmd_arr[2] = "DATA") {
+			} else if (vrmcmd_cmd_arr[1] = "TIME") {
+				MsgBox(A_Now,"vrmcmd")
+				A_Clipboard := A_Now
+			} else if (vrmcmd_cmd_arr[1] = "DATA") {
+				if (vrmcmd_cmd_arr[2] = "SHOW") {
 					MsgBox(StrReplace(data_var_decrypt(StrReplace(FileRead("userdata.virema"), "`n", " 32 32 32 32 ")), "    ", "`n"))
-				} else if (vrmcmd_cmd_arr[2] = "FUNCS") {
-					tools__show_all_functions()
+					A_Clipboard StrReplace(data_var_decrypt(StrReplace(FileRead("userdata.virema"), "`n", " 32 32 32 32 ")), "    ", "`n")
+				} else if (vrmcmd_cmd_arr[2] = "DELETE") {
+					FileDelete("userdata.virema")
 				} else {
 					MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
 				}
+			} else if (vrmcmd_cmd_arr[1] = "FUNCS") {
+				tools__show_all_functions()
 			} else if (vrmcmd_cmd_arr[1] = "BUTTON") {
-				if (vrmcmd_cmd_arr[2] = "POS") {
-					tools__button_pos(vrmcmd_cmd_arr[3],vrmcmd_cmd_arr[4])
-				} else {
-					MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
-				}
-			} else if (vrmcmd_cmd_arr[1] = "COPY") {
-				if (vrmcmd_cmd_arr[2] = "TEST_INFO") {
-					A_Clipboard := test__all__finish__out
-					MsgBox("copied to clipboard","vrmcmd","T.156")
-				} else if (vrmcmd_cmd_arr[2] = "FUNCS") {
-					tools__show_all_functions()
-				} else {
-					MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
-				}
+				tools__button_pos(vrmcmd_cmd_arr[2],vrmcmd_cmd_arr[3])
 			} else if (vrmcmd_cmd_arr[1] = "DATAV2") {
 				if (vrmcmd_cmd_arr[2] = "SHOW") {
 					MsgBox(data_v2__decrypt_str(FileRead("data_v2")),"vrmcmd")
-				} else if (vrmcmd_cmd_arr[2] = "COPY") {
 					A_Clipboard := data_v2__decrypt_str(FileRead("data_v2"))
 				} else if (vrmcmd_cmd_arr[2] = "SET") {
 					data_v2__set(vrmcmd_cmd_arr[3], SubStr(vrmcmd_cmd, 15))
 				} else if (vrmcmd_cmd_arr[2] = "DELETE") {
-					if FileExist("data_v2") {
-						FileDelete("data_v2")
-					}
+					FileDelete("data_v2")
 				} else {
 					MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
 				}
 			} else if (vrmcmd_cmd_arr[1] = "ENCR") {
-				A_ClipBoard := data_var_encrypt(SubStr(vrmcmd_cmd, 6))
 				MsgBox(data_var_encrypt(SubStr(vrmcmd_cmd, 6)) . "`n`ncopied to clipboard")
+				A_ClipBoard := data_var_encrypt(SubStr(vrmcmd_cmd, 6))
 			} else if (vrmcmd_cmd_arr[1] = "DECR") {
-				A_ClipBoard := data_var_decrypt(SubStr(vrmcmd_cmd, 6))
 				MsgBox(data_var_decrypt(SubStr(vrmcmd_cmd, 6)) . "`n`ncopied to clipboard")
+				A_ClipBoard := data_var_decrypt(SubStr(vrmcmd_cmd, 6))
 			} else {
 				MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
 			}
