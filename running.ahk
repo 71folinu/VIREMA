@@ -1,5 +1,30 @@
 ﻿; running.ahk - functions for app operation
 
+data_v2__decrypt_str(data_v2__decrypt_str__arg) {
+	global data_v2__decrypt_str__output := ""
+	global data_v2__decrypt_str__input_arr := StrSplit(data_v2__decrypt_str__arg, " ")
+	for code in data_v2__decrypt_str__input_arr {
+		try {
+			data_v2__decrypt_str__output .= Chr(Number(code)/69)
+		} catch {
+			data_v2__decrypt_str__output := "INVALID"
+			Break
+		}
+	}
+	data_v2__decrypt_str__output := Trim(data_v2__decrypt_str__output)
+	return data_v2__decrypt_str__output
+}
+
+data_v2__encrypt_str(data_v2__encrypt_str__arg) {
+	global data_v2__encrypt_str__output := ""
+	global data_v2__encrypt_str__input_arr := StrSplit(data_v2__encrypt_str__arg)
+	for letter in data_v2__encrypt_str__input_arr {
+		data_v2__encrypt_str__output .= String(Ord(String(letter))*69) . " "
+	}
+	data_v2__encrypt_str__output := Trim(data_v2__encrypt_str__output)
+	return data_v2__encrypt_str__output
+}
+
 tools__show_all_functions(*) {
 	global tools__show_all_functions__RegExMatch_var := ""
 	global tools__show_all_functions__out_var := ""
@@ -157,6 +182,18 @@ set_bridge_button_pressed(*) {
 test__all(*) {
 	test__all__begin()
 
+	test__fuzz(data_v2__decrypt_str)
+
+	test__fuzz(data_v2__encrypt_str)
+
+	test__assert(data_v2__decrypt_str("5727 5865 4623 5175 690 4485 690 4692 5037 4623 5175"),"SUCK`nA`nDICK","data_v2_encrypt SUCK``nA``nDICK")
+
+	test__assert(data_v2__decrypt_str("5727 5865 4623 5175 2208 4485 2208 4692 5037 4623 5175"),"SUCK A DICK","data_v2_decrypt SUCK A DICK")
+
+	test__assert(data_v2__encrypt_str("SUCK A DICK"),"5727 5865 4623 5175 2208 4485 2208 4692 5037 4623 5175","data_v2_encrypt SUCK A DICK")
+
+	test__assert(data_v2__encrypt_str("SUCK`nA`nDICK"),"5727 5865 4623 5175 690 4485 690 4692 5037 4623 5175","data_v2_encrypt SUCK``nA``nDICK")
+
 	test__assert(bridge__replace_to("webtunnel [2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1webtunnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ ver=0.0.1"), 0, "bridge__replace_to two valid bridges")
 
 	test__assert(bridge__replace_to("webtunnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ ver=0.0.1"), 0, "bridge__replace_to valid bridge")
@@ -189,6 +226,7 @@ test__all__finish(*) {
 				global test__all__finish__out := test__all__finish__out . "`n" . test__all__finish__failed_name . "`n"
 				global test__all__finish__out := test__all__finish__out . "Expected:`n" . test__all__failed_exps[A_Index] . "`n"
 				global test__all__finish__out := test__all__finish__out . "Got:`n" . test__all__failed_gots[A_Index] . "`n"
+				A_ClipBoard := test__all__failed_gots[A_Index]
 			}
 		} else {
 			global test__all__finish__out := test__all__finish__out . "No tests failed.`n"
@@ -209,20 +247,23 @@ test__fuzz(tested_func) {
 		try {
 			tested_func(Chr(A_Index))
 		} catch {
-			global test__all__failed_count := test__all__failed_count + 1
-			test__all__failed_names.Push("fuzz " . tested_func.Name . " with char " . Chr(A_Index))
 			global test__fuzz__test_failed := 1
+			Break
 		}
 		try {
 			tested_func(test__fuzz__string)
 		} catch {
-			global test__all__failed_count := test__all__failed_count + 1
-			test__all__failed_names.Push("fuzz " . tested_func.Name . " with str " . test__fuzz__string)
 			global test__fuzz__test_failed := 1
+			Break
 		}
 	}
-	if not (test__fuzz__test_failed := 0) {
+	if (test__fuzz__test_failed = 0) {
 		global test__all__passed_count := test__all__passed_count + 1
+	} else {
+		global test__all__failed_count := test__all__failed_count + 1
+		test__all__failed_names.Push("fuzz " . tested_func.Name . " with char |" . Chr(A_Index) . "| or with str |" . test__fuzz__string . "|")
+		test__all__failed_exps.Push("fuzz")
+		test__all__failed_gots.Push("fuzz")
 	}
 }
 
