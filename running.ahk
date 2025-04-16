@@ -100,9 +100,6 @@ vrmcmd(*) {
 					MsgBox(A_Now,"vrmcmd")
 				} else if (vrmcmd_cmd_arr[2] = "DATA") {
 					MsgBox(StrReplace(data_var_decrypt(StrReplace(FileRead("userdata.virema"), "`n", " 32 32 32 32 ")), "    ", "`n"))
-				} else if (vrmcmd_cmd_arr[2] = "DATAV2") {
-					
-					
 				} else if (vrmcmd_cmd_arr[2] = "FUNCS") {
 					tools__show_all_functions()
 				} else {
