@@ -108,6 +108,9 @@ vrmcmd(*) {
 				}
 			} else if (vrmcmd_cmd_arr[1] = "FUNCS") {
 				tools__show_all_functions()
+			} else if (vrmcmd_cmd_arr[1] = "BRIDGE") {
+				MsgBox(SubStr(FileRead("torrc"),InStr(FileRead("torrc"), "bridge webtunnel")+7))
+				A_Clipboard := SubStr(FileRead("torrc"),InStr(FileRead("torrc"), "bridge webtunnel")+7)
 			} else if (vrmcmd_cmd_arr[1] = "BUTTON") {
 				tools__button_pos(vrmcmd_cmd_arr[2],vrmcmd_cmd_arr[3])
 			} else if (vrmcmd_cmd_arr[1] = "DATAV2") {
