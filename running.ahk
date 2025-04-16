@@ -4,7 +4,7 @@ data_v2__get(index) {
 	global data_v2__get__aaa := ""
 	if not FileExist("data_v2") {
 		Loop data_v2__arr__capacity {
-			data_v2__get__aaa .= "NODATA`n"
+			data_v2__get__aaa .= "0`n"
 		}
 		FileAppend(data_v2__encrypt_str(Trim(data_v2__get__aaa,"`n")),"data_v2")
 	}
@@ -16,10 +16,7 @@ data_v2__set(index, value) {
 		global data_v2__set__aaaaa := ""
 		if not FileExist("data_v2") {
 			Loop data_v2__arr__capacity {
-				data_v2__get__aaa .= "NODATA`n"
-				if A_Index = index {
-					data_v2__get__aaa .= value
-				}
+				data_v2__get__aaa .= "0`n"
 			}
 			FileAppend(data_v2__encrypt_str(Trim(data_v2__get__aaa,"`n")),"data_v2")
 		}
@@ -96,14 +93,16 @@ vrmcmd(*) {
 				MsgBox("TEST - unit test all`nEXIT - quit`nSHOW TIME - show datetime string`nSHOW DATA - show decrypted userdata`nSHOW FUNCS - show all user defined functions`nBUTTON POS A B - show coordinates of a button that is at position A,B`nCOPY TEST_INFO - copy last unit test report`nCOPY FUNCS - copy all user defined functions`nENCR A - encrypt A`nDECR A - decrypt A`n","vrmcmd")
 			} else if (vrmcmd_cmd_arr[1] = "EXIT") {
 				return
+			} else if (vrmcmd_cmd_arr[1] = "RELOAD") {
+				Reload
 			} else if (vrmcmd_cmd_arr[1] = "SHOW") {
 				if (vrmcmd_cmd_arr[2] = "TIME") {
 					MsgBox(A_Now,"vrmcmd")
 				} else if (vrmcmd_cmd_arr[2] = "DATA") {
 					MsgBox(StrReplace(data_var_decrypt(StrReplace(FileRead("userdata.virema"), "`n", " 32 32 32 32 ")), "    ", "`n"))
 				} else if (vrmcmd_cmd_arr[2] = "DATAV2") {
-					A_Clipboard := data_v2__decrypt_str(FileRead("data_v2"))
-					MsgBox(data_v2__decrypt_str(FileRead("data_v2")),"vrmcmd")
+					
+					
 				} else if (vrmcmd_cmd_arr[2] = "FUNCS") {
 					tools__show_all_functions()
 				} else {
@@ -121,6 +120,20 @@ vrmcmd(*) {
 					MsgBox("copied to clipboard","vrmcmd","T.156")
 				} else if (vrmcmd_cmd_arr[2] = "FUNCS") {
 					tools__show_all_functions()
+				} else {
+					MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
+				}
+			} else if (vrmcmd_cmd_arr[1] = "DATAV2") {
+				if (vrmcmd_cmd_arr[2] = "SHOW") {
+					MsgBox(data_v2__decrypt_str(FileRead("data_v2")),"vrmcmd")
+				} else if (vrmcmd_cmd_arr[2] = "COPY") {
+					A_Clipboard := data_v2__decrypt_str(FileRead("data_v2"))
+				} else if (vrmcmd_cmd_arr[2] = "SET") {
+					data_v2__set(vrmcmd_cmd_arr[3], SubStr(vrmcmd_cmd, 15))
+				} else if (vrmcmd_cmd_arr[2] = "DELETE") {
+					if FileExist("data_v2") {
+						FileDelete("data_v2")
+					}
 				} else {
 					MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
 				}
