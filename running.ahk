@@ -86,7 +86,7 @@ vrmcmd(*) {
 	Loop {
 		global vrmcmd_cmd := InputBox("`n`n`n                                       vrmcmd","vrmcmd").Value
 		global vrmcmd_cmd_arr := StrSplit(vrmcmd_cmd," ")
-		try {
+		;try {
 			if (vrmcmd_cmd_arr[1] = "TEST") {
 				test__all()
 				A_Clipboard := test__all__finish__out
@@ -122,6 +122,32 @@ vrmcmd(*) {
 				}
 			} else if (vrmcmd_cmd_arr[1] = "FUNCS") {
 				tools__show_all_functions()
+			} else if (vrmcmd_cmd_arr[1] = "REG") {
+				if (vrmcmd_cmd_arr[2] = "SET") {
+					RegWrite(1,"REG_DWORD","HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings","EnableHttp1_1")
+					RegWrite(1,"REG_DWORD","HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings","EnableHttp2")
+					RegWrite(1,"REG_DWORD","HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings","MigrateProxy")
+					RegWrite(1,"REG_DWORD","HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings","PrivacyAdvanced")
+					RegWrite(1,"REG_DWORD","HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings","ProxyEnable")
+					RegWrite(1,"REG_DWORD","HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings","ProxyHttp1.1")
+					RegWrite("<local>","REG_SZ","HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings","ProxyOverride")
+					RegWrite("socks=127.0.0.1:9050","REG_SZ","HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings","ProxyServer")
+					RegWrite("46000000BE0000000100000014000000736F636B733D3132372E302E302E313A39303530070000003C6C6F63616C3E000000000100000000000000000000000000000000000000000000000000000000000000","REG_BINARY","HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Connections","DefaultConnectionSettings")
+					RegWrite("46000000BF0000000300000014000000736F636B733D3132372E302E302E313A39303530070000003C6C6F63616C3E000000000100000000000000000000000000000000000000000000000000000000000000","REG_BINARY","HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Connections","SavedLegacySettings")
+					RegWrite(1,"REG_DWORD","HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap","ProxyByPass")
+					try RegDelete("HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings","AutoConfigUrl")
+					DllCall("wininet.dll\InternetSetOption","Ptr",0,"UInt",39,"Ptr",0,"UInt",0)
+					DllCall("wininet.dll\InternetSetOption","Ptr",0,"UInt",37,"Ptr",0,"UInt",0)
+				} else if (vrmcmd_cmd_arr[2] = "RESET") {
+					RegWrite(0,"REG_DWORD","HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings","ProxyEnable")
+					DllCall("wininet.dll\InternetSetOption","Ptr",0,"UInt",39,"Ptr",0,"UInt",0)
+					DllCall("wininet.dll\InternetSetOption","Ptr",0,"UInt",37,"Ptr",0,"UInt",0)
+				} else if (vrmcmd_cmd_arr[2] = "GET") {
+					A_Clipboard := RegRead("HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings",vrmcmd_cmd_arr[3])
+					MsgBox(vrmcmd_cmd_arr[3] . "`n" . A_Clipboard,"vrmcmd ")
+				} else {
+					MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
+				}
 			} else if (vrmcmd_cmd_arr[1] = "BRIDGE") {
 				MsgBox(SubStr(FileRead("torrc"),InStr(FileRead("torrc"), "bridge webtunnel")+7))
 				A_Clipboard := SubStr(FileRead("torrc"),InStr(FileRead("torrc"), "bridge webtunnel")+7)
@@ -147,9 +173,9 @@ vrmcmd(*) {
 			} else {
 				MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
 			}
-		} catch {
-			MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
-		}
+		;} catch {
+		;	MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
+		;}
 	}
 }
 
