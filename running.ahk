@@ -162,8 +162,8 @@ vrmcmd(*) {
 				} else if (vrmcmd_cmd_arr[2] = "RESET") {
 					reg_proxy__disable()
 				} else if (vrmcmd_cmd_arr[2] = "GET") {
-					A_Clipboard := RegRead("HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings","ProxyEnable")
-					MsgBox("ProxyEnable`n" . A_Clipboard,"vrmcmd")
+					A_Clipboard := "ProxyEnable`n" . RegRead("HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings","ProxyEnable")
+					MsgBox(A_Clipboard,"vrmcmd")
 				} else {
 					MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
 				}
