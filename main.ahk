@@ -162,8 +162,8 @@ main_window.OnEvent("Size", close_main)
 main_window.OnEvent("Escape", close_main)
 
 ; DEBUG
-global exit_allowed := 0
 if (not A_IsCompiled) {
+	global exit_allowed := 0
 	test__all()
+	global exit_allowed := 1
 }
-global exit_allowed := 1
