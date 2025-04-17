@@ -814,14 +814,16 @@ started(*) {
 stop_clicked(*) {
 	global tor_launch_ordered := 0
 	ProcessClose("VIREMA_tor.exe")
-	disable_proxy()
+	;disable_proxy()
+	reg_proxy__disable()
 }
 
 start_clicked(*) {
 	Run A_ComSpec ' /c ""C:\VIREMA\third_party\VIREMA_tor.exe" "-f" "C:\VIREMA\torrc" >"tor_log.txt""',,"Hide"
 	SetTimer(check_connection_success, -1560*47)
 	global tor_launch_ordered := 1
-	enable_proxy()
+	;enable_proxy()
+	reg_proxy__enable()
 }
 
 check_connection_success(*) {
