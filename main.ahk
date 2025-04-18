@@ -8,7 +8,7 @@ Persistent
 TraySetIcon "icon.ico", , true
 ;@Ahk2Exe-SetName VIREMA
 ;@Ahk2Exe-SetVersion 0.3.0
-#SingleInstance "Off"
+#SingleInstance Off
 
 ; INCLUDES
 #include running.ahk
