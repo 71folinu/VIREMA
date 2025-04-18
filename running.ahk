@@ -1,5 +1,9 @@
 ﻿; running.ahk - functions for app operation
 
+force_stop_button__clicked(*) {
+	try stop_clicked()
+}
+
 reg_proxy__enable(*) {
 	try {
 		RegWrite("46000000BE0000000100000014000000736F636B733D3132372E302E302E313A39303530070000003C6C6F63616C3E000000000100000000000000000000000000000000000000000000000000000000000000","REG_BINARY","HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Connections","DefaultConnectionSettings")
@@ -249,6 +253,7 @@ set_bridge_button_pressed(*) {
 	}
 	if started() {
 		global tor_launch_ordered := 0
+		reg_proxy__disable()
 		ProcessClose("VIREMA_tor.exe")
 		set_bridge_button_pressed__bridge__replace_to__ret_val := bridge__replace_to(set_bridge_button_pressed__new_bridge)
 		if (set_bridge_button_pressed__bridge__replace_to__ret_val = 2) {
@@ -261,6 +266,7 @@ set_bridge_button_pressed(*) {
 			return
 		}
 		MsgBox("New bridge is set. Connection will be restarted.",window_title)
+		reg_proxy__enable()
 		Run A_ComSpec ' /c ""C:\VIREMA\third_party\VIREMA_tor.exe" "-f" "C:\VIREMA\torrc" >"tor_log.txt""',,"Hide"
 		SetTimer(check_connection_success, -1560*47)
 		global tor_launch_ordered := 1
