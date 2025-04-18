@@ -871,6 +871,7 @@ close_logs_window(*) {
 }
 
 see_logs_button_clicked(*) {
+	Sleep(status_bar_refresh_period+15.6)
 	if not WinExist(window_title . " - tor logs") {
 		global logs_window := Gui.Call(,window_title . " - tor logs")
 		global logs_window_field := logs_window.Add("Edit", "+x10 +y10 +w380 +h260 ReadOnly", "No logs were found.")
