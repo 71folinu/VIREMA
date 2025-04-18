@@ -133,19 +133,11 @@ vrmcmd(*) {
 			} else if (vrmcmd_cmd_arr[1] = "RELOAD") {
 				Reload
 			} else if (vrmcmd_cmd_arr[1] = "RESET") {
-				if (FileExist("tor_log.txt")) {
-					FileDelete("tor_log.txt")
-				}
-				if (FileExist("userdata.virema")) {
-					FileDelete("userdata.virema")
-				}
-				if (FileExist("data_v2")) {
-					FileDelete("data_v2")
-				}
-				if (DirExist("tor_temp_data")) {
-					DirDelete("tor_temp_data", 1)
-				}
-				Reload
+				try FileDelete("tor_log.txt")
+				try FileDelete("userdata.virema")
+				try FileDelete("data_v2")
+				try DirDelete("tor_temp_data", 1)
+				ExitApp
 			} else if (vrmcmd_cmd_arr[1] = "TIME") {
 				MsgBox(A_Now,"vrmcmd")
 				A_Clipboard := A_Now
