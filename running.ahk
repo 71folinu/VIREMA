@@ -50,6 +50,9 @@ data_v2__get(index) {
 }
 
 data_v2__set(index, value) {
+	if InStr(value,"`n") {
+		return 1
+	}
 	try {
 		global data_v2__set__aaaaa := ""
 		if not FileExist("data_v2") {
