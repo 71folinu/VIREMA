@@ -136,10 +136,15 @@ vrmcmd(*) {
 			} else if (vrmcmd_cmd_arr[1] = "RELOAD") {
 				Reload
 			} else if (vrmcmd_cmd_arr[1] = "RESET") {
+				if (ProcessExist("VIREMA_tor.exe")) {
+					ProcessClose("VIREMA_tor.exe")
+				}
+				Sleep(156*3)
 				try FileDelete("tor_log.txt")
 				try FileDelete("userdata.virema")
 				try FileDelete("data_v2")
 				try DirDelete("tor_temp_data", 1)
+				Sleep(156*3)
 				ExitApp
 			} else if (vrmcmd_cmd_arr[1] = "TIME") {
 				MsgBox(A_Now,"vrmcmd")
