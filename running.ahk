@@ -177,11 +177,18 @@ vrmcmd(*) {
 			} else if (vrmcmd_cmd_arr[1] = "BUTTON") {
 				tools__button_pos(vrmcmd_cmd_arr[2],vrmcmd_cmd_arr[3])
 			} else if (vrmcmd_cmd_arr[1] = "DATAV2") {
-				if (vrmcmd_cmd_arr[2] = "SHOW") {
+				if (vrmcmd_cmd_arr[2] = "SHOWALL") {
 					MsgBox(data_v2__decrypt_str(FileRead("data_v2")),"vrmcmd")
 					A_Clipboard := data_v2__decrypt_str(FileRead("data_v2"))
+				} else if (vrmcmd_cmd_arr[2] = "GET") {
+					if (vrmcmd_cmd_arr[3] > 0) {
+						A_Clipboard := data_v2__get(vrmcmd_cmd_arr[3])
+						MsgBox(A_Clipboard,"vrmcmd")
+					} else {
+						MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
+					}
 				} else if (vrmcmd_cmd_arr[2] = "SET") {
-					data_v2__set(vrmcmd_cmd_arr[3], SubStr(vrmcmd_cmd, 15))
+					data_v2__set(vrmcmd_cmd_arr[3], SubStr(vrmcmd_cmd, 14))
 				} else if (vrmcmd_cmd_arr[2] = "DELETE") {
 					FileDelete("data_v2")
 				} else {
