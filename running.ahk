@@ -146,8 +146,9 @@ vrmcmd(*) {
 				try DirDelete("tor_temp_data", 1)
 				Sleep(156*3)
 				ExitApp
-			} else if (vrmcmd_cmd_arr[1] = "TIME") {
-				MsgBox(A_Now,"vrmcmd")
+			} else if (vrmcmd_cmd_arr[1] = "NOW") {
+				A_Clipboard := A_Now
+				MsgBox(A_Clipboard,"vrmcmd")
 				A_Clipboard := A_Now
 			} else if (vrmcmd_cmd_arr[1] = "DATA") {
 				if (vrmcmd_cmd_arr[2] = "SHOW") {
