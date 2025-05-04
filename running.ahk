@@ -168,6 +168,13 @@ tools__show_all_functions(*) {
 }
 
 vrmcmd__all(*) {
+	func_start_ln := 0
+	Loop Read "running.ahk" {
+		if (A_LoopReadLine = "vrmcmd(*) {") {
+			func_start_ln := A_Index
+		}
+	}
+	MsgBox func_start_ln
 	return "not implemented"
 }
 
