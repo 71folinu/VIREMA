@@ -167,6 +167,10 @@ tools__show_all_functions(*) {
 	MsgBox(tools__show_all_functions__out_var . "`n`ncopied to clipboard","tools__show_all_functions__out_var")
 }
 
+vrmcmd__all(*) {
+	return "not implemented"
+}
+
 vrmcmd(*) {
 	Loop {
 		global vrmcmd_cmd := InputBox("`n`n`n                                       vrmcmd","vrmcmd").Value
@@ -179,6 +183,9 @@ vrmcmd(*) {
 				return
 			} else if (vrmcmd_cmd_arr[1] = "RELOAD") {
 				Reload
+			} else if (vrmcmd_cmd_arr[1] = "HELP") {
+				A_Clipboard := vrmcmd__all()
+				MsgBox(A_Clipboard,"vrmcmd")
 			} else if (vrmcmd_cmd_arr[1] = "RESET") {
 				if (ProcessExist("VIREMA_tor.exe")) {
 					ProcessClose("VIREMA_tor.exe")
@@ -193,7 +200,6 @@ vrmcmd(*) {
 			} else if (vrmcmd_cmd_arr[1] = "NOW") {
 				A_Clipboard := A_Now
 				MsgBox(A_Clipboard,"vrmcmd")
-				A_Clipboard := A_Now
 			} else if (vrmcmd_cmd_arr[1] = "DATA") {
 				if (vrmcmd_cmd_arr[2] = "SHOW") {
 					MsgBox(StrReplace(data_var_decrypt(StrReplace(FileRead("userdata.virema"), "`n", " 32 32 32 32 ")), "    ", "`n"))
