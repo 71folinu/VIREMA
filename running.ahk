@@ -1,8 +1,17 @@
 ﻿; running.ahk - functions for app operation
 
+check_connection_success__v2__end() {
+	try {
+		data_v2__set(2,"")
+		return 0
+	} catch {
+		return 1
+	}
+}
+
 check_connection_success__v2__start() {
 	try {
-		data_v2__set(1,A_Now)
+		data_v2__set(2,A_Now)
 		return 0
 	} catch {
 		return 1
@@ -11,26 +20,27 @@ check_connection_success__v2__start() {
 
 check_connection_success__v2__check() {
 	try {
-		if (data_v2__get(1) = "") {
+		if (data_v2__get(2) = "" or data_v2__get(2) = 0) {
 			return 0
 		}
-		if (DateDiff(A_Now, data_v2__get(1), "M") >= 2) {
+		if (DateDiff(A_Now, data_v2__get(2), "S") < 4) {
 			return 0
 		}
 		if (not ProcessExist("VIREMA_tor.exe")) {
-			try data_v2__set(1,"")
+			try data_v2__set(2,"")
 			try stop_clicked()
 			MsgBox("Tor process failed to start. Try again.`nIf the issue persists, try reinstalling VIREMA.", window_title . ": ERROR")
 			return 1
 		}
 		if (not (check_string_in_log("Bootstrapped 100% (done): Done"))) {
-			try data_v2__set(1,"")
+			try data_v2__set(2,"")
 			try stop_clicked()
 			MsgBox("Connection took too long and was aborted. Try again.`nIf the issue persists, try reinstalling VIREMA.", window_title . ": ERROR")
 			return 2
 		}
+		return 0
 	} catch {
-		; whatever
+		MsgBox("check_connection_success__v2__check catch", window_title . ": ERROR")
 	}
 }
 
@@ -860,7 +870,8 @@ started(*) {
 }
 
 stop_clicked(*) {
-	global tor_launch_ordered := 0
+	check_connection_success__v2__end()
+	;global tor_launch_ordered := 0
 	ProcessClose("VIREMA_tor.exe")
 	;disable_proxy()
 	reg_proxy__disable()
@@ -868,10 +879,11 @@ stop_clicked(*) {
 
 start_clicked(*) {
 	Run A_ComSpec ' /c ""C:\VIREMA\third_party\VIREMA_tor.exe" "-f" "C:\VIREMA\torrc" >"tor_log.txt""',,"Hide"
-	SetTimer(check_connection_success, -1560*47)
-	global tor_launch_ordered := 1
+	;SetTimer(check_connection_success, -1560*47)
+	;global tor_launch_ordered := 1
 	;enable_proxy()
 	reg_proxy__enable()
+	check_connection_success__v2__start()
 }
 
 check_connection_success(*) {

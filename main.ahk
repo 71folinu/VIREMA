@@ -65,6 +65,7 @@ force_stop_button.OnEvent("Click", force_stop_button__clicked)
 
 ; REFRESHING STATUS BAR
 refresh_status(*) {
+	check_connection_success__v2__check()
 	if WinExist(window_title) and not WinActive(window_title) and exit_allowed {
 		ExitApp
 	}
