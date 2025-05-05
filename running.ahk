@@ -168,14 +168,53 @@ tools__show_all_functions(*) {
 }
 
 vrmcmd__all(*) {
+	return_string := ""
 	func_start_ln := 0
 	Loop Read "running.ahk" {
+		if (func_start_ln != 0 and InStr(A_LoopReadLine,"if (vrmcmd_cmd_arr[1] = ")) {
+			return_string .= "`n" . StrSplit(A_LoopReadLine,"`"")[2]
+		}
+		if (func_start_ln != 0 and InStr(A_LoopReadLine,"if (vrmcmd_cmd_arr[1] > 0")) {
+			return_string .= "`n" . "#"
+		}
+		if (func_start_ln != 0 and InStr(A_LoopReadLine,"if (vrmcmd_cmd_arr[1] != `"`"")) {
+			return_string .= "`n" . "****"
+		}
+		if (func_start_ln != 0 and InStr(A_LoopReadLine,"if (vrmcmd_cmd_arr[2] = ")) {
+			return_string .= "`n`t" . StrSplit(A_LoopReadLine,"`"")[2]
+		}
+		if (func_start_ln != 0 and InStr(A_LoopReadLine,"if (vrmcmd_cmd_arr[2] > 0")) {
+			return_string .= "`n`t" . "#"
+		}
+		if (func_start_ln != 0 and InStr(A_LoopReadLine,"if (vrmcmd_cmd_arr[2] != `"`"")) {
+			return_string .= "`n`t" . "****"
+		}
+		if (func_start_ln != 0 and InStr(A_LoopReadLine,"if (vrmcmd_cmd_arr[3] = ")) {
+			return_string .= "`n`t`t" . StrSplit(A_LoopReadLine,"`"")[2]
+		}
+		if (func_start_ln != 0 and InStr(A_LoopReadLine,"if (vrmcmd_cmd_arr[3] > 0")) {
+			return_string .= "`n`t`t" . "#"
+		}
+		if (func_start_ln != 0 and InStr(A_LoopReadLine,"if (vrmcmd_cmd_arr[3] != `"`"")) {
+			return_string .= "`n`t`t" . "****"
+		}
+		if (func_start_ln != 0 and InStr(A_LoopReadLine,"if (vrmcmd_cmd_arr[4] = ")) {
+			return_string .= "`n`t`t`t" . StrSplit(A_LoopReadLine,"`"")[2]
+		}
+		if (func_start_ln != 0 and InStr(A_LoopReadLine,"if (vrmcmd_cmd_arr[4] > 0")) {
+			return_string .= "`n`t`t`t" . "#"
+		}
+		if (func_start_ln != 0 and InStr(A_LoopReadLine,"if (vrmcmd_cmd_arr[4] != `"`"")) {
+			return_string .= "`n`t`t`t" . "****"
+		}
 		if (A_LoopReadLine = "vrmcmd(*) {") {
 			func_start_ln := A_Index
 		}
+		if (func_start_ln != 0 and A_LoopReadLine = "}") {
+			Break
+		}
 	}
-	MsgBox func_start_ln
-	return "not implemented"
+	return Trim(return_string,"`n")
 }
 
 vrmcmd(*) {
@@ -230,10 +269,18 @@ vrmcmd(*) {
 					MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
 				}
 			} else if (vrmcmd_cmd_arr[1] = "BRIDGE") {
-				MsgBox(SubStr(FileRead("torrc"),InStr(FileRead("torrc"), "bridge webtunnel")+7))
 				A_Clipboard := SubStr(FileRead("torrc"),InStr(FileRead("torrc"), "bridge webtunnel")+7)
+				MsgBox(A_Clipboard,"vrmcmd")
 			} else if (vrmcmd_cmd_arr[1] = "BUTTON") {
-				tools__button_pos(vrmcmd_cmd_arr[2],vrmcmd_cmd_arr[3])
+				if (vrmcmd_cmd_arr[2] > 0) {
+					if (vrmcmd_cmd_arr[3] > 0) {
+						tools__button_pos(vrmcmd_cmd_arr[2],vrmcmd_cmd_arr[3])
+					} else {
+						MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
+					}
+				} else {
+					MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
+				}
 			} else if (vrmcmd_cmd_arr[1] = "DATAV2") {
 				if (vrmcmd_cmd_arr[2] = "SHOWALL") {
 					MsgBox(data_v2__decrypt_str(FileRead("data_v2")),"vrmcmd")
@@ -246,18 +293,34 @@ vrmcmd(*) {
 						MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
 					}
 				} else if (vrmcmd_cmd_arr[2] = "SET") {
-					data_v2__set(vrmcmd_cmd_arr[3], SubStr(vrmcmd_cmd, 14))
+					if (vrmcmd_cmd_arr[3] > 0) {
+						if (vrmcmd_cmd_arr[4] != "") {
+							data_v2__set(vrmcmd_cmd_arr[3], SubStr(vrmcmd_cmd, 14))
+						} else {
+							MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
+						}
+					} else {
+						MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
+					}
 				} else if (vrmcmd_cmd_arr[2] = "DELETE") {
 					FileDelete("data_v2")
 				} else {
 					MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
 				}
 			} else if (vrmcmd_cmd_arr[1] = "ENCR") {
-				MsgBox(data_var_encrypt(SubStr(vrmcmd_cmd, 6)) . "`n`ncopied to clipboard")
-				A_ClipBoard := data_var_encrypt(SubStr(vrmcmd_cmd, 6))
+				if (vrmcmd_cmd_arr[2] != "") {
+					A_ClipBoard := data_var_encrypt(SubStr(vrmcmd_cmd, 6))
+					MsgBox(A_Clipboard,"vrmcmd")
+				} else {
+					MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
+				}
 			} else if (vrmcmd_cmd_arr[1] = "DECR") {
-				MsgBox(data_var_decrypt(SubStr(vrmcmd_cmd, 6)) . "`n`ncopied to clipboard")
-				A_ClipBoard := data_var_decrypt(SubStr(vrmcmd_cmd, 6))
+				if (vrmcmd_cmd_arr[2] != "") {
+					A_ClipBoard := data_var_decrypt(SubStr(vrmcmd_cmd, 6))
+					MsgBox(A_Clipboard,"vrmcmd")
+				} else {
+					MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
+				}
 			} else {
 				MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
 			}
