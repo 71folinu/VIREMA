@@ -246,6 +246,9 @@ vrmcmd(*) {
 			} else if (vrmcmd_cmd_arr[1] = "NOW") {
 				A_Clipboard := A_Now
 				MsgBox(A_Clipboard,"vrmcmd")
+			} else if (vrmcmd_cmd_arr[1] = "NOWUTC") {
+				A_Clipboard := A_NowUTC
+				MsgBox(A_Clipboard,"vrmcmd")
 			} else if (vrmcmd_cmd_arr[1] = "DATA") {
 				if (vrmcmd_cmd_arr[2] = "SHOW") {
 					MsgBox(StrReplace(data_var_decrypt(StrReplace(FileRead("userdata.virema"), "`n", " 32 32 32 32 ")), "    ", "`n"))
