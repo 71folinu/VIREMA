@@ -277,7 +277,7 @@ vrmcmd(*) {
 			} else if (vrmcmd_cmd_arr[1] = "BUTTON") {
 				if (vrmcmd_cmd_arr[2] > 0) {
 					if (vrmcmd_cmd_arr[3] > 0) {
-						tools__button_pos(vrmcmd_cmd_arr[2],vrmcmd_cmd_arr[3])
+						tools__button_pos(vrmcmd_cmd_arr[2] - 1,vrmcmd_cmd_arr[3] - 1)
 					} else {
 						MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
 					}
