@@ -23,7 +23,7 @@ check_connection_success__v2__check() {
 		if (data_v2__get(2) = "" or data_v2__get(2) = 0) {
 			return 0
 		}
-		if (DateDiff(A_Now, data_v2__get(2), "S") < 4) {
+		if (DateDiff(A_Now, data_v2__get(2), "S") < 64) {
 			return 0
 		}
 		if (not ProcessExist("VIREMA_tor.exe")) {
