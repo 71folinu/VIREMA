@@ -256,7 +256,7 @@ vrmcmd(*) {
 				} else if (vrmcmd_cmd_arr[2] = "DELETE") {
 					FileDelete("userdata.virema")
 				} else {
-					MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
+					MsgBox("unknown command`ntype EXIT to quit vrmcmd`nor HELP to see all commands","vrmcmd")
 				}
 			} else if (vrmcmd_cmd_arr[1] = "FUNCS") {
 				tools__show_all_functions()
@@ -269,7 +269,7 @@ vrmcmd(*) {
 					A_Clipboard := "ProxyEnable`n" . RegRead("HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings","ProxyEnable")
 					MsgBox(A_Clipboard,"vrmcmd")
 				} else {
-					MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
+					MsgBox("unknown command`ntype EXIT to quit vrmcmd`nor HELP to see all commands","vrmcmd")
 				}
 			} else if (vrmcmd_cmd_arr[1] = "BRIDGE") {
 				A_Clipboard := SubStr(FileRead("torrc"),InStr(FileRead("torrc"), "bridge webtunnel")+7)
@@ -279,10 +279,10 @@ vrmcmd(*) {
 					if (vrmcmd_cmd_arr[3] > 0) {
 						tools__button_pos(vrmcmd_cmd_arr[2] - 1,vrmcmd_cmd_arr[3] - 1)
 					} else {
-						MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
+						MsgBox("unknown command`ntype EXIT to quit vrmcmd`nor HELP to see all commands","vrmcmd")
 					}
 				} else {
-					MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
+					MsgBox("unknown command`ntype EXIT to quit vrmcmd`nor HELP to see all commands","vrmcmd")
 				}
 			} else if (vrmcmd_cmd_arr[1] = "DATAV2") {
 				if (vrmcmd_cmd_arr[2] = "SHOWALL") {
@@ -293,42 +293,42 @@ vrmcmd(*) {
 						A_Clipboard := data_v2__get(vrmcmd_cmd_arr[3])
 						MsgBox(A_Clipboard,"vrmcmd")
 					} else {
-						MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
+						MsgBox("unknown command`ntype EXIT to quit vrmcmd`nor HELP to see all commands","vrmcmd")
 					}
 				} else if (vrmcmd_cmd_arr[2] = "SET") {
 					if (vrmcmd_cmd_arr[3] > 0) {
 						if (vrmcmd_cmd_arr[4] != "") {
 							data_v2__set(vrmcmd_cmd_arr[3], SubStr(vrmcmd_cmd, 14))
 						} else {
-							MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
+							MsgBox("unknown command`ntype EXIT to quit vrmcmd`nor HELP to see all commands","vrmcmd")
 						}
 					} else {
-						MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
+						MsgBox("unknown command`ntype EXIT to quit vrmcmd`nor HELP to see all commands","vrmcmd")
 					}
 				} else if (vrmcmd_cmd_arr[2] = "DELETE") {
 					FileDelete("data_v2")
 				} else {
-					MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
+					MsgBox("unknown command`ntype EXIT to quit vrmcmd`nor HELP to see all commands","vrmcmd")
 				}
 			} else if (vrmcmd_cmd_arr[1] = "ENCR") {
 				if (vrmcmd_cmd_arr[2] != "") {
 					A_ClipBoard := data_var_encrypt(SubStr(vrmcmd_cmd, 6))
 					MsgBox(A_Clipboard,"vrmcmd")
 				} else {
-					MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
+					MsgBox("unknown command`ntype EXIT to quit vrmcmd`nor HELP to see all commands","vrmcmd")
 				}
 			} else if (vrmcmd_cmd_arr[1] = "DECR") {
 				if (vrmcmd_cmd_arr[2] != "") {
 					A_ClipBoard := data_var_decrypt(SubStr(vrmcmd_cmd, 6))
 					MsgBox(A_Clipboard,"vrmcmd")
 				} else {
-					MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
+					MsgBox("unknown command`ntype EXIT to quit vrmcmd`nor HELP to see all commands","vrmcmd")
 				}
 			} else {
-				MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
+				MsgBox("unknown command`ntype EXIT to quit vrmcmd`nor HELP to see all commands","vrmcmd")
 			}
 		} catch {
-			MsgBox("unknown command`ntype EXIT to quit vrmcmd","vrmcmd")
+			MsgBox("unknown command`ntype EXIT to quit vrmcmd`nor HELP to see all commands","vrmcmd")
 		}
 	}
 }
