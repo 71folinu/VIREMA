@@ -256,7 +256,7 @@ vrmcmd(*) {
 	Loop {
 		global vrmcmd_cmd := InputBox("`n`n`n                                       vrmcmd","vrmcmd").Value
 		global vrmcmd_cmd_arr := StrSplit(vrmcmd_cmd," ")
-		;try {
+		try {
 			if (vrmcmd_cmd_arr[1] = "TEST") {
 				test__all()
 				A_Clipboard := test__all__finish__out
@@ -365,9 +365,9 @@ vrmcmd(*) {
 			} else {
 				MsgBox("unknown command`ntype EXIT to quit vrmcmd`nor HELP to see all commands","vrmcmd")
 			}
-		;} catch {
-		;	MsgBox("unknown command`ntype EXIT to quit vrmcmd`nor HELP to see all commands","vrmcmd")
-		;}
+		} catch {
+			MsgBox("unknown command`ntype EXIT to quit vrmcmd`nor HELP to see all commands","vrmcmd")
+		}
 	}
 }
 
