@@ -1,5 +1,40 @@
 ﻿; running.ahk - functions for app operation
 
+debug_info(*) {
+	global debug_info__out := "debug info"
+	. " |||| "
+	. "A_NowUTC = " . A_NowUTC
+	. " |||| "
+	. "v = 0.3.0"
+	. " |||| "
+	. "A_WorkingDir = " . A_WorkingDir
+	. " |||| "
+	. "A_AhkVersion = " . A_AhkVersion
+	. " |||| "
+	. "A_IsCompiled = " . A_IsCompiled
+	. " |||| "
+	. "A_TickCount = " . A_TickCount
+	. " |||| "
+	. "A_ComSpec = " . A_ComSpec
+	. " |||| "
+	. "A_OSVersion = " . A_OSVersion
+	. " |||| "
+	. "A_Is64bitOS = " . A_Is64bitOS
+	. " |||| "
+	. "A_ComputerName = " . A_ComputerName
+	. " |||| "
+	. "A_UserName = " . A_UserName
+	. " |||| "
+	. "A_AppData = " . A_AppData
+	. " |||| "
+	. "A_IsAdmin = " . A_IsAdmin
+	. " |||| "
+	. "A_LastError = " . A_LastError
+	. " |||| "
+	. "data_v2 = " . StrReplace(data_v2__decrypt_str(FileRead("data_v2")),"`n"," .::. ")
+	return debug_info__out
+}
+
 check_connection_success__v2__end() {
 	try {
 		data_v2__set(2,"")
@@ -221,7 +256,7 @@ vrmcmd(*) {
 	Loop {
 		global vrmcmd_cmd := InputBox("`n`n`n                                       vrmcmd","vrmcmd").Value
 		global vrmcmd_cmd_arr := StrSplit(vrmcmd_cmd," ")
-		try {
+		;try {
 			if (vrmcmd_cmd_arr[1] = "TEST") {
 				test__all()
 				A_Clipboard := test__all__finish__out
@@ -231,6 +266,9 @@ vrmcmd(*) {
 				Reload
 			} else if (vrmcmd_cmd_arr[1] = "HELP") {
 				A_Clipboard := vrmcmd__all()
+				MsgBox(A_Clipboard,"vrmcmd")
+			} else if (vrmcmd_cmd_arr[1] = "INFO") {
+				A_Clipboard := debug_info()
 				MsgBox(A_Clipboard,"vrmcmd")
 			} else if (vrmcmd_cmd_arr[1] = "RESET") {
 				if (ProcessExist("VIREMA_tor.exe")) {
@@ -327,9 +365,9 @@ vrmcmd(*) {
 			} else {
 				MsgBox("unknown command`ntype EXIT to quit vrmcmd`nor HELP to see all commands","vrmcmd")
 			}
-		} catch {
-			MsgBox("unknown command`ntype EXIT to quit vrmcmd`nor HELP to see all commands","vrmcmd")
-		}
+		;} catch {
+		;	MsgBox("unknown command`ntype EXIT to quit vrmcmd`nor HELP to see all commands","vrmcmd")
+		;}
 	}
 }
 
