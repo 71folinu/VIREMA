@@ -1,6 +1,7 @@
 ﻿; running.ahk - functions for app operation
 
 debug_info(*) {
+	data_read()
 	global debug_info__out := "debug info"
 	. " |||| "
 	. "A_NowUTC = " . A_NowUTC
@@ -32,6 +33,8 @@ debug_info(*) {
 	. "A_LastError = " . A_LastError
 	. " |||| "
 	. "data_v2 = " . StrReplace(data_v2__decrypt_str(FileRead("data_v2")),"`n"," .::. ")
+	. " |||| "
+	. "data_launch_count = " . data_launch_count
 	return debug_info__out
 }
 
