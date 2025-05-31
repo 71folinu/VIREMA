@@ -4,6 +4,8 @@ debug_info(*) {
 	data_read()
 	global debug_info__out := "debug info"
 	. " |||| "
+	. "A_ScreenDPI = " . A_ScreenDPI
+	. " |||| "
 	. "A_NowUTC = " . A_NowUTC
 	. " |||| "
 	. "v = 0.3.0"
