@@ -582,7 +582,7 @@ test__all__begin(*) {
 
 bridge__validate(bridge__validate__arg) {
 	global bridge__validate__RegExMatchInfo := ""
-	global bridge__validate__FoundPos := RegExMatch(bridge__validate__arg, "webtunnel.*?ver=0\.0\.1", &bridge__validate__RegExMatchInfo)
+	global bridge__validate__FoundPos := RegExMatch(bridge__validate__arg, "webtunnel.*?ver=\d\.\d\.\d", &bridge__validate__RegExMatchInfo)
 	if IsObject(bridge__validate__RegExMatchInfo) {
 		return bridge__validate__RegExMatchInfo[]
 	} else {
@@ -597,7 +597,7 @@ bridge__replace_to(bridge__replace_to_in_str) {
 	}
 	global bridge__replace_to__new_torrc := ""
 	try {
-		global bridge__replace_to__new_torrc := RegExReplace(FileRead("torrc"), "webtunnel .* ver=0\.0\.1", bridge__replace_to__new_bridge)
+		global bridge__replace_to__new_torrc := RegExReplace(FileRead("torrc"), "webtunnel .* ver=\d\.\d\.\d", bridge__replace_to__new_bridge)
 	} catch {
 		return 2
 	}
