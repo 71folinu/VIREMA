@@ -464,6 +464,10 @@ set_bridge_button_pressed(*) {
 test__all(*) {
 	test__all__begin()
 
+	test__assert(bridge__replace_to("webtunnel [2001:db8:afc8:4fe0:c021:5377:36bf:e9b7]:443 3BDD7036FAC9CC81ADBA39E88637D5EF87350F1C url=https://speedtest.qs.ee/dI6HDfnDLSUiFV0MaLMEtcmv ver=0.0.2"),
+	0,
+	"bridge__replace_to VALID V0.0.2 BRIDGE")
+
 	data_read()
 	if data_launch_count > 1 {
 		test__assert(data_v2__get(data_v2__arr__index__test),
