@@ -75,7 +75,7 @@ check_connection_success__v2__check() {
 		if (not (check_string_in_log("Bootstrapped 100% (done): Done"))) {
 			try data_v2__set(2,"")
 			try stop_clicked()
-			MsgBox("Connection took too long and was aborted. Try again.`nIf the issue persists, try reinstalling VIREMA.", window_title . ": ERROR")
+			MsgBox("Connection took too long and was aborted. Try again.`nIf the issue persists, try another bridge.", window_title . ": ERROR")
 			return 2
 		}
 		return 0
