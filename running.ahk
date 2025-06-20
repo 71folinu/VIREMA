@@ -466,36 +466,62 @@ test__all(*) {
 
 	data_read()
 	if data_launch_count > 1 {
-		test__assert(data_v2__get(data_v2__arr__index__test), "TEST DATA 1234567890 !@#$%^&*()", "data_v2__get what was set on the first launch")
+		test__assert(data_v2__get(data_v2__arr__index__test),
+		"TEST DATA 1234567890 !@#$%^&*()",
+		"data_v2__get what was set on the first launch")
 	} else {
-		test__assert(data_v2__set(data_v2__arr__index__test, "TEST DATA 1234567890 !@#$%^&*()"),0,"data_v2__set on first launch")
+		test__assert(data_v2__set(data_v2__arr__index__test, "TEST DATA 1234567890 !@#$%^&*()"),
+		0,
+		"data_v2__set on first launch")
 	}
 
 	test__fuzz(data_v2__decrypt_str)
 
 	test__fuzz(data_v2__encrypt_str)
 
-	test__assert(data_v2__decrypt_str("4968 4761 5244 5244 5451 690 6003 5451 5658 5244 4692"),"HELLO`nWORLD","data_v2__decrypt_str HELLO``nWORLD")
+	test__assert(data_v2__decrypt_str("4968 4761 5244 5244 5451 690 6003 5451 5658 5244 4692"),
+	"HELLO`nWORLD",
+	"data_v2__decrypt_str HELLO``nWORLD")
 
-	test__assert(data_v2__decrypt_str("4968 4761 5244 5244 5451 2208 6003 5451 5658 5244 4692"),"HELLO WORLD","data_v2__decrypt_str HELLO WORLD")
+	test__assert(data_v2__decrypt_str("4968 4761 5244 5244 5451 2208 6003 5451 5658 5244 4692"),
+	"HELLO WORLD",
+	"data_v2__decrypt_str HELLO WORLD")
 
-	test__assert(data_v2__encrypt_str("HELLO WORLD"),"4968 4761 5244 5244 5451 2208 6003 5451 5658 5244 4692","data_v2__encrypt_str HELLO WORLD")
+	test__assert(data_v2__encrypt_str("HELLO WORLD"),
+	"4968 4761 5244 5244 5451 2208 6003 5451 5658 5244 4692",
+	"data_v2__encrypt_str HELLO WORLD")
 
-	test__assert(data_v2__encrypt_str("HELLO`nWORLD"),"4968 4761 5244 5244 5451 690 6003 5451 5658 5244 4692","data_v2__encrypt_str HELLO``nWORLD")
+	test__assert(data_v2__encrypt_str("HELLO`nWORLD"),
+	"4968 4761 5244 5244 5451 690 6003 5451 5658 5244 4692",
+	"data_v2__encrypt_str HELLO``nWORLD")
 
-	test__assert(bridge__replace_to("webtunnel [2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1webtunnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ ver=0.0.1"), 0, "bridge__replace_to two valid bridges")
+	test__assert(bridge__replace_to("webtunnel [2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1webtunnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ ver=0.0.1"),
+	0,
+	"bridge__replace_to two valid bridges")
 
-	test__assert(bridge__replace_to("webtunnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ ver=0.0.1"), 0, "bridge__replace_to valid bridge")
+	test__assert(bridge__replace_to("webtunnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ ver=0.0.1"),
+	0,
+	"bridge__replace_to valid bridge")
 
-	test__assert(bridge__replace_to("nnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ ver=0.0.1"), 1, "bridge__replace_to invalid bridge")
+	test__assert(bridge__replace_to("nnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ ver=0.0.1"),
+	1,
+	"bridge__replace_to invalid bridge")
 
-	test__assert(bridge__validate("webtunnel [2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1webtunnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ ver=0.0.1"), "webtunnel [2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1", "bridge__validate - two valid bridges")
+	test__assert(bridge__validate("webtunnel [2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1webtunnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ ver=0.0.1"),
+	"webtunnel [2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1",
+	"bridge__validate - two valid bridges")
 
-	test__assert(bridge__validate("webtunnel [2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1"), "webtunnel [2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1", "bridge__validate - one valid bridge")
+	test__assert(bridge__validate("webtunnel [2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1"),
+	"webtunnel [2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1",
+	"bridge__validate - one valid bridge")
 
-	test__assert(bridge__validate("[2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1"), "NO BRIDGE", "bridge__validate - one invalid bridge")
+	test__assert(bridge__validate("[2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1"),
+	"NO BRIDGE",
+	"bridge__validate - one invalid bridge")
 
-	test__assert(bridge__validate("[2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1webtunnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ ver=0.0.1"), "webtunnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ ver=0.0.1", "bridge__validate - one invalid bridge and one valid")
+	test__assert(bridge__validate("[2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1webtunnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ ver=0.0.1"),
+	"webtunnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ ver=0.0.1",
+	"bridge__validate - one invalid bridge and one valid")
 
 	test__fuzz(bridge__validate)
 
