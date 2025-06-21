@@ -396,7 +396,7 @@ set_bridge_button_pressed(*) {
 	global set_bridge_button_pressed__bridge__replace_to__ret_val := ""
 	global set_bridge_button_pressed__new_bridge := ""
 	if (bridge__validate(A_Clipboard) = "NO BRIDGE") {
-		global set_bridge_button_pressed_InputBox_ret_obj := InputBox("`n`n`n                        Enter a new bridge to set:","window_title")
+		global set_bridge_button_pressed_InputBox_ret_obj := InputBox("`n`n`n                      Enter one new bridge to set:","window_title")
 		global set_bridge_button_pressed_InputBox_Value := set_bridge_button_pressed_InputBox_ret_obj.Value
 		global set_bridge_button_pressed_InputBox_Result := set_bridge_button_pressed_InputBox_ret_obj.Result
 		if (set_bridge_button_pressed_InputBox_Result != "OK") {
