@@ -461,6 +461,10 @@ set_bridge_button_pressed(*) {
 	return
 }
 
+sendenter(*) {
+	Send("{Enter}")
+}
+
 test__all(*) {
 	test__all__begin()
 
@@ -528,6 +532,15 @@ test__all(*) {
 	"bridge__validate - one invalid bridge and one valid")
 
 	test__fuzz(bridge__validate)
+
+	A_Clipboard := "webtunnel [2001:db8:75db:c6f2:1dae:121:7a04:9e9d]:443 4B673DF159CFC12AC91FC2E6AC3047FF2183FCEA url=http://freifunk.ckgc.de/xBKEzZunnc3A5pcf6jaeVyPL ver=0.0.1"
+	SetTimer(sendenter,1560)
+	set_bridge_button_pressed()
+	SetTimer(sendenter,0)
+	test__assert(SubStr(FileRead("torrc"),InStr(FileRead("torrc"), "bridge webtunnel")+7,-2),
+	"webtunnel [2001:db8:75db:c6f2:1dae:121:7a04:9e9d]:443 4B673DF159CFC12AC91FC2E6AC3047FF2183FCEA url=http://freifunk.ckgc.de/xBKEzZunnc3A5pcf6jaeVyPL ver=0.0.1",
+	"set bridge button")
+	global exit_allowed := 0
 
 	test__all__finish()
 }
