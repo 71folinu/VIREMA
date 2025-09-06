@@ -407,7 +407,7 @@ set_bridge_button_pressed(*) {
 	global exit_allowed := 0
 	global set_bridge_button_pressed__bridge__replace_to__ret_val := ""
 	global set_bridge_button_pressed__new_bridge := ""
-	if (bridge__validate(A_Clipboard) = "NO BRIDGE") {
+	if (bridge__pick_one(A_Clipboard) = "NO BRIDGE") {
 		global set_bridge_button_pressed_InputBox_ret_obj := InputBox("`n`n`n                      Enter one new bridge to set:","window_title")
 		global set_bridge_button_pressed_InputBox_Value := set_bridge_button_pressed_InputBox_ret_obj.Value
 		global set_bridge_button_pressed_InputBox_Result := set_bridge_button_pressed_InputBox_ret_obj.Result
@@ -425,16 +425,16 @@ set_bridge_button_pressed(*) {
 			global exit_allowed := 1
 			return
 		}
-		if (bridge__validate(set_bridge_button_pressed_InputBox_Value) = "NO BRIDGE") {
+		if (bridge__pick_one(set_bridge_button_pressed_InputBox_Value) = "NO BRIDGE") {
 			MsgBox("Invalid bridge entered. Try another bridge.",window_title)
 			global exit_allowed := 1
 			return
 		} else {
-			set_bridge_button_pressed__new_bridge := bridge__validate(set_bridge_button_pressed_InputBox_Value)
+			set_bridge_button_pressed__new_bridge := bridge__pick_one(set_bridge_button_pressed_InputBox_Value)
 		}
 	} else {
 		MsgBox("Got a bridge from clipboard.",window_title,"T1.56")
-		set_bridge_button_pressed__new_bridge := bridge__validate(A_Clipboard)
+		set_bridge_button_pressed__new_bridge := bridge__pick_one(A_Clipboard)
 		A_Clipboard := ":)"
 	}
 	if started() {
@@ -540,26 +540,26 @@ test__all(*) {
 	"bridge__replace_to valid bridge")
 
 	test__assert(bridge__replace_to("nnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ ver=0.0.1"),
-	4,
+	6,
 	"bridge__replace_to invalid bridge")
 
-	test__assert(bridge__validate("webtunnel [2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1webtunnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ ver=0.0.1"),
+	test__assert(bridge__pick_one("webtunnel [2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1webtunnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ ver=0.0.1"),
 	"webtunnel [2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1",
-	"bridge__validate - two valid bridges")
+	"bridge__pick_one - two valid bridges")
 
-	test__assert(bridge__validate("webtunnel [2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1"),
+	test__assert(bridge__pick_one("webtunnel [2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1"),
 	"webtunnel [2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1",
-	"bridge__validate - one valid bridge")
+	"bridge__pick_one - one valid bridge")
 
-	test__assert(bridge__validate("[2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1"),
+	test__assert(bridge__pick_one("[2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1"),
 	"NO BRIDGE",
-	"bridge__validate - one invalid bridge")
+	"bridge__pick_one - one invalid bridge")
 
-	test__assert(bridge__validate("[2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1webtunnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ ver=0.0.1"),
+	test__assert(bridge__pick_one("[2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1webtunnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ ver=0.0.1"),
 	"webtunnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ ver=0.0.1",
-	"bridge__validate - one invalid bridge and one valid")
+	"bridge__pick_one - one invalid bridge and one valid")
 
-	test__fuzz(bridge__validate)
+	test__fuzz(bridge__pick_one)
 
 	test__all__finish()
 }
@@ -642,18 +642,24 @@ test__all__begin(*) {
 	global test__all__failed_gots := []
 }
 
-bridge__validate(bridge__validate__arg) {
-	global bridge__validate__RegExMatchInfo := ""
-	global bridge__validate__FoundPos := RegExMatch(bridge__validate__arg, "webtunnel.*?ver=\d\.\d\.\d", &bridge__validate__RegExMatchInfo)
-	if IsObject(bridge__validate__RegExMatchInfo) {
-		return bridge__validate__RegExMatchInfo[]
+bridge__pick_one(bridge__pick_one__arg) {
+	global bridge__pick_one__RegExMatchInfo := ""
+	global bridge__pick_one__FoundPos := RegExMatch(bridge__pick_one__arg, "webtunnel.*?ver=\d\.\d\.\d", &bridge__pick_one__RegExMatchInfo)
+	if IsObject(bridge__pick_one__RegExMatchInfo) {
+		return bridge__pick_one__RegExMatchInfo[]
 	} else {
-		return "NO BRIDGE"
+		global bridge__pick_one__RegExMatchInfo := ""
+		global bridge__pick_one__FoundPos := RegExMatch(bridge__pick_one__arg, "\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}:\d{1,5}\s[A-Z0-9]+", &bridge__pick_one__RegExMatchInfo)
+		if IsObject(bridge__pick_one__RegExMatchInfo) {
+			return bridge__pick_one__RegExMatchInfo[]
+		} else {
+			return "NO BRIDGE"
+		}
 	}
 }
 
 bridge__replace_to(bridge__replace_to_in_str) {
-	global bridge__replace_to__new_bridge := bridge__validate(bridge__replace_to_in_str)
+	global bridge__replace_to__new_bridge := bridge__pick_one(bridge__replace_to_in_str)
 	if type_of_bridge(bridge__replace_to__new_bridge) = "webtunnel" {
 		if (bridge__replace_to__new_bridge = "NO BRIDGE") {
 			return 1
@@ -671,8 +677,21 @@ bridge__replace_to(bridge__replace_to_in_str) {
 			return 3
 		}
 		return 0
+	} else if (type_of_bridge(bridge__replace_to__new_bridge) = "vanilla") {
+		try {
+			global bridge__replace_to__new_torrc := RegExReplace(FileRead("torrc"), "U)\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}:\d{1,5}\s[A-Z0-9]+", bridge__replace_to__new_bridge)
+		} catch {
+			return 4
+		}
+		try {
+			FileDelete("torrc")
+			FileAppend(bridge__replace_to__new_torrc, "torrc")
+		} catch {
+			return 5
+		}
+		return 0
 	} else {
-		return 4
+		return 6
 	}
 }
 
