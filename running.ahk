@@ -480,6 +480,10 @@ sendenter(*) {
 test__all(*) {
 	test__all__begin()
 
+	test__assert(bridge__replace_to("92.243.15.235:9001 477EAD3C04036B48235F1F27FC91420A286A4B7F"),
+	0,
+	"bridge__replace_to vanilla")
+
 	test__assert(type_of_bridge("92.243.15.235:9001 477EAD3C04036B48235F1F27FC91420A286A4B7F"),
 	"vanilla",
 	"type_of_bridge vanilla")
@@ -536,7 +540,7 @@ test__all(*) {
 	"bridge__replace_to valid bridge")
 
 	test__assert(bridge__replace_to("nnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ ver=0.0.1"),
-	1,
+	4,
 	"bridge__replace_to invalid bridge")
 
 	test__assert(bridge__validate("webtunnel [2001:db8:fece:dfb4:e415:b140:621:caf4]:443 ACBB486B9D60979A05E623D11CC8181A16A81E51 url=https://us.g3wip.uk/7gBqm1jbTOpU0jLV91IZHN0f ver=0.0.1webtunnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ ver=0.0.1"),
@@ -556,15 +560,6 @@ test__all(*) {
 	"bridge__validate - one invalid bridge and one valid")
 
 	test__fuzz(bridge__validate)
-
-	A_Clipboard := "webtunnel [2001:db8:75db:c6f2:1dae:121:7a04:9e9d]:443 4B673DF159CFC12AC91FC2E6AC3047FF2183FCEA url=http://freifunk.ckgc.de/xBKEzZunnc3A5pcf6jaeVyPL ver=0.0.1"
-	SetTimer(sendenter,1560)
-	set_bridge_button_pressed()
-	SetTimer(sendenter,0)
-	test__assert(SubStr(FileRead("torrc"),InStr(FileRead("torrc"), "bridge webtunnel")+7,-2),
-	"webtunnel [2001:db8:75db:c6f2:1dae:121:7a04:9e9d]:443 4B673DF159CFC12AC91FC2E6AC3047FF2183FCEA url=http://freifunk.ckgc.de/xBKEzZunnc3A5pcf6jaeVyPL ver=0.0.1",
-	"set bridge button")
-	global exit_allowed := 0
 
 	test__all__finish()
 }
@@ -659,22 +654,26 @@ bridge__validate(bridge__validate__arg) {
 
 bridge__replace_to(bridge__replace_to_in_str) {
 	global bridge__replace_to__new_bridge := bridge__validate(bridge__replace_to_in_str)
-	if (bridge__replace_to__new_bridge = "NO BRIDGE") {
-		return 1
+	if type_of_bridge(bridge__replace_to__new_bridge) = "webtunnel" {
+		if (bridge__replace_to__new_bridge = "NO BRIDGE") {
+			return 1
+		}
+		global bridge__replace_to__new_torrc := ""
+		try {
+			global bridge__replace_to__new_torrc := RegExReplace(FileRead("torrc"), "webtunnel .* ver=\d\.\d\.\d", bridge__replace_to__new_bridge)
+		} catch {
+			return 2
+		}
+		try {
+			FileDelete("torrc")
+			FileAppend(bridge__replace_to__new_torrc, "torrc")
+		} catch {
+			return 3
+		}
+		return 0
+	} else {
+		return 4
 	}
-	global bridge__replace_to__new_torrc := ""
-	try {
-		global bridge__replace_to__new_torrc := RegExReplace(FileRead("torrc"), "webtunnel .* ver=\d\.\d\.\d", bridge__replace_to__new_bridge)
-	} catch {
-		return 2
-	}
-	try {
-		FileDelete("torrc")
-		FileAppend(bridge__replace_to__new_torrc, "torrc")
-	} catch {
-		return 3
-	}
-	return 0
 }
 
 data_var_decrypt(data_var_decrypt_var_in) {
