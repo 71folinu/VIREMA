@@ -1,5 +1,17 @@
 ﻿; running.ahk - functions for app operation
 
+type_of_bridge(bridgestr) {
+	if RegExMatch(bridgestr, "^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}:\d{1,5}\s[A-Z0-9]+$") {
+		return "vanilla"
+	} else if RegExMatch(bridgestr, "^obfs4\s\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}:\d{1,5}\s[A-Z0-9]+\scert=[a-zA-Z0-9/\+]+\siat-mode=\d$") {
+		return "obfs4"
+	} else if RegExMatch(bridgestr, "^$") {
+		return "webtunnel"
+	} else {
+		return "invalid bridge"
+	}
+}
+
 debug_info(*) {
 	data_read()
 	global debug_info__out := "debug info"
@@ -467,6 +479,14 @@ sendenter(*) {
 
 test__all(*) {
 	test__all__begin()
+
+	test__assert(type_of_bridge("92.243.15.235:9001 477EAD3C04036B48235F1F27FC91420A286A4B7F"),
+	"vanilla",
+	"type_of_bridge vanilla")
+
+	test__assert(type_of_bridge("obfs4 172.92.93.123:9091 C713E542B895FC04EA7102CE9384E0CCCE667406 cert=tGqKW9KOpBtkq5Y/C5IE9fnJvvS9iKXnGZY1GI7dywRJSLTEG0VqgFztcaCyMg4cDisbBA iat-mode=0"),
+	"obfs4",
+	"type_of_bridge obfs4")
 
 	test__assert(bridge__replace_to("webtunnel [2001:db8:afc8:4fe0:c021:5377:36bf:e9b7]:443 3BDD7036FAC9CC81ADBA39E88637D5EF87350F1C url=https://speedtest.qs.ee/dI6HDfnDLSUiFV0MaLMEtcmv ver=0.0.2"),
 	0,
