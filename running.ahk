@@ -1,14 +1,14 @@
 ﻿; running.ahk - functions for app operation
 
 type_of_bridge(bridgestr) {
-	if RegExMatch(bridgestr, "^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}:\d{1,5}\s[A-Z0-9]+$") {
+	if RegExMatch(bridgestr,	"U)^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}:\d{1,5}\s[A-Z0-9]+$") {
 		return "vanilla"
-	} else if RegExMatch(bridgestr, "^obfs4\s\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}:\d{1,5}\s[A-Z0-9]+\scert=[a-zA-Z0-9/\+]+\siat-mode=\d$") {
+	} else if RegExMatch(bridgestr,	"U)^obfs4\s\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}:\d{1,5}\s[A-Z0-9]+\scert=[a-zA-Z0-9/\+]+\siat-mode=\d$") {
 		return "obfs4"
-	} else if RegExMatch(bridgestr, "^$") {
+	} else if RegExMatch(bridgestr,	"U)^webtunnel .*:[0-9]+ [A-Za-z0-9]+ url=https://.* ver=\d\.\d\.\d$") {
 		return "webtunnel"
 	} else {
-		return "invalid bridge"
+		return "unknown bridge"
 	}
 }
 
@@ -487,6 +487,10 @@ test__all(*) {
 	test__assert(type_of_bridge("obfs4 172.92.93.123:9091 C713E542B895FC04EA7102CE9384E0CCCE667406 cert=tGqKW9KOpBtkq5Y/C5IE9fnJvvS9iKXnGZY1GI7dywRJSLTEG0VqgFztcaCyMg4cDisbBA iat-mode=0"),
 	"obfs4",
 	"type_of_bridge obfs4")
+
+	test__assert(type_of_bridge("webtunnel [2001:db8:cb0d:478a:6b61:1514:9757:53c1]:443 1FE8C81ED04C5F1707ED0761A32D3B1E27F64B6C url=https://blog.gus.computer/U7a5bfqOUsCsH4i4yue1744l ver=0.0.1"),
+	"webtunnel",
+	"type_of_bridge webtunnel")
 
 	test__assert(bridge__replace_to("webtunnel [2001:db8:afc8:4fe0:c021:5377:36bf:e9b7]:443 3BDD7036FAC9CC81ADBA39E88637D5EF87350F1C url=https://speedtest.qs.ee/dI6HDfnDLSUiFV0MaLMEtcmv ver=0.0.2"),
 	0,
