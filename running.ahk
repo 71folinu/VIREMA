@@ -442,11 +442,11 @@ set_bridge_button_pressed(*) {
 		reg_proxy__disable()
 		ProcessClose("VIREMA_tor.exe")
 		set_bridge_button_pressed__bridge__replace_to__ret_val := bridge__replace_to(set_bridge_button_pressed__new_bridge)
-		if (set_bridge_button_pressed__bridge__replace_to__ret_val = 2) {
+		if (set_bridge_button_pressed__bridge__replace_to__ret_val = 2 or set_bridge_button_pressed__bridge__replace_to__ret_val = 4) {
 			MsgBox("An error occured while trying to read torrc. Try reinstalling " . window_title . ".",window_title . ": ERROR")
 			global exit_allowed := 1
 			return
-		} else if (set_bridge_button_pressed__bridge__replace_to__ret_val = 3) {
+		} else if (set_bridge_button_pressed__bridge__replace_to__ret_val = 3 or set_bridge_button_pressed__bridge__replace_to__ret_val = 5) {
 			MsgBox("An error occured while trying to write to torrc. Try reinstalling " . window_title . ".",window_title . ": ERROR")
 			global exit_allowed := 1
 			return
@@ -458,11 +458,11 @@ set_bridge_button_pressed(*) {
 		global tor_launch_ordered := 1
 	} else {
 		set_bridge_button_pressed__bridge__replace_to__ret_val := bridge__replace_to(set_bridge_button_pressed__new_bridge)
-		if (set_bridge_button_pressed__bridge__replace_to__ret_val = 2) {
+		if (set_bridge_button_pressed__bridge__replace_to__ret_val = 2 or set_bridge_button_pressed__bridge__replace_to__ret_val = 4) {
 			MsgBox("An error occured while trying to read torrc. Try reinstalling " . window_title . ".",window_title . ": ERROR")
 			global exit_allowed := 1
 			return
-		} else if (set_bridge_button_pressed__bridge__replace_to__ret_val = 3) {
+		} else if (set_bridge_button_pressed__bridge__replace_to__ret_val = 3 or set_bridge_button_pressed__bridge__replace_to__ret_val = 5) {
 			MsgBox("An error occured while trying to write to torrc. Try reinstalling " . window_title . ".",window_title . ": ERROR")
 			global exit_allowed := 1
 			return
@@ -667,6 +667,10 @@ bridge__replace_to(bridge__replace_to_in_str) {
 		global bridge__replace_to__new_torrc := ""
 		try {
 			global bridge__replace_to__new_torrc := RegExReplace(FileRead("torrc"), "webtunnel .* ver=\d\.\d\.\d", bridge__replace_to__new_bridge)
+			global bridge__replace_to__new_torrc := RegExReplace(bridge__replace_to__new_torrc, "\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}:\d{1,5}\s[A-Z0-9]+", bridge__replace_to__new_bridge)
+			try global bridge__replace_to__new_torrc :=  StrReplace(bridge__replace_to__new_torrc,"#ClientTransportPlugin","ClientTransportPlugin")
+			try global bridge__replace_to__new_torrc :=  StrReplace(bridge__replace_to__new_torrc,"#ClientTransportPlugin","ClientTransportPlugin")
+			msgbox bridge__replace_to__new_torrc
 		} catch {
 			return 2
 		}
@@ -680,6 +684,9 @@ bridge__replace_to(bridge__replace_to_in_str) {
 	} else if (type_of_bridge(bridge__replace_to__new_bridge) = "vanilla") {
 		try {
 			global bridge__replace_to__new_torrc := RegExReplace(FileRead("torrc"), "U)\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}:\d{1,5}\s[A-Z0-9]+", bridge__replace_to__new_bridge)
+			global bridge__replace_to__new_torrc := RegExReplace(bridge__replace_to__new_torrc, "webtunnel .* ver=\d\.\d\.\d", bridge__replace_to__new_bridge)
+			try global bridge__replace_to__new_torrc :=  StrReplace(bridge__replace_to__new_torrc,"ClientTransportPlugin","#ClientTransportPlugin")
+			msgbox bridge__replace_to__new_torrc
 		} catch {
 			return 4
 		}
