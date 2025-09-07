@@ -1,5 +1,9 @@
 ﻿; running.ahk - functions for app operation
 
+settings_force_germany_clicked(*) {
+	;
+}
+
 close_settings_window(*) {
 	settings_window.Destroy()
 }
@@ -10,11 +14,17 @@ settings_button_clicked(*) {
 	if not WinExist(window_title . " - settings") {
 		global settings_window := Gui.Call(,window_title . " - settings")
 		settings_window.OnEvent("Escape", close_settings_window)
-		Sleep(156)
-		settings_window.Show("X" . main_window_pos_x - (main_window_pos_w*(A_ScreenDPI/120)) - (95*(A_ScreenDPI/120)) . " " . "Y" . main_window_pos_y . " W400 H300")
-		Sleep(156)
 		global settings_status_bar := settings_window.Add("StatusBar",, " Settings are applied automatically.")
 		settings_status_bar.SetFont("s8")
+		if not InStr(FileRead("torrc"),"#ExitNodes {DE}") {
+			global settings_force_germany := settings_window.Add("CheckBox", "X10 Y10 W380 H20 Checked", " - try to use germany as exit node DOES NOTHING")
+		} else {
+			global settings_force_germany := settings_window.Add("CheckBox", "X10 Y10 W380 H20", " - try to use germany as exit node DOES NOTHING")
+		}
+		settings_force_germany.SetFont("s10")
+		settings_force_germany.OnEvent("Click", settings_force_germany_clicked)
+		Sleep(156)
+		settings_window.Show("X" . main_window_pos_x - (main_window_pos_w*(A_ScreenDPI/120)) - (95*(A_ScreenDPI/120)) . " " . "Y" . main_window_pos_y . " W400 H300")
 	} else {
 		close_settings_window()
 	}
