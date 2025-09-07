@@ -1,5 +1,26 @@
 ﻿; running.ahk - functions for app operation
 
+close_settings_window(*) {
+	settings_window.Destroy()
+}
+
+settings_button_clicked(*) {
+	global exit_allowed := 0
+	Sleep(status_bar_refresh_period+15.6)
+	if not WinExist(window_title . " - settings") {
+		global settings_window := Gui.Call(,window_title . " - settings")
+		settings_window.OnEvent("Escape", close_settings_window)
+		Sleep(156)
+		settings_window.Show("X" . main_window_pos_x - (main_window_pos_w*(A_ScreenDPI/120)) - (95*(A_ScreenDPI/120)) . " " . "Y" . main_window_pos_y . " W400 H300")
+		Sleep(156)
+		global settings_status_bar := settings_window.Add("StatusBar",, " Settings are applied automatically.")
+		settings_status_bar.SetFont("s8")
+	} else {
+		close_settings_window()
+	}
+	global exit_allowed := 1
+}
+
 type_of_bridge(bridgestr) {
 	if RegExMatch(bridgestr,	"U)^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}:\d{1,5}\s[A-Z0-9]+$") {
 		return "vanilla"
@@ -670,7 +691,6 @@ bridge__replace_to(bridge__replace_to_in_str) {
 			global bridge__replace_to__new_torrc := RegExReplace(bridge__replace_to__new_torrc, "\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}:\d{1,5}\s[A-Z0-9]+", bridge__replace_to__new_bridge)
 			try global bridge__replace_to__new_torrc :=  StrReplace(bridge__replace_to__new_torrc,"#ClientTransportPlugin","ClientTransportPlugin")
 			try global bridge__replace_to__new_torrc :=  StrReplace(bridge__replace_to__new_torrc,"#ClientTransportPlugin","ClientTransportPlugin")
-			msgbox bridge__replace_to__new_torrc
 		} catch {
 			return 2
 		}
@@ -686,7 +706,6 @@ bridge__replace_to(bridge__replace_to_in_str) {
 			global bridge__replace_to__new_torrc := RegExReplace(FileRead("torrc"), "U)\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}:\d{1,5}\s[A-Z0-9]+", bridge__replace_to__new_bridge)
 			global bridge__replace_to__new_torrc := RegExReplace(bridge__replace_to__new_torrc, "webtunnel .* ver=\d\.\d\.\d", bridge__replace_to__new_bridge)
 			try global bridge__replace_to__new_torrc :=  StrReplace(bridge__replace_to__new_torrc,"ClientTransportPlugin","#ClientTransportPlugin")
-			msgbox bridge__replace_to__new_torrc
 		} catch {
 			return 4
 		}

@@ -56,12 +56,15 @@ startstop_button.SetFont("s11")
 global see_logs_button := main_window.Add("Button", "+x10 +y190 +w120 +h80", "See logs")
 see_logs_button.SetFont("s11")
 see_logs_button.OnEvent("Click", see_logs_button_clicked)
-global set_bridge_button := main_window.Add("Button", "+x140 +y190 +w120 +h80", "Set bridge")
+global set_bridge_button := main_window.Add("Button", "+x140 +y190 +w120 +h80", "SET BRIDGE")
 set_bridge_button.SetFont("s11")
 set_bridge_button.OnEvent("Click", set_bridge_button_pressed)
 global force_stop_button := main_window.Add("Button", "+x270 +y190 +w120 +h80", "FORCE`nSTOP")
 force_stop_button.SetFont("s11")
 force_stop_button.OnEvent("Click", force_stop_button__clicked)
+global settings_button := main_window.Add("Button", "+x270 +y100 +w120 +h80", "SETTINGS")
+settings_button.SetFont("s11")
+settings_button.OnEvent("Click", settings_button_clicked)
 
 ; REFRESHING STATUS BAR
 refresh_status(*) {
@@ -71,6 +74,9 @@ refresh_status(*) {
 	}
 	if WinExist(window_title . " - tor logs") and not WinActive(window_title . " - tor logs") {
 		WinClose(window_title . " - tor logs")
+	}
+	if WinExist(window_title . " - settings") and not WinActive(window_title . " - settings") {
+		WinClose(window_title . " - settings")
 	}
 	update_logs_window_field()
 	if (started()) {
