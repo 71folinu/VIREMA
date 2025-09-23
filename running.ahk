@@ -1,17 +1,34 @@
 ﻿; running.ahk - functions for app operation
 
+settings_AvoidDiskWrites_clicked(*) {
+	if settings_AvoidDiskWrites.Value = 1 {
+		;settings_AvoidDiskWrites.Text := "ON"
+		torrc := FileRead("torrc")
+		torrc := StrReplace(torrc,"`n#AvoidDiskWrites","`nAvoidDiskWrites")
+		torrc := StrReplace(torrc,"`n#AvoidDiskWrites","`nAvoidDiskWrites")
+		FileDelete("torrc")
+		FileAppend(torrc,"torrc")
+	} else {
+		;settings_AvoidDiskWrites.Text := "OFF"
+		torrc := FileRead("torrc")
+		torrc := StrReplace(torrc,"AvoidDiskWrites","#AvoidDiskWrites")
+		FileDelete("torrc")
+		FileAppend(torrc,"torrc")
+	}
+}
+
 settings_force_germany_clicked(*) {
 	if settings_force_germany.Value = 1 {
 		;settings_force_germany.Text := "ON"
 		torrc := FileRead("torrc")
-		torrc := StrReplace(torrc,"#ExitNodes","ExitNodes")
-		torrc := StrReplace(torrc,"#ExitNodes","ExitNodes")
+		torrc := StrReplace(torrc,"`n#ExitNodes","`nExitNodes")
+		torrc := StrReplace(torrc,"`n#ExitNodes","`nExitNodes")
 		FileDelete("torrc")
 		FileAppend(torrc,"torrc")
 	} else {
 		;settings_force_germany.Text := "OFF"
 		torrc := FileRead("torrc")
-		torrc := StrReplace(torrc,"ExitNodes","#ExitNodes")
+		torrc := StrReplace(torrc,"`nExitNodes","`n#ExitNodes")
 		FileDelete("torrc")
 		FileAppend(torrc,"torrc")
 	}
@@ -29,13 +46,23 @@ settings_button_clicked(*) {
 		settings_window.OnEvent("Escape", close_settings_window)
 		global settings_status_bar := settings_window.Add("StatusBar",, " You'll need to restart the connection to apply settings.")
 		settings_status_bar.SetFont("s8")
+
 		if not InStr(FileRead("torrc"),"#ExitNodes {DE}") {
-			global settings_force_germany := settings_window.Add("CheckBox", "X10 Y10 W380 H20 Checked", " - try to use germany as exit node")
+			global settings_force_germany := settings_window.Add("CheckBox", "X10 Y10 W380 H20 Checked", " - Try to use germany as exit node.")
 		} else {
-			global settings_force_germany := settings_window.Add("CheckBox", "X10 Y10 W380 H20", " - try to use germany as exit node")
+			global settings_force_germany := settings_window.Add("CheckBox", "X10 Y10 W380 H20", " - Try to use germany as exit node.")
 		}
 		settings_force_germany.SetFont("s10")
 		settings_force_germany.OnEvent("Click", settings_force_germany_clicked)
+
+		if not InStr(FileRead("torrc"),"#AvoidDiskWrites 1") {
+			global settings_AvoidDiskWrites := settings_window.Add("CheckBox", "X10 Y30 W380 H20 Checked", " - AvoidDiskWrites. Helps extend storage life.")
+		} else {
+			global settings_AvoidDiskWrites := settings_window.Add("CheckBox", "X10 Y30 W380 H20", " - AvoidDiskWrites. Helps extend storage life.")
+		}
+		settings_AvoidDiskWrites.SetFont("s10")
+		settings_AvoidDiskWrites.OnEvent("Click", settings_AvoidDiskWrites_clicked)
+
 		Sleep(156)
 		settings_window.Show("X" . main_window_pos_x - (main_window_pos_w*(A_ScreenDPI/120)) - (95*(A_ScreenDPI/120)) . " " . "Y" . main_window_pos_y . " W400 H300")
 	} else {
