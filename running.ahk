@@ -2,14 +2,14 @@
 
 settings_force_germany_clicked(*) {
 	if settings_force_germany.Value = 1 {
-		settings_force_germany.Text := "ON"
+		;settings_force_germany.Text := "ON"
 		torrc := FileRead("torrc")
 		torrc := StrReplace(torrc,"#ExitNodes","ExitNodes")
 		torrc := StrReplace(torrc,"#ExitNodes","ExitNodes")
 		FileDelete("torrc")
 		FileAppend(torrc,"torrc")
 	} else {
-		settings_force_germany.Text := "OFF"
+		;settings_force_germany.Text := "OFF"
 		torrc := FileRead("torrc")
 		torrc := StrReplace(torrc,"ExitNodes","#ExitNodes")
 		FileDelete("torrc")
@@ -27,12 +27,12 @@ settings_button_clicked(*) {
 	if not WinExist(window_title . " - settings") {
 		global settings_window := Gui.Call(,window_title . " - settings")
 		settings_window.OnEvent("Escape", close_settings_window)
-		global settings_status_bar := settings_window.Add("StatusBar",, " Settings are applied automatically.")
+		global settings_status_bar := settings_window.Add("StatusBar",, " You'll need to restart the connection to apply settings.")
 		settings_status_bar.SetFont("s8")
 		if not InStr(FileRead("torrc"),"#ExitNodes {DE}") {
-			global settings_force_germany := settings_window.Add("CheckBox", "X10 Y10 W380 H20 Checked", " - try to use germany as exit node DOES NOTHING")
+			global settings_force_germany := settings_window.Add("CheckBox", "X10 Y10 W380 H20 Checked", " - try to use germany as exit node")
 		} else {
-			global settings_force_germany := settings_window.Add("CheckBox", "X10 Y10 W380 H20", " - try to use germany as exit node DOES NOTHING")
+			global settings_force_germany := settings_window.Add("CheckBox", "X10 Y10 W380 H20", " - try to use germany as exit node")
 		}
 		settings_force_germany.SetFont("s10")
 		settings_force_germany.OnEvent("Click", settings_force_germany_clicked)
