@@ -1,5 +1,22 @@
 ﻿; running.ahk - functions for app operation
 
+settings_HardwareAccel_clicked(*) {
+	if settings_HardwareAccel.Value = 1 {
+		;settings_HardwareAccel.Text := "ON"
+		torrc := FileRead("torrc")
+		torrc := StrReplace(torrc,"`n#HardwareAccel","`nHardwareAccel")
+		torrc := StrReplace(torrc,"`n#HardwareAccel","`nHardwareAccel")
+		FileDelete("torrc")
+		FileAppend(torrc,"torrc")
+	} else {
+		;settings_HardwareAccel.Text := "OFF"
+		torrc := FileRead("torrc")
+		torrc := StrReplace(torrc,"HardwareAccel","#HardwareAccel")
+		FileDelete("torrc")
+		FileAppend(torrc,"torrc")
+	}
+}
+
 settings_AvoidDiskWrites_clicked(*) {
 	if settings_AvoidDiskWrites.Value = 1 {
 		;settings_AvoidDiskWrites.Text := "ON"
@@ -11,7 +28,7 @@ settings_AvoidDiskWrites_clicked(*) {
 	} else {
 		;settings_AvoidDiskWrites.Text := "OFF"
 		torrc := FileRead("torrc")
-		torrc := StrReplace(torrc,"AvoidDiskWrites","#AvoidDiskWrites")
+		torrc := StrReplace(torrc,"`nAvoidDiskWrites","`n#AvoidDiskWrites")
 		FileDelete("torrc")
 		FileAppend(torrc,"torrc")
 	}
@@ -62,6 +79,14 @@ settings_button_clicked(*) {
 		}
 		settings_AvoidDiskWrites.SetFont("s10")
 		settings_AvoidDiskWrites.OnEvent("Click", settings_AvoidDiskWrites_clicked)
+
+		if not InStr(FileRead("torrc"),"#HardwareAccel 1") {
+			global settings_HardwareAccel := settings_window.Add("CheckBox", "X10 Y50 W380 H20 Checked", " - HardwareAccel. Use hardware crypto, if available.")
+		} else {
+			global settings_HardwareAccel := settings_window.Add("CheckBox", "X10 Y50 W380 H20", " - HardwareAccel. Use hardware crypto, if available.")
+		}
+		settings_HardwareAccel.SetFont("s10")
+		settings_HardwareAccel.OnEvent("Click", settings_HardwareAccel_clicked)
 
 		Sleep(156)
 		settings_window.Show("X" . main_window_pos_x - (main_window_pos_w*(A_ScreenDPI/120)) - (95*(A_ScreenDPI/120)) . " " . "Y" . main_window_pos_y . " W400 H300")

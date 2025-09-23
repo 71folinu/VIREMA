@@ -1,7 +1,8 @@
 DataDirectory C:\VIREMA\tor_temp_data
 GeoIPFile C:\VIREMA\third_party\geoip
 GeoIPv6File C:\VIREMA\third_party\geoip6
-#AvoidDiskWrites 1
+AvoidDiskWrites 1
+HardwareAccel 1
 ExcludeExitNodes {RU}
 #ExitNodes {DE}
 UseBridges 1
