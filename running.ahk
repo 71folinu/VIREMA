@@ -3,14 +3,14 @@
 settings_force_germany_clicked(*) {
 	if settings_force_germany.Value = 1 {
 		settings_force_germany.Text := "ON"
-		torrc := FileRead(torrc)
+		torrc := FileRead("torrc")
 		torrc := StrReplace(torrc,"#ExitNodes","ExitNodes")
 		torrc := StrReplace(torrc,"#ExitNodes","ExitNodes")
 		FileDelete("torrc")
 		FileAppend(torrc,"torrc")
 	} else {
 		settings_force_germany.Text := "OFF"
-		torrc := FileRead(torrc)
+		torrc := FileRead("torrc")
 		torrc := StrReplace(torrc,"ExitNodes","#ExitNodes")
 		FileDelete("torrc")
 		FileAppend(torrc,"torrc")
