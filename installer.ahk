@@ -6,9 +6,9 @@ global installer_long_sleep_ms := 156*7
 
 #Requires AutoHotkey v2.0
 #NoTrayIcon
-;@Ahk2Exe-ExeName VIREMA_0.3.0_installer.exe
-;@Ahk2Exe-SetName VIREMA_0.3.0_installer
-;@Ahk2Exe-SetVersion 0.3.0
+;@Ahk2Exe-ExeName VIREMA_0.4.0_installer.exe
+;@Ahk2Exe-SetName VIREMA_0.4.0_installer
+;@Ahk2Exe-SetVersion 0.4.0
 
 ; ENABLING ADMIN RIGHTS
 if not (A_IsAdmin or RegExMatch(DllCall("GetCommandLine", "str"), " /restart(?!\S)")) {
@@ -22,13 +22,13 @@ if not (A_IsAdmin or RegExMatch(DllCall("GetCommandLine", "str"), " /restart(?!\
 Sleep(installer_long_sleep_ms)
 if not (A_IsAdmin) {
 	Sleep(installer_sleep_ms)
-	MsgBox "A_IsAdmin: " A_IsAdmin "`nCommand line: " DllCall("GetCommandLine", "str"), "VIREMA 0.3.0 installer"
+	MsgBox "A_IsAdmin: " A_IsAdmin "`nCommand line: " DllCall("GetCommandLine", "str"), "VIREMA 0.4.0 installer"
 	ExitApp
 }
 
 ; INSTALLATION
-if (MsgBox("Do you want to intall (reinstall) VIREMA 0.3.0 to this computer?", "VIREMA 0.3.0 installer", 4) = "Yes") {
-	global installer_progress_window := Gui.Call("-MinimizeBox +AlwaysOnTop","VIREMA 0.3.0 installer")
+if (MsgBox("Do you want to intall (reinstall) VIREMA 0.4.0 to this computer?", "VIREMA 0.4.0 installer", 4) = "Yes") {
+	global installer_progress_window := Gui.Call("-MinimizeBox +AlwaysOnTop","VIREMA 0.4.0 installer")
 	installer_progress_window_text := installer_progress_window.Add("Text", "+x10 +y10 +w380 +h180", Format("{:-47}","Initializing installation..."))
 	installer_progress_window_text.SetFont("s10", "Consolas")
 	installer_progress_window.Show("Center W400 H200")
@@ -210,20 +210,20 @@ if (MsgBox("Do you want to intall (reinstall) VIREMA 0.3.0 to this computer?", "
 	}
 	Sleep(installer_sleep_ms)
 	installer_progress_window_text.Text .= "Done`n"
-	installer_progress_window_text.Text .= "`nSuccessfully installed VIREMA 0.3.0.`nA startup link was placed at the desktop."
+	installer_progress_window_text.Text .= "`nSuccessfully installed VIREMA 0.4.0.`nA startup link was placed at the desktop."
 	Sleep(installer_sleep_ms)
 	installation_done_or_failed()
 } else {
-	MsgBox("Aborting installation...", "VIREMA 0.3.0 installer error", "T1.56")
+	MsgBox("Aborting installation...", "VIREMA 0.4.0 installer error", "T1.56")
 	ExitApp
 }
 
 installation_done_or_failed(*) {
 		Loop {
-		if not WinExist("VIREMA 0.3.0 installer") {
+		if not WinExist("VIREMA 0.4.0 installer") {
 			ExitApp
 		}
-		if WinExist("VIREMA 0.3.0 installer") and not WinActive("VIREMA 0.3.0 installer") {
+		if WinExist("VIREMA 0.4.0 installer") and not WinActive("VIREMA 0.4.0 installer") {
 			ExitApp
 		}
 		Sleep(156)

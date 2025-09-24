@@ -7,7 +7,7 @@ Persistent
 #NoTrayIcon
 TraySetIcon "icon.ico", , true
 ;@Ahk2Exe-SetName VIREMA
-;@Ahk2Exe-SetVersion 0.3.0
+;@Ahk2Exe-SetVersion 0.4.0
 #SingleInstance Off
 
 ; INCLUDES
@@ -15,7 +15,7 @@ TraySetIcon "icon.ico", , true
 
 ; GLOBAL CONSTANTS
 global exit_allowed := 1
-global window_title := "VIREMA 0.3.0"
+global window_title := "VIREMA 0.4.0"
 global status_bar_refresh_period := 156*2
 global wait_ImageSearch_in_folder_time_sec := 1
 global data_v2__arr__capacity := 15
