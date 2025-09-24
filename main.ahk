@@ -98,6 +98,10 @@ refresh_status(*) {
 			startstop_button.OnEvent("Click", start_clicked, 0)
 			startstop_button.OnEvent("Click", stop_clicked)
 		}
+		if (check_string_in_log("Bootstrapped 5% (conn): Connecting to a relay")) {
+			status_bar.SetText(" Connecting to tor network...")
+			return
+		}
 		if (check_string_in_log("Bootstrapped 1% (conn_pt): Connecting to pluggable transport")) {
 			status_bar.SetText(" Connecting to tor network...")
 			return
