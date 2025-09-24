@@ -216,7 +216,7 @@ reg_proxy__enable(*) {
 		DllCall("wininet.dll\InternetSetOption","Ptr",0,"UInt",39,"Ptr",0,"UInt",0)
 		DllCall("wininet.dll\InternetSetOption","Ptr",0,"UInt",37,"Ptr",0,"UInt",0)
 	} catch {
-		MsgBox("There was an error configuring network settings.`nTry again.`nIf the issue persists, contact developer at`nhttps://github.com/folinu/VIREMA/issues/", window_title . ": ERROR")
+		MsgBox("There was an error configuring network settings.`nTry again.`nIf the issue persists, contact developer at`nhttps://github.com/71folinu/VIREMA/issues/", window_title . ": ERROR")
 	}
 }
 
@@ -226,7 +226,7 @@ reg_proxy__disable(*) {
 		DllCall("wininet.dll\InternetSetOption","Ptr",0,"UInt",39,"Ptr",0,"UInt",0)
 		DllCall("wininet.dll\InternetSetOption","Ptr",0,"UInt",37,"Ptr",0,"UInt",0)
 	} catch {
-		MsgBox("There was an error configuring network settings.`nTry again.`nIf the issue persists, contact developer at`nhttps://github.com/folinu/VIREMA/issues/", window_title . ": ERROR")
+		MsgBox("There was an error configuring network settings.`nTry again.`nIf the issue persists, contact developer at`nhttps://github.com/71folinu/VIREMA/issues/", window_title . ": ERROR")
 	}
 }
 
@@ -1124,7 +1124,7 @@ check_proxy_err_off_on() {
 MsgBox_ImageSearch_not_supported(*) {
 	if (data_launch_count <= 3) {
 		if MsgBox("Looks like your version of Windows (language, theme or scaling)`nis not supported.`nWould you like to see instructions`non how to setup proxy manually?", window_title . ": ERROR", "YN") = "Yes" {
-			Run("https://github.com/folinu/VIREMA#handling-wndows-proxy-manualy")
+			Run("https://github.com/71folinu/VIREMA#handling-wndows-proxy-manualy")
 		}
 	} else {
 		MsgBox("Not supported.", window_title . ": ERROR", "T1.56")

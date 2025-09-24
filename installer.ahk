@@ -42,7 +42,7 @@ if (MsgBox("Do you want to intall (reinstall) VIREMA 0.3.0 to this computer?", "
 		try {
 			DirDelete("C:\VIREMA", 1)
 		} catch {
-			installer_progress_window_text.Text .= "`nAn error occured while trying to clean up.`nTry again.`nIf the issue persists, contact developer at https://github.com/folinu/VIREMA/issues/"
+			installer_progress_window_text.Text .= "`nAn error occured while trying to clean up.`nTry again.`nIf the issue persists, contact developer at https://github.com/71folinu/VIREMA/issues/"
 			installation_done_or_failed()
 		}
 	}
@@ -53,7 +53,7 @@ if (MsgBox("Do you want to intall (reinstall) VIREMA 0.3.0 to this computer?", "
 		DirCreate("C:\VIREMA")
 		DirCreate("C:\VIREMA\third_party")
 	} catch {
-		installer_progress_window_text.Text .= "`nAn error occured while trying to set up file structure.`nTry again.`nIf the issue persists, contact developer at https://github.com/folinu/VIREMA/issues/"
+		installer_progress_window_text.Text .= "`nAn error occured while trying to set up file structure.`nTry again.`nIf the issue persists, contact developer at https://github.com/71folinu/VIREMA/issues/"
 		installation_done_or_failed()
 	}
 	Sleep(installer_sleep_ms)
@@ -62,28 +62,28 @@ if (MsgBox("Do you want to intall (reinstall) VIREMA 0.3.0 to this computer?", "
 	try {
 		FileInstall "C:\VIREMA\third_party\VIREMA_tor.exe", "C:\VIREMA\third_party\VIREMA_tor.exe", 1
 	} catch {
-		installer_progress_window_text.Text .= "`nAn error occured while trying to unpack third party.`nTry again.`nIf the issue persists, contact developer at https://github.com/folinu/VIREMA/issues/"
+		installer_progress_window_text.Text .= "`nAn error occured while trying to unpack third party.`nTry again.`nIf the issue persists, contact developer at https://github.com/71folinu/VIREMA/issues/"
 		installation_done_or_failed()
 	}
 	Sleep(installer_sleep_ms)
 	try {
 		FileInstall "C:\VIREMA\third_party\geoip", "C:\VIREMA\third_party\geoip", 1
 	} catch {
-		installer_progress_window_text.Text .= "`nAn error occured while trying to unpack third party.`nTry again.`nIf the issue persists, contact developer at https://github.com/folinu/VIREMA/issues/"
+		installer_progress_window_text.Text .= "`nAn error occured while trying to unpack third party.`nTry again.`nIf the issue persists, contact developer at https://github.com/71folinu/VIREMA/issues/"
 		installation_done_or_failed()
 	}
 	Sleep(installer_sleep_ms)
 	try {
 		FileInstall "C:\VIREMA\third_party\geoip6", "C:\VIREMA\third_party\geoip6", 1
 	} catch {
-		installer_progress_window_text.Text .= "`nAn error occured while trying to unpack third party.`nTry again.`nIf the issue persists, contact developer at https://github.com/folinu/VIREMA/issues/"
+		installer_progress_window_text.Text .= "`nAn error occured while trying to unpack third party.`nTry again.`nIf the issue persists, contact developer at https://github.com/71folinu/VIREMA/issues/"
 		installation_done_or_failed()
 	}
 	Sleep(installer_sleep_ms)
 	try {
 		FileInstall "C:\VIREMA\third_party\lyrebird.exe", "C:\VIREMA\third_party\lyrebird.exe", 1
 	} catch {
-		installer_progress_window_text.Text .= "`nAn error occured while trying to unpack third party.`nTry again.`nIf the issue persists, contact developer at https://github.com/folinu/VIREMA/issues/"
+		installer_progress_window_text.Text .= "`nAn error occured while trying to unpack third party.`nTry again.`nIf the issue persists, contact developer at https://github.com/71folinu/VIREMA/issues/"
 		installation_done_or_failed()
 	}
 	Sleep(installer_sleep_ms)
@@ -92,14 +92,14 @@ if (MsgBox("Do you want to intall (reinstall) VIREMA 0.3.0 to this computer?", "
 	try {
 		FileInstall "C:\VIREMA\VIREMA.lnk",A_Desktop . "\VIREMA.lnk", 1
 	} catch {
-		installer_progress_window_text.Text .= "`nAn error occured while trying to install links.`nTry again.`nIf the issue persists, contact developer at https://github.com/folinu/VIREMA/issues/"
+		installer_progress_window_text.Text .= "`nAn error occured while trying to install links.`nTry again.`nIf the issue persists, contact developer at https://github.com/71folinu/VIREMA/issues/"
 		installation_done_or_failed()
 	}
 	Sleep(installer_sleep_ms)
 	try {
 		FileInstall "C:\VIREMA\VIREMA.lnk", "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\VIREMA.lnk", 1
 	} catch {
-		installer_progress_window_text.Text .= "`nAn error occured while trying to install links.`nTry again.`nIf the issue persists, contact developer at https://github.com/folinu/VIREMA/issues/"
+		installer_progress_window_text.Text .= "`nAn error occured while trying to install links.`nTry again.`nIf the issue persists, contact developer at https://github.com/71folinu/VIREMA/issues/"
 		installation_done_or_failed()
 	}
 	Sleep(installer_sleep_ms)
@@ -108,28 +108,28 @@ if (MsgBox("Do you want to intall (reinstall) VIREMA 0.3.0 to this computer?", "
 	try {
 		FileInstall "C:\VIREMA\icon.ico", "C:\VIREMA\icon.ico", 1
 	} catch {
-		installer_progress_window_text.Text .= "`nAn error occured while trying to unpack program files.`nTry again.`nIf the issue persists, contact developer at https://github.com/folinu/VIREMA/issues/"
+		installer_progress_window_text.Text .= "`nAn error occured while trying to unpack program files.`nTry again.`nIf the issue persists, contact developer at https://github.com/71folinu/VIREMA/issues/"
 		installation_done_or_failed()
 	}
 	Sleep(installer_sleep_ms)
 	try {
 		FileInstall "C:\VIREMA\LICENSE", "C:\VIREMA\LICENSE", 1
 	} catch {
-		installer_progress_window_text.Text .= "`nAn error occured while trying to unpack program files.`nTry again.`nIf the issue persists, contact developer at https://github.com/folinu/VIREMA/issues/"
+		installer_progress_window_text.Text .= "`nAn error occured while trying to unpack program files.`nTry again.`nIf the issue persists, contact developer at https://github.com/71folinu/VIREMA/issues/"
 		installation_done_or_failed()
 	}
 	Sleep(installer_sleep_ms)
 	try {
 		FileInstall "C:\VIREMA\main.exe", "C:\VIREMA\main.exe", 1
 	} catch {
-		installer_progress_window_text.Text .= "`nAn error occured while trying to unpack program files.`nTry again.`nIf the issue persists, contact developer at https://github.com/folinu/VIREMA/issues/"
+		installer_progress_window_text.Text .= "`nAn error occured while trying to unpack program files.`nTry again.`nIf the issue persists, contact developer at https://github.com/71folinu/VIREMA/issues/"
 		installation_done_or_failed()
 	}
 	Sleep(installer_sleep_ms)
 	try {
 		FileInstall "C:\VIREMA\torrc", "C:\VIREMA\torrc", 1
 	} catch {
-		installer_progress_window_text.Text .= "`nAn error occured while trying to unpack program files.`nTry again.`nIf the issue persists, contact developer at https://github.com/folinu/VIREMA/issues/"
+		installer_progress_window_text.Text .= "`nAn error occured while trying to unpack program files.`nTry again.`nIf the issue persists, contact developer at https://github.com/71folinu/VIREMA/issues/"
 		installation_done_or_failed()
 	}
 	Sleep(installer_sleep_ms)
@@ -205,7 +205,7 @@ if (MsgBox("Do you want to intall (reinstall) VIREMA 0.3.0 to this computer?", "
 		FileInstall("C:\VIREMA\img\06configok\02.png","C:\VIREMA\img\06configok\02.png",1)
 		Sleep(installer_sleep_ms)
 	} catch {
-		installer_progress_window_text.Text .= "`nAn error occured while trying to install img files.`nTry again.`nIf the issue persists, contact developer at https://github.com/folinu/VIREMA/issues/"
+		installer_progress_window_text.Text .= "`nAn error occured while trying to install img files.`nTry again.`nIf the issue persists, contact developer at https://github.com/71folinu/VIREMA/issues/"
 		installation_done_or_failed()
 	}
 	Sleep(installer_sleep_ms)

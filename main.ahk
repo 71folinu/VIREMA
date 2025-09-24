@@ -179,6 +179,6 @@ if (not A_IsCompiled) {
 ; SHAMELESS SELF-PROMOTION
 if (data_launch_count = 32) {
 	global exit_allowed := 0
-	MsgBox("Thank you for using VIREMA! If you're enjoying the app,`nfeel free to leave a star on the repository:`nhttps://github.com/folinu/VIREMA","Thank you for using VIREMA!")
+	MsgBox("Thank you for using VIREMA! If you're enjoying the app,`nfeel free to leave a star on the repository:`nhttps://github.com/71folinu/VIREMA","Thank you for using VIREMA!")
 	global exit_allowed := 1
 }
