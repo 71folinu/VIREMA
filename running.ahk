@@ -778,9 +778,9 @@ bridge__replace_to(bridge__replace_to_in_str) {
 		return 0
 	} else if (type_of_bridge(bridge__replace_to__new_bridge) = "vanilla") {
 		try {
-			global bridge__replace_to__new_torrc := RegExReplace(FileRead("torrc"), "U)\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}:\d{1,5}\s[A-Z0-9]+", bridge__replace_to__new_bridge)
+			global bridge__replace_to__new_torrc := RegExReplace(FileRead("torrc"), "\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}:\d{1,5}\s[A-Z0-9]+", bridge__replace_to__new_bridge)
 			global bridge__replace_to__new_torrc := RegExReplace(bridge__replace_to__new_torrc, "webtunnel .* ver=\d\.\d\.\d", bridge__replace_to__new_bridge)
-			try global bridge__replace_to__new_torrc :=  StrReplace(bridge__replace_to__new_torrc,"ClientTransportPlugin","#ClientTransportPlugin")
+			try global bridge__replace_to__new_torrc :=  StrReplace(bridge__replace_to__new_torrc,"`nClientTransportPlugin","`n#ClientTransportPlugin")
 		} catch {
 			return 4
 		}
