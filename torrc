@@ -6,5 +6,5 @@ HardwareAccel 1
 ExcludeExitNodes {RU}
 #ExitNodes {DE}
 UseBridges 1
-ClientTransportPlugin webtunnel exec C:\VIREMA\third_party\lyrebird.exe
-Bridge webtunnel [2001:db8:8817:e47a:aa18:70a3:5cc5:fd21]:443 47D47DCB7336D552FC4EEE20AF8946F11AA2F3EB url=https://send.mni.li/dw00bl8OqcKxIOzgKyF5LyGJ ver=0.0.1
+#ClientTransportPlugin webtunnel exec C:\VIREMA\third_party\lyrebird.exe
+Bridge 83.151.206.122:9001 9E8B19CA2B5D504668242DB2B1D20BAB5DC6744E
