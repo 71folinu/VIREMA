@@ -2,14 +2,12 @@
 
 settings_HardwareAccel_clicked(*) {
 	if settings_HardwareAccel.Value = 1 {
-		;settings_HardwareAccel.Text := "ON"
 		torrc := FileRead("torrc")
 		torrc := StrReplace(torrc,"`n#HardwareAccel","`nHardwareAccel")
 		torrc := StrReplace(torrc,"`n#HardwareAccel","`nHardwareAccel")
 		FileDelete("torrc")
 		FileAppend(torrc,"torrc")
 	} else {
-		;settings_HardwareAccel.Text := "OFF"
 		torrc := FileRead("torrc")
 		torrc := StrReplace(torrc,"HardwareAccel","#HardwareAccel")
 		FileDelete("torrc")
@@ -19,14 +17,12 @@ settings_HardwareAccel_clicked(*) {
 
 settings_AvoidDiskWrites_clicked(*) {
 	if settings_AvoidDiskWrites.Value = 1 {
-		;settings_AvoidDiskWrites.Text := "ON"
 		torrc := FileRead("torrc")
 		torrc := StrReplace(torrc,"`n#AvoidDiskWrites","`nAvoidDiskWrites")
 		torrc := StrReplace(torrc,"`n#AvoidDiskWrites","`nAvoidDiskWrites")
 		FileDelete("torrc")
 		FileAppend(torrc,"torrc")
 	} else {
-		;settings_AvoidDiskWrites.Text := "OFF"
 		torrc := FileRead("torrc")
 		torrc := StrReplace(torrc,"`nAvoidDiskWrites","`n#AvoidDiskWrites")
 		FileDelete("torrc")
@@ -36,14 +32,12 @@ settings_AvoidDiskWrites_clicked(*) {
 
 settings_force_germany_clicked(*) {
 	if settings_force_germany.Value = 1 {
-		;settings_force_germany.Text := "ON"
 		torrc := FileRead("torrc")
 		torrc := StrReplace(torrc,"`n#ExitNodes","`nExitNodes")
 		torrc := StrReplace(torrc,"`n#ExitNodes","`nExitNodes")
 		FileDelete("torrc")
 		FileAppend(torrc,"torrc")
 	} else {
-		;settings_force_germany.Text := "OFF"
 		torrc := FileRead("torrc")
 		torrc := StrReplace(torrc,"`nExitNodes","`n#ExitNodes")
 		FileDelete("torrc")
@@ -945,9 +939,7 @@ started(*) {
 
 stop_clicked(*) {
 	check_connection_success__v2__end()
-	;global tor_launch_ordered := 0
 	ProcessClose("VIREMA_tor.exe")
-	;disable_proxy()
 	reg_proxy__disable()
 }
 
@@ -969,10 +961,6 @@ check_string_in_log(string) {
 		return 0
 	}
 }
-
-; MsgBox(,,"T0.156")
-; MsgBox
-; Loading...
 
 update_logs_window_field(*) {
 	try {
