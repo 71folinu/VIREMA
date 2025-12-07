@@ -550,7 +550,7 @@ set_bridge_button_pressed(*) {
 		MsgBox("New bridge is set. Connection will be restarted.",window_title)
 		reg_proxy__enable()
 		Run A_ComSpec ' /c ""C:\VIREMA\third_party\VIREMA_tor.exe" "-f" "C:\VIREMA\torrc" >"tor_log.txt""',,"Hide"
-		SetTimer(check_connection_success, -1560*47)
+		check_connection_success__v2__start()
 		global tor_launch_ordered := 1
 	} else {
 		set_bridge_button_pressed__bridge__replace_to__ret_val := bridge__replace_to(set_bridge_button_pressed__new_bridge)
@@ -1187,23 +1187,8 @@ stop_clicked(*) {
 
 start_clicked(*) {
 	Run A_ComSpec ' /c ""C:\VIREMA\third_party\VIREMA_tor.exe" "-f" "C:\VIREMA\torrc" >"tor_log.txt""',,"Hide"
-	;SetTimer(check_connection_success, -1560*47)
-	;global tor_launch_ordered := 1
-	;enable_proxy()
 	reg_proxy__enable()
 	check_connection_success__v2__start()
-}
-
-check_connection_success(*) {
-	if (started()) {
-		if not (check_string_in_log("Bootstrapped 100% (done): Done")) {
-			stop_clicked()
-			MsgBox("Connection took too long and was aborted. Try again.`nIf the issue persists, try reinstalling VIREMA.", window_title . ": ERROR")
-		}
-	} else if tor_launch_ordered {
-		try stop_clicked()
-		MsgBox("Tor process failed to start. Try again.`nIf the issue persists, try reinstalling VIREMA.", window_title . ": ERROR")
-	}
 }
 
 check_string_in_log(string) {
