@@ -110,7 +110,7 @@ debug_info(*) {
 	. " |||| "
 	. "A_NowUTC = " . A_NowUTC
 	. " |||| "
-	. "v = 0.4.0"
+	. "v = 0.4.1"
 	. " |||| "
 	. "A_WorkingDir = " . A_WorkingDir
 	. " |||| "
