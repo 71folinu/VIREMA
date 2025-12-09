@@ -31,7 +31,7 @@ if (MsgBox("Do you want to intall (reinstall) VIREMA 0.4.1 to this computer?", "
 	global installer_progress_window := Gui.Call("-MinimizeBox +AlwaysOnTop","VIREMA 0.4.1 installer")
 	installer_progress_window_text := installer_progress_window.Add("Text", "+x10 +y10 +w380 +h180", Format("{:-47}","Initializing installation..."))
 	installer_progress_window_text.SetFont("s10", "Consolas")
-	installer_progress_window.Show("Center W400 H200")
+	installer_progress_window.Show("Center W400 H155")
 	if ProcessExist("VIREMA_tor.exe") {
 		ProcessClose("VIREMA_tor.exe")
 		Sleep(installer_long_sleep_ms)
@@ -153,3 +153,4 @@ installation_done_or_failed(*) {
 		Sleep(156)
 	}
 }
+
