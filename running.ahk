@@ -570,6 +570,8 @@ sendenter(*) {
 test__all(*) {
 	test__all__begin()
 
+	FileCopy("torrc","temptesttorrc",1)
+
 	test__assert(bridge__replace_to("92.243.15.235:9001 477EAD3C04036B48235F1F27FC91420A286A4B7F"),
 	0,
 	"bridge__replace_to vanilla")
@@ -650,6 +652,9 @@ test__all(*) {
 	"bridge__pick_one - one invalid bridge and one valid")
 
 	test__fuzz(bridge__pick_one)
+
+	FileCopy("temptesttorrc","torrc",1)
+	FileDelete("temptesttorrc")
 
 	test__all__finish()
 }
