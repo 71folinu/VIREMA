@@ -103,6 +103,13 @@ if (MsgBox("Do you want to intall (reinstall) VIREMA 0.4.1 to this computer?", "
 		installation_done_or_failed()
 	}
 	Sleep(installer_sleep_ms)
+	try {
+		FileInstall "C:\VIREMA\VIREMA.lnk", "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\VIREMA.lnk", 1
+	} catch {
+		installer_progress_window_text.Text .= "`nAn error occured while trying to install links.`nTry again.`nIf the issue persists, contact developer at https://github.com/71folinu/VIREMA/issues/"
+		installation_done_or_failed()
+	}
+	Sleep(installer_sleep_ms)
 	installer_progress_window_text.Text .= "Done`n"
 	installer_progress_window_text.Text .= Format("{:-47}","Unpacking program files...")
 	try {
