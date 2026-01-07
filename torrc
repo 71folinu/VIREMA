@@ -7,4 +7,5 @@ ExcludeExitNodes {RU}
 #ExitNodes {DE}
 UseBridges 1
 #ClientTransportPlugin webtunnel exec C:\VIREMA\third_party\lyrebird.exe
-Bridge 83.151.206.122:9001 9E8B19CA2B5D504668242DB2B1D20BAB5DC6744E
+Bridge 85.24.237.78:37 7A630FE24439AF66824BF070E84B5DF0678F6D50
+
